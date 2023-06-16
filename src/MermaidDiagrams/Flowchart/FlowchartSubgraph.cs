@@ -4,26 +4,24 @@ namespace MermaidDiagrams.Flowchart;
 
 using This = ISubgraph;
 
-public interface ISubgraph : IStatement
+public interface ISubgraph : IStatement, IIdentifiable
 {
 	Text Label { get; }
-	
-	string? Id { get; }
 
 	This SetDirection(FlowDirection direction);
 }
 
 public class FlowchartSubgraph : FlowchartBase, ISubgraph
 {
-	public FlowchartSubgraph(Text label, string? id = null)
+	public FlowchartSubgraph(Text label, Identifier? id = null)
 	{
 		Label = label;
-		Id = id;
+		Id = id ?? new Identifier(string.Empty);
 	}
 
 	public Text Label { get; }
 	
-	public string? Id { get; }
+	public Identifier Id { get; }
 	
 	public This SetDirection(FlowDirection direction)
 	{
@@ -33,7 +31,7 @@ public class FlowchartSubgraph : FlowchartBase, ISubgraph
 
 	public override void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
-		textBuilder.Line(string.IsNullOrWhiteSpace(Id) ? $"subgraph {Label}" : $"subgraph {Id} [{Label}]");
+		textBuilder.Line(Id.NoId ? $"subgraph {Label}" : $"subgraph {Id} [{Label}]");
 
 		RenderStatements(textBuilder, renderState);
 		

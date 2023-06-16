@@ -1,8 +1,10 @@
-﻿namespace MermaidDiagrams.Flowchart;
+﻿using MermaidDiagrams.Contracts;
+
+namespace MermaidDiagrams.Flowchart;
 
 public static class FlowchartExtensions
 {
-	public static T Link<T>(this T chart, INode a, INode b, Edge? edge = null)
+	public static T Link<T>(this T chart, IIdentifiable a, IIdentifiable b, Edge? edge = null)
 		where T : FlowchartBase
 	{
 		chart.Add(new Link(a, (b, edge ?? Edge.Open)));
@@ -10,18 +12,18 @@ public static class FlowchartExtensions
 	}
 
 	public static T Link<T>(this T chart, string a, string b, Edge? edge = null)
-		where T : FlowchartBase => chart.Link(Flowchart.Node.Create(a), Flowchart.Node.Create(b), edge);
+		where T : FlowchartBase => chart.Link((NodeId)a, (NodeId)b, edge);
 	
-	public static T Link<T>(this T chart, INode a, string b, Edge? edge = null)
-		where T : FlowchartBase => chart.Link(a, Flowchart.Node.Create(b), edge);
+	public static T Link<T>(this T chart, IIdentifiable a, string b, Edge? edge = null)
+		where T : FlowchartBase => chart.Link(a, (NodeId)b, edge);
 	
-	public static T Link<T>(this T chart, string a, INode b, Edge? edge = null)
-		where T : FlowchartBase => chart.Link(Flowchart.Node.Create(a), b, edge);
+	public static T Link<T>(this T chart, string a, IIdentifiable b, Edge? edge = null)
+		where T : FlowchartBase => chart.Link((NodeId)a, b, edge);
 	
-	public static T Links<T>(this T chart, INode anchor, IEnumerable<(INode Node, Edge Edge)> to)
-		where T : FlowchartBase => chart.Add(new Link(anchor, to as (INode Node, Edge Edge)[] ?? to.ToArray()));
+	public static T Links<T>(this T chart, INode anchor, IEnumerable<(IIdentifiable Node, Edge Edge)> to)
+		where T : FlowchartBase => chart.Add(new Link(anchor, to as (IIdentifiable Node, Edge Edge)[] ?? to.ToArray()));
 	
-	public static T Links<T>(this T chart, IEnumerable<INode> nodes, Edge edge)
+	public static T Links<T>(this T chart, IEnumerable<IIdentifiable> nodes, Edge edge)
 		where T : FlowchartBase
 	{
 		var enumerable = nodes as INode[] ?? nodes.ToArray();
@@ -34,7 +36,7 @@ public static class FlowchartExtensions
 		var node = chart.AddAnd(Flowchart.Node.Create(id, " ", Shape.Box));
 
 		// todo these need to only add one instance
-		chart.Statements.Add(new ClassAssign(ClassDef.InvisibleName, node.Id));
+		chart.Statements.Add(new ClassAssign(ClassDef.InvisibleName, node));
 		chart.Statements.Add(ClassDef.Invisible);
 
 		return chart;

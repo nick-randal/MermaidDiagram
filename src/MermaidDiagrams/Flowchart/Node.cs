@@ -2,13 +2,13 @@ using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams.Flowchart;
 
-public record Node(string Id, Text Text, Shape Shape) : INode
+public record Node(Identifier Id, Text Text, Shape Shape) : INode
 {
-	public string Id
+	/*public IIdentifier Id
 	{
 		get => _id;
 		init => _id = string.IsNullOrWhiteSpace(value) ? NextId() : value.Trim();
-	}
+	}*/
 
 	public void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
@@ -22,7 +22,7 @@ public record Node(string Id, Text Text, Shape Shape) : INode
 			textBuilder.Line();
 	}
 
-	private readonly string _id = Id;
+	//private readonly string _id = Id;
 
 	public static INode Create(string? id) => new Node(id, string.Empty, Shape.Box);
 

@@ -2,9 +2,9 @@ using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams.Flowchart;
 
-public interface INode : IStatement
+public interface INode : IStatement, IIdentifiable
 {
-	string Id { get; }
+	// todo string Id { get; }
 	
 	Shape Shape { get; }
 	

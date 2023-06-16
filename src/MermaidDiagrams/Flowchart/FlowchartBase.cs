@@ -13,6 +13,6 @@ public abstract class FlowchartBase : DiagramBase
 	public INode Node(string id, Text text, Shape style) => AddAnd(Flowchart.Node.Create(id, text, style));
 
 	public INode this[string id]
-		=> Statements.Single(s => s is INode node && node.Id.Equals(id, StringComparison.OrdinalIgnoreCase)) as INode
+		=> Statements.Single(s => s is INode node && node.Id.Equals(id)) as INode
 			?? throw new KeyNotFoundException($"Node not found for id: {id}");
 }

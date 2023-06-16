@@ -2,7 +2,7 @@ using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams.Flowchart;
 
-public record Link(INode From, params (INode Node, Edge Edge)[] To) : ILink
+public record Link(IIdentifiable From, params (IIdentifiable Node, Edge Edge)[] To) : ILink
 {
 	public void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
