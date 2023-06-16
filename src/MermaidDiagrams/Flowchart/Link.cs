@@ -2,10 +2,14 @@ using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams.Flowchart;
 
-public record Link(INode From, INode To, Edge Edge) : ILink
+public record Link(INode From, params (INode Node, Edge Edge)[] To) : ILink
 {
 	public void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
-		textBuilder.Line($"{From.Id} {Edge} {To.Id}");
+		// todo node lookup if options is set and declare full Node here
+		textBuilder.Append($"{From.Id}");
+		foreach(var nodeEdge in To)
+			textBuilder.Append($" {nodeEdge.Edge} {nodeEdge.Node.Id}");
+		textBuilder.Line();
 	}
 }

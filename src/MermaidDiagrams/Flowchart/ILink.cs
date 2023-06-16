@@ -6,7 +6,5 @@ public interface ILink : IStatement
 {
 	public INode From { get; }
 
-	public INode To { get; }
-
-	public Edge Edge { get; }
+	public (INode Node, Edge Edge)[] To { get; }
 }

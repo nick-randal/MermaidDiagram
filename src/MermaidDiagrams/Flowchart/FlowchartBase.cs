@@ -1,5 +1,3 @@
-using MermaidDiagrams.Contracts;
-
 namespace MermaidDiagrams.Flowchart;
 
 public abstract class FlowchartBase : DiagramBase
@@ -17,15 +15,4 @@ public abstract class FlowchartBase : DiagramBase
 	public INode this[string id]
 		=> Statements.Single(s => s is INode node && node.Id.Equals(id, StringComparison.OrdinalIgnoreCase)) as INode
 			?? throw new KeyNotFoundException($"Node not found for id: {id}");
-
-	protected void RenderStatements(ITextBuilder builder, IRenderState state)
-	{
-		using var stepper = state.StepIn();
-		foreach (var statement in Statements.Where(s => s is not ISpecialStatement))
-		{
-			if (statement is not IComment)
-				builder.Append(state.Indent);
-			statement.Render(builder, state);
-		}
-	}
 }

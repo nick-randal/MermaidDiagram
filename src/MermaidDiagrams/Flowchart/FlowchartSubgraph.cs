@@ -13,9 +13,9 @@ public interface ISubgraph : IStatement
 	This SetDirection(FlowDirection direction);
 }
 
-public class Subgraph : FlowchartBase, ISubgraph
+public class FlowchartSubgraph : FlowchartBase, ISubgraph
 {
-	public Subgraph(Text label, string? id = null)
+	public FlowchartSubgraph(Text label, string? id = null)
 	{
 		Label = label;
 		Id = id;
