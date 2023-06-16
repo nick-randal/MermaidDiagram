@@ -9,20 +9,14 @@ public static class DiagramBaseExtensions
 	{
 		if (statements.Length == 0)
 			return chart;
-		
-		if (statements.Any(s => s is ISpecialStatement))
-			throw new NotSupportedException(); // todo
-		
-		chart.Statements.AddRange(statements);
+
+		chart.AddRenderables(statements);
 		return chart;
 	}
 	
 	public static T AddAnd<T>(this DiagramBase chart, T statement) where T : IStatement
 	{
-		if (statement is ISpecialStatement)
-			throw new NotSupportedException();
-		
-		chart.Statements.Add(statement);
+		chart.AddRenderables(statement);
 		return statement;
 	}
 }

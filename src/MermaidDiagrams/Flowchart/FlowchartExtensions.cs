@@ -35,9 +35,13 @@ public static class FlowchartExtensions
 	{
 		var node = chart.AddAnd(Flowchart.Node.Create(id, " ", Shape.Box));
 
-		// todo these need to only add one instance
-		chart.Statements.Add(new ClassAssign(ClassDef.InvisibleName, node));
-		chart.Statements.Add(ClassDef.Invisible);
+		var classAssign = chart
+			.GetDictionary<ClassAssign>()
+			.GetOrCreate(ClassDef.InvisibleName, () => new ClassAssign(ClassDef.InvisibleName));
+			
+		classAssign.Add(node);
+
+		chart.GetDictionary<ClassDef>().GetOrCreate(ClassDef.InvisibleName, () => ClassDef.Invisible);
 
 		return chart;
 	}

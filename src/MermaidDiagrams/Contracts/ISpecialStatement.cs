@@ -1,5 +1,5 @@
 namespace MermaidDiagrams.Contracts;
 
-public interface ISpecialStatement : IStatement
+/*todo public interface ISpecialStatement : IStatement
 {
-}
+}*/

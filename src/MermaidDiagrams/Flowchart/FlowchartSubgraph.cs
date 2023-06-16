@@ -25,7 +25,7 @@ public class FlowchartSubgraph : FlowchartBase, ISubgraph
 	
 	public This SetDirection(FlowDirection direction)
 	{
-		Statements.Add(new Literal($"direction {direction.GetShortName()}"));
+		Renderables.Add(new Literal($"direction {direction.GetShortName()}"));
 		return this;
 	}
 

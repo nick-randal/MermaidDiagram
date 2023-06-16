@@ -1,5 +1,5 @@
 namespace MermaidDiagrams.Contracts;
 
-public interface IDirective : ISpecialStatement
+public interface IDirective : IRenderable
 {
 }

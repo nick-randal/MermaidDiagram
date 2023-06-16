@@ -1,6 +1,6 @@
 namespace MermaidDiagrams.Contracts;
 
-public interface IDiagramType : ISpecialStatement
+public interface IDiagramType : IRenderable
 {
 	string Name { get; }
 }

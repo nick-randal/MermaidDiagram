@@ -6,22 +6,24 @@ public abstract class DiagramBase : IDiagram
 {
 	public virtual void SetHeader(Header header)
 	{
-		var existing = Statements.FirstOrDefault(x => x is IHeader);
+		var existing = Renderables.FirstOrDefault(x => x is IHeader);
 		if (existing is not null)
-			Statements.Remove(existing);
+			Renderables.Remove(existing);
 		
-		Statements.Insert(0, header);
+		Renderables.Insert(0, header);
 	}
 
 	public virtual void SetType(IDiagramType type)
 	{
-		var existing = Statements.FirstOrDefault(x => x is IDiagramType);
+		var existing = Renderables.FirstOrDefault(x => x is IDiagramType);
 		if (existing is not null)
-			Statements.Remove(existing);
+			Renderables.Remove(existing);
 		
-		Statements.Insert(0, type);
+		Renderables.Insert(0, type);
 	}
 
+	internal void AddRenderables(params IRenderable[] renderables) => Renderables.AddRange(renderables);
+	
 	public virtual void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 		RenderFirst<IHeader>(textBuilder, renderState);
@@ -29,37 +31,53 @@ public abstract class DiagramBase : IDiagram
 		RenderSingle<IDiagramType>(textBuilder, renderState);
 		RenderRegularStatements(textBuilder, renderState);
 		RenderGroup<ClassAssign>(textBuilder, renderState);
-		RenderGroup<ClassDef>(textBuilder, renderState);
+		RenderSingle<RenderableDictionary<ClassAssign>>(textBuilder, renderState);
+		RenderSingle<RenderableDictionary<ClassDef>>(textBuilder, renderState);
+	}
+
+	internal RenderableDictionary<T> GetDictionary<T>()
+		where T : IRenderable
+	{
+		var item = Renderables.FirstOrDefault(x => x is RenderableDictionary<T>);
+		if (item is RenderableDictionary<T> d)
+			return d;
+		
+		d = new RenderableDictionary<T>();
+		Renderables.Add(d);
+		
+		return d;
 	}
 
 	protected virtual void RenderSingle<T>(ITextBuilder textBuilder, IRenderState renderState)
+		where T : IRenderable
 	{
-		var type = Statements.Single(x => x is T);
+		var type = Renderables.Single(x => x is T);
 		type.Render(textBuilder, renderState);
 	}
 
 	protected virtual void RenderGroup<T>(ITextBuilder textBuilder, IRenderState renderState)
+		where T : IRenderable
 	{
-		foreach (var directive in Statements.Where(s => s is T))
+		foreach (var directive in Renderables.Where(s => s is T))
 			directive.Render(textBuilder, renderState);
 	}
 
 	protected virtual void RenderFirst<T>(ITextBuilder textBuilder, IRenderState renderState)
+		where T : IRenderable
 	{
-		var header = Statements.FirstOrDefault(x => x is T);
+		var header = Renderables.FirstOrDefault(x => x is T);
 		header?.Render(textBuilder, renderState);
 	}
 
 	protected virtual void RenderRegularStatements(ITextBuilder builder, IRenderState state)
 	{
 		using var stepper = state.StepIn();
-		foreach (var statement in Statements.Where(s => s is not ISpecialStatement))
+		foreach (var statement in Renderables.Where(s => s is IStatement))
 		{
-			if (statement is not IComment)
-				builder.Append(state.Indent);
+			builder.Append(state.Indent);
 			statement.Render(builder, state);
 		}
 	}
 
-	internal readonly List<IStatement> Statements = new();
+	protected readonly List<IRenderable> Renderables = new();
 }

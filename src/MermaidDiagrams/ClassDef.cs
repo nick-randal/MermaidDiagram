@@ -1,8 +1,9 @@
-﻿using MermaidDiagrams.Contracts;
+﻿using System.Collections;
+using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams;
 
-public record ClassDef(string Name, Dictionary<string, string> Styles) : ISpecialStatement
+public record ClassDef(string Name, Dictionary<string, string> Styles) : IRenderable
 {
 	public void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{

@@ -2,7 +2,7 @@ using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams;
 
-public interface IHeader : ISpecialStatement
+public interface IHeader : IRenderable
 {
 }
 
