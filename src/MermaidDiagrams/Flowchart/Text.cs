@@ -1,11 +1,10 @@
 namespace MermaidDiagrams.Flowchart;
 
-public record Text
+public record struct Text
 {
 	public Text(string Content, bool Markdown = false)
 	{
-		if(string.IsNullOrWhiteSpace(Content))
-			IsEmpty = true;
+		IsEmpty = string.IsNullOrWhiteSpace(Content);
 		this.Content = IsEmpty ? string.Empty : Content.Trim();
 		this.Markdown = Markdown;
 	}

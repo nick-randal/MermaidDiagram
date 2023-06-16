@@ -7,7 +7,7 @@ public interface IDiagram<TDiagram, in TOptions> : IRenderable
 
 	string Render(TOptions options);
 
-	TDiagram Add(params IStatement[] statements);
+	public TDiagram Add(params IStatement[] statements);
 	
 	public T AddAnd<T>(T statement) where T : IStatement;
 }

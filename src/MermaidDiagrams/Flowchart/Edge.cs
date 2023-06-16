@@ -9,9 +9,10 @@ public record Edge(LineStyle Line = LineStyle.Normal, EndStyle End = EndStyle.Op
 		if (Line == LineStyle.Invisible)
 			return "~~~";
 
-		//uint code = (Bidirectional ? (uint)0x8000_0000 : 0) | ((int)End << 25) | ((int)Line << 19) | Depth;
-		// todo perform lookup
-		
+		var key = ((uint)Line << 26) | ((uint)End << 25) | ((uint)Line << 19) | (uint)Depth;
+		if (Cache.TryGetValue(key, out var edge))
+			return edge;
+
 		var (outerChar, innerChar, adj) = Line switch
 		{
 			LineStyle.Thick => ('=', '=', 1),
@@ -28,10 +29,21 @@ public record Edge(LineStyle Line = LineStyle.Normal, EndStyle End = EndStyle.Op
 			_ =>  (outerChar, outerChar, Depth)
 		};
 		
-		return Line is LineStyle.Dotted 
+		edge = Line is LineStyle.Dotted 
 			? $"{tailChar}-{new string(innerChar, count)}-{headChar}".Trim()
 			: $"{tailChar}{new string(innerChar, count)}{headChar}";
+
+		Cache.TryAdd(key, edge);
+		return edge;
 	}
 	
-	//private static readonly ConcurrentDictionary<uint, string>
+	private static readonly ConcurrentDictionary<uint, string> Cache = new();
+	
+	public static readonly Edge Invisible = new Edge(LineStyle.Invisible);
+	
+	public static readonly Edge Open = new Edge(LineStyle.Normal, EndStyle.Open);
+	
+	public static readonly Edge Arrow = new Edge(LineStyle.Normal, EndStyle.Arrow);
+	
+	public static readonly Edge ArrowBoth = new Edge(LineStyle.Normal, EndStyle.ArrowBoth);
 }

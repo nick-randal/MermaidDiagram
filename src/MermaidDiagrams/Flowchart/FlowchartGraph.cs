@@ -11,6 +11,10 @@ public class FlowchartGraph : DiagramBase<FlowchartGraph, IFlowchartOptions>
 		SetType((TypeOfFlowchart)direction);
 	}
 
+	internal FlowchartGraph()
+	{
+	}
+
 	public override FlowchartGraph Add(params IStatement[] statements)
 	{
 		Statements.AddRange(statements);
@@ -24,6 +28,12 @@ public class FlowchartGraph : DiagramBase<FlowchartGraph, IFlowchartOptions>
 	}
 	
 	public This Link(string a, string b, Edge edge, Text label) => Link(Flowchart.Node.Create(a), Flowchart.Node.Create(b), edge, label);
+	
+	public This Link(INode a, INode b, Edge edge) => Link(a, b, edge, Text.Empty);
+	
+	public This Link(string a, string b, Edge edge) => Link(Flowchart.Node.Create(a), Flowchart.Node.Create(b), edge, Text.Empty);
+	
+	public This Link(INode a, INode b, Text label) => Link(a, b, Edge.Open, label);
 
 	public This AddNode() => Add(Flowchart.Node.Create(NextId, string.Empty, Shape.Box));
 
@@ -59,19 +69,20 @@ public class FlowchartGraph : DiagramBase<FlowchartGraph, IFlowchartOptions>
 
 		base.Render(builder, state);
 
-		// todo add option to have terse rendering if a node is referenced in an edge, it can be omitted from the node list
-		// this would also change edge rendering to use the node id instead of the node text
-		// if verbose is false, do a node lookup, if it is there then render it
+		RenderStatements(builder, state);
 
+		return builder.Text;
+	}
+
+	protected void RenderStatements(ITextBuilder builder, IRenderState state)
+	{
 		using var stepper = state.StepIn();
 		foreach (var statement in Statements.Where(s => s is not ISpecialStatement))
 		{
-			if(statement is not IComment)
+			if (statement is not IComment)
 				builder.Append(state.Indent);
 			statement.Render(builder, state);
 		}
-
-		return builder.Text;
 	}
 
 	private string NextId => $"id{Interlocked.Increment(ref _idCounter)}";

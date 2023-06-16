@@ -15,7 +15,7 @@ public abstract class DiagramBase<TDiagram, TOptions> : IDiagram<TDiagram, TOpti
 		Statements.Insert(0, header);
 	}
 
-	public void SetType(IDiagramType type)
+	public virtual void SetType(IDiagramType type)
 	{
 		var existing = Statements.FirstOrDefault(x => x is IDiagramType);
 		if (existing is not null)
@@ -24,7 +24,7 @@ public abstract class DiagramBase<TDiagram, TOptions> : IDiagram<TDiagram, TOpti
 		Statements.Insert(0, type);
 	}
 
-	public T AddAnd<T>(T statement) where T : IStatement
+	public virtual T AddAnd<T>(T statement) where T : IStatement
 	{
 		Statements.Add(statement);
 		return statement;
