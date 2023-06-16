@@ -33,7 +33,7 @@ public class FlowchartSubgraph : FlowchartBase, ISubgraph
 	{
 		textBuilder.Line(Id.NoId ? $"subgraph {Label}" : $"subgraph {Id} [{Label}]");
 
-		RenderStatements(textBuilder, renderState);
+		RenderRegularStatements(textBuilder, renderState);
 		
 		textBuilder.Line($"{renderState.Indent}end");
 	}
