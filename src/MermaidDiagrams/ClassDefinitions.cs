@@ -8,7 +8,7 @@ public class ClassDefinitions : IRenderable
 	{
 		foreach (var pair in _items)
 		{
-			textBuilder.Line($"class {string.Join(",", pair.Value.Assigns)} {pair.Key}");
+			textBuilder.Line($"class {string.Join(",", pair.Value.Assigns.Select(x => x.Id))} {pair.Key}");
 			
 		}
 		
