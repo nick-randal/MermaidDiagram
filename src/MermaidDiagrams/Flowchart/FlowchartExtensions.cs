@@ -33,15 +33,10 @@ public static class FlowchartExtensions
 	public static T Invisible<T>(this T chart, string id)
 		where T : FlowchartBase
 	{
-		var node = chart.AddAnd(Flowchart.Node.Create(id, " ", Shape.Box));
+		var node = chart.AddAnd(Flowchart.Node.Invisible(id));
 
-		var classAssign = chart
-			.GetDictionary<ClassAssign>()
-			.GetOrCreate(ClassDef.InvisibleName, () => new ClassAssign(ClassDef.InvisibleName));
-			
-		classAssign.Add(node);
-
-		chart.GetDictionary<ClassDef>().GetOrCreate(ClassDef.InvisibleName, () => ClassDef.Invisible);
+		var def = chart.GetClassDefinitions().GetOrCreate(ClassDef.InvisibleName, () => ClassDef.Invisible);
+		def.Assign(node);
 
 		return chart;
 	}

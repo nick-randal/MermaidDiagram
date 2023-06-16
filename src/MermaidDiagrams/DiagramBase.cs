@@ -22,31 +22,19 @@ public abstract class DiagramBase : IDiagram
 		Renderables.Insert(0, type);
 	}
 
-	internal void AddRenderables(params IRenderable[] renderables) => Renderables.AddRange(renderables);
+	public ClassDefinitions GetClassDefinitions() => GetOrCreate<ClassDefinitions>();
 	
+
 	public virtual void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 		RenderFirst<IHeader>(textBuilder, renderState);
 		RenderGroup<IDirective>(textBuilder, renderState);
 		RenderSingle<IDiagramType>(textBuilder, renderState);
 		RenderRegularStatements(textBuilder, renderState);
-		RenderGroup<ClassAssign>(textBuilder, renderState);
-		RenderSingle<RenderableDictionary<ClassAssign>>(textBuilder, renderState);
-		RenderSingle<RenderableDictionary<ClassDef>>(textBuilder, renderState);
+		RenderSingle<ClassDefinitions>(textBuilder, renderState);
 	}
 
-	internal RenderableDictionary<T> GetDictionary<T>()
-		where T : IRenderable
-	{
-		var item = Renderables.FirstOrDefault(x => x is RenderableDictionary<T>);
-		if (item is RenderableDictionary<T> d)
-			return d;
-		
-		d = new RenderableDictionary<T>();
-		Renderables.Add(d);
-		
-		return d;
-	}
+	internal void AddRenderables(params IRenderable[] renderables) => Renderables.AddRange(renderables);
 
 	protected virtual void RenderSingle<T>(ITextBuilder textBuilder, IRenderState renderState)
 		where T : IRenderable
@@ -77,6 +65,18 @@ public abstract class DiagramBase : IDiagram
 			builder.Append(state.Indent);
 			statement.Render(builder, state);
 		}
+	}
+
+	private T GetOrCreate<T>() where T : IRenderable, new()
+	{
+		var defs = Renderables.FirstOrDefault(x => x is T);
+		if (defs is T cd)
+			return cd;
+		
+		cd = new T();
+		Renderables.Add(cd);
+		
+		return cd;
 	}
 
 	protected readonly List<IRenderable> Renderables = new();

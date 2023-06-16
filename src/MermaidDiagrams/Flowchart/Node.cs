@@ -31,7 +31,8 @@ public record Node(Identifier Id, Text Text, Shape Shape) : INode
 	public static INode Create(string? id, Text text) => new Node(id, text, Shape.Box);
 
 	public static INode Create(string? id, Text text, Shape style) => new Node(id, text, style);
-
+	
+	public static INode Invisible(string id) => new Node(id, " ", Shape.Box);
 
 	private static readonly IDictionary<Shape, TextFrame> StyleFrames =
 		EnumExtensions

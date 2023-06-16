@@ -1,24 +1,41 @@
-﻿using System.Collections;
-using MermaidDiagrams.Contracts;
+﻿using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams;
 
-public record ClassDef(string Name, Dictionary<string, string> Styles) : IRenderable
+public record ClassDef
 {
-	public void Render(ITextBuilder textBuilder, IRenderState renderState)
+	public ClassDef(string name)
 	{
-		textBuilder.Line($"classDef {Name} {string.Join(",", Styles.Select(x => $"{x.Key.ToLowerInvariant()}:{x.Value}"))}");
+		Name = name;
+		_styles = new(StringComparer.OrdinalIgnoreCase);
+		_assigns = new();
 	}
 
-	public static readonly ClassDef Invisible = new(InvisibleName, new Dictionary<string, string>
-	{
-		{ "stroke", Transparent },
-		{ "fill", Transparent },
-		{ "color", Transparent },
-		{ "stroke-width", ":0px	" }
-	});
+	public string Name { get; }
 
-	public const string 
+	public ClassDef Style(string key, string value)
+	{
+		_styles[key] = value;
+		return this;
+	}
+	
+	public void Assign(IIdentifiable item)
+	{
+		_assigns.Add(item);
+	}
+	
+	public IReadOnlyDictionary<string, string> Styles => _styles;
+	
+	public IReadOnlyList<IIdentifiable> Assigns => _assigns;
+
+	private readonly Dictionary<string, string> _styles;
+	
+	private readonly List<IIdentifiable> _assigns;
+
+	public static readonly ClassDef Invisible = new ClassDef(InvisibleName)
+		.Style("stroke", Transparent).Style("fill", Transparent).Style("color", Transparent).Style("stroke-width", ":0px");
+
+	public const string
 		InvisibleName = "invis",
 		Transparent = "#00000000";
 }
