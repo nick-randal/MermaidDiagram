@@ -4,7 +4,7 @@ namespace MermaidDiagrams.Flowchart;
 
 using This = ISubgraph;
 
-public interface ISubgraph : IStatement//, IFlowchartGraph todo
+public interface ISubgraph : IStatement
 {
 	Text Label { get; }
 	
@@ -13,7 +13,7 @@ public interface ISubgraph : IStatement//, IFlowchartGraph todo
 	This SetDirection(FlowDirection direction);
 }
 
-public class Subgraph : FlowchartGraph, ISubgraph
+public class Subgraph : FlowchartBase, ISubgraph
 {
 	public Subgraph(Text label, string? id = null)
 	{
@@ -30,14 +30,14 @@ public class Subgraph : FlowchartGraph, ISubgraph
 		Statements.Add(new Literal($"direction {direction.GetShortName()}"));
 		return this;
 	}
-	
+
 	public override void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 		textBuilder.Line(string.IsNullOrWhiteSpace(Id) ? $"subgraph {Label}" : $"subgraph {Id} [{Label}]");
 
 		RenderStatements(textBuilder, renderState);
 		
-		textBuilder.Line("end");
+		textBuilder.Line($"{renderState.Indent}end");
 	}
 
 	public override void SetHeader(Header header) => throw new NotSupportedException();

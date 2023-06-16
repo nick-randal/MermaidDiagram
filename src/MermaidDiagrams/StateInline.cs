@@ -1,5 +1,3 @@
-using MermaidDiagrams.Contracts;
-
 namespace MermaidDiagrams;
 
 public record StateInline : IDisposable

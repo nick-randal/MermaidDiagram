@@ -1,10 +1,8 @@
-using System.Text;
 using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams;
 
-public abstract class DiagramBase<TDiagram, TOptions> : IDiagram<TDiagram, TOptions>
-	where TOptions : IRenderOptions
+public abstract class DiagramBase : IDiagram
 {
 	public virtual void SetHeader(Header header)
 	{
@@ -30,10 +28,6 @@ public abstract class DiagramBase<TDiagram, TOptions> : IDiagram<TDiagram, TOpti
 		return statement;
 	}
 
-	public abstract TDiagram Add(params IStatement[] statements);
-
-	public abstract string Render(TOptions options);
-
 	public virtual void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 		var header = Statements.FirstOrDefault(x => x is IHeader);
@@ -46,5 +40,5 @@ public abstract class DiagramBase<TDiagram, TOptions> : IDiagram<TDiagram, TOpti
 		type.Render(textBuilder, renderState);
 	}
 	
-	protected readonly List<IStatement> Statements = new();
+	internal readonly List<IStatement> Statements = new();
 }

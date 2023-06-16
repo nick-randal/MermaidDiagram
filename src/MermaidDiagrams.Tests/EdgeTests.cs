@@ -50,7 +50,7 @@ public sealed class EdgeTests
 	 InlineData(LineStyle.Dotted, EndStyle.O, 1, "o-.-o"),
 	 InlineData(LineStyle.Dotted, EndStyle.O, 3, "o-...-o"),
 	]
-	public void ShouldHaveEdge_WhenCreating_GivenOptions(LineStyle style, EndStyle tail, int depth, string expected)
+	public void ShouldHaveEdge_WhenCreating_GivenOptions(LineStyle style, EndStyle tail, ushort depth, string expected)
 	{
 		var edge = new Edge(style, tail, depth);
 		

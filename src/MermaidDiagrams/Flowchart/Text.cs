@@ -1,7 +1,11 @@
 namespace MermaidDiagrams.Flowchart;
 
-public record struct Text
+public readonly record struct Text
 {
+	public Text() : this(string.Empty)
+	{
+	}
+
 	public Text(string Content, bool Markdown = false)
 	{
 		IsEmpty = string.IsNullOrWhiteSpace(Content);
@@ -18,20 +22,20 @@ public record struct Text
 	public string Content { get; }
 
 	public bool Markdown { get; }
-	
+
 	public bool IsEmpty { get; }
 
 	public override string ToString()
 	{
 		if (IsEmpty)
 			return string.Empty;
-		
+
 		// todo escape other chars
 		var escapedContent =
 			Markdown
 				? Content.IndexOfAny(MarkdownReservedChars) >= 0
 					? $"\"`{Content.Replace("`", "\\`").Replace("\"", QuoteEncoded)}`\""
-					: Content
+					: $"\"`{Content}`\""
 				: Content.IndexOfAny(ReservedChars) >= 0
 					? $"\"{Content.Replace("\"", QuoteEncoded)}\""
 					: Content;
@@ -46,7 +50,7 @@ public record struct Text
 	public static readonly char[] MarkdownReservedChars = "`\"".ToCharArray();
 
 	public static Text Empty => new(string.Empty);
-	
+
 	public const string
 		QuoteEncoded = "#quot;";
 }

@@ -2,14 +2,19 @@ using System.Collections.Concurrent;
 
 namespace MermaidDiagrams.Flowchart;
 
-public record Edge(LineStyle Line = LineStyle.Normal, EndStyle End = EndStyle.Open, int Depth = 1)
+public record Edge(LineStyle Line = LineStyle.Normal, EndStyle End = EndStyle.Open, ushort Depth = 1)
 {
+	public override int GetHashCode()
+	{
+		return ((int)Line << 24) | ((int)End << 16) | Depth;
+	}
+
 	public override string ToString()
 	{
 		if (Line == LineStyle.Invisible)
 			return "~~~";
 
-		var key = ((uint)Line << 26) | ((uint)End << 25) | ((uint)Line << 19) | (uint)Depth;
+		var key = GetHashCode();
 		if (Cache.TryGetValue(key, out var edge))
 			return edge;
 
@@ -37,7 +42,7 @@ public record Edge(LineStyle Line = LineStyle.Normal, EndStyle End = EndStyle.Op
 		return edge;
 	}
 	
-	private static readonly ConcurrentDictionary<uint, string> Cache = new();
+	private static readonly ConcurrentDictionary<int, string> Cache = new();
 	
 	public static readonly Edge Invisible = new Edge(LineStyle.Invisible);
 	
