@@ -23,7 +23,7 @@ public record RenderState<TOptions>(TOptions Options) : IRenderState
 		}
 	}
 
-	public TState State<TState>() where TState : Enum => _states.Count is 0 ? default(TState) : (TState)_states.Peek();
+	public TState State<TState>() where TState : Enum => (_states.Count is 0 ? default(TState) : (TState)_states.Peek())!;
 
 	public OnDisposeAction StepIn()
 	{

@@ -1,6 +1,6 @@
 namespace MermaidDiagrams.Flowchart;
 
-public readonly record struct Text
+public record Text
 {
 	public Text() : this(string.Empty)
 	{
@@ -13,10 +13,11 @@ public readonly record struct Text
 		this.Markdown = Markdown;
 	}
 
-	public void Deconstruct(out string Content, out bool Markdown)
+	public void Deconstruct(out string Content, out bool Markdown, out bool IsEmpty)
 	{
 		Content = this.Content;
 		Markdown = this.Markdown;
+		IsEmpty = this.IsEmpty;
 	}
 
 	public string Content { get; }
