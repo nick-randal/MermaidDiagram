@@ -31,7 +31,7 @@ public abstract class DiagramBase : IDiagram
 		RenderGroup<IDirective>(textBuilder, renderState);
 		RenderSingle<IDiagramType>(textBuilder, renderState);
 		RenderRegularStatements(textBuilder, renderState);
-		RenderSingle<ClassDefinitions>(textBuilder, renderState);
+		RenderFirst<ClassDefinitions>(textBuilder, renderState);
 	}
 
 	internal void AddRenderables(params IRenderable[] renderables) => Renderables.AddRange(renderables);
