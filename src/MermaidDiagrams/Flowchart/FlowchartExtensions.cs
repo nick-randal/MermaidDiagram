@@ -55,6 +55,6 @@ public static class FlowchartExtensions
 
 	public static T Node<T>(this T chart, string id, Text text, Shape style)
 		where T : FlowchartBase => chart.Add(Flowchart.Node.Create(id, text, style));
-	
+
 	public static Text Markdown(this string content) => new(content, true);
 }

@@ -22,9 +22,13 @@ public abstract class DiagramBase : IDiagram
 		Renderables.Insert(0, type);
 	}
 
+	public virtual void AddDirective(IDirective directive)
+	{
+		Renderables.Add(directive);
+	}
+	
 	public ClassDefinitions GetClassDefinitions() => GetOrCreate<ClassDefinitions>();
 	
-
 	public virtual void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 		RenderFirst<IHeader>(textBuilder, renderState);

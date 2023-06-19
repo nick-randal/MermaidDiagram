@@ -1,0 +1,19 @@
+﻿---
+title: This is a test
+---
+%%{
+  init: {
+    "theme": "forest"
+  }
+}%%
+flowchart LR
+  %% No comment
+  A[Hard edge]
+  B(Round edge)
+  A -->|Link text| B
+  C{Decision}
+  D[/Result One\]
+  E((Result Two))
+  B --> C
+  C -->|Yes| D
+  C -->|No| E

@@ -11,11 +11,10 @@ public record Edge(LineStyle Line = LineStyle.Normal, EndStyle End = EndStyle.Op
 
 	public Edge WithLabel(Text? label)
 	{
-		Label = label ?? Text.Empty;	
-		return this;
+		return this with { Label = label ?? Text.Empty };
 	}
 
-	public Text Label { get; private set; } = Text.Empty;
+	public Text Label { get; private init; } = Text.Empty;
 
 	public override string ToString()
 	{
@@ -23,30 +22,31 @@ public record Edge(LineStyle Line = LineStyle.Normal, EndStyle End = EndStyle.Op
 			return $"~~~{(Label.IsEmpty ? string.Empty : $"|{Label}|")}";
 
 		var key = GetHashCode();
-		if (Cache.TryGetValue(key, out var edge))
-			return edge;
-
-		var (outerChar, innerChar, adj) = Line switch
+		if (Cache.TryGetValue(key, out var edge) is false)
 		{
-			LineStyle.Thick => ('=', '=', 1),
-			LineStyle.Dotted => (' ', '.', 0),
-			_ => ('-', '-', 1)
-		};
-		
-		var (tailChar, headChar, count) = End switch
-		{
-			EndStyle.Arrow => (outerChar, '>', Depth),
-			EndStyle.ArrowBoth => ('<', '>', Depth+adj),
-			EndStyle.X => ('x', 'x', Depth+adj),
-			EndStyle.O => ('o', 'o', Depth+adj),
-			_ =>  (outerChar, outerChar, Depth)
-		};
-		
-		edge = Line is LineStyle.Dotted 
-			? $"{tailChar}-{new string(innerChar, count)}-{headChar}".Trim()
-			: $"{tailChar}{new string(innerChar, count)}{headChar}";
+			var (outerChar, innerChar, adj) = Line switch
+			{
+				LineStyle.Thick => ('=', '=', 1),
+				LineStyle.Dotted => (' ', '.', 0),
+				_ => ('-', '-', 1)
+			};
 
-		Cache.TryAdd(key, edge);
+			var (tailChar, headChar, count) = End switch
+			{
+				EndStyle.Arrow => (outerChar, '>', Depth),
+				EndStyle.ArrowBoth => ('<', '>', Depth + adj),
+				EndStyle.X => ('x', 'x', Depth + adj),
+				EndStyle.O => ('o', 'o', Depth + adj),
+				_ => (outerChar, outerChar, Depth)
+			};
+
+			edge = Line is LineStyle.Dotted
+				? $"{tailChar}-{new string(innerChar, count)}-{headChar}".Trim()
+				: $"{tailChar}{new string(innerChar, count)}{headChar}";
+			
+			Cache.TryAdd(key, edge);
+		}
+		
 		return $"{edge}{(Label.IsEmpty ? string.Empty : $"|{Label}|")}";
 	}
 	
