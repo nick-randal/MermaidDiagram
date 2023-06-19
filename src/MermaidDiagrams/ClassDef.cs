@@ -19,18 +19,26 @@ public record ClassDef
 		return this;
 	}
 	
-	public void Assign(IIdentifiable item)
+	public ClassDef Assign(params IIdentifiable[] items)
 	{
-		_assigns.Add(item);
+		_assigns.AddRange(items.Select(x => x.Id));
+		return this;
+	}
+
+	
+	public ClassDef Assign(params string[] ids)
+	{
+		_assigns.AddRange(ids.Select(x => new Identifier(x)));
+		return this;
 	}
 	
 	public IReadOnlyDictionary<string, string> Styles => _styles;
 	
-	public IReadOnlyList<IIdentifiable> Assigns => _assigns;
+	public IReadOnlyList<Identifier> Assigns => _assigns;
 
 	private readonly Dictionary<string, string> _styles;
 	
-	private readonly List<IIdentifiable> _assigns;
+	private readonly List<Identifier> _assigns;
 
 	public static readonly ClassDef Invisible = new ClassDef(InvisibleName)
 		.Style("stroke", Transparent).Style("fill", Transparent).Style("color", Transparent).Style("stroke-width", ":0px");

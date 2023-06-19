@@ -8,7 +8,7 @@ public class ClassDefinitions : IRenderable
 	{
 		foreach (var pair in _items)
 		{
-			textBuilder.Line($"class {string.Join(",", pair.Value.Assigns.Select(x => x.Id))} {pair.Key}");
+			textBuilder.Line($"class {string.Join(",", pair.Value.Assigns)} {pair.Key}");
 			
 		}
 		
@@ -18,12 +18,12 @@ public class ClassDefinitions : IRenderable
 		}
 	}
 
-	public ClassDef GetOrCreate(string key, Func<ClassDef> create)
+	public ClassDef GetOrCreate(string key, Func<string, ClassDef> create)
 	{
 		if (_items.TryGetValue(key, out var item))
 			return item;
 
-		item = create();
+		item = create(key);
 		_items.Add(key, item);
 
 		return item;

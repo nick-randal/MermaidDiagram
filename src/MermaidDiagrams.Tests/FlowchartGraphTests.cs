@@ -10,15 +10,23 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	public Task ShouldHaveValidFlowchart_WhenRendering()
 	{
 		When(Rendering);
-		
+
 		return Verifier.Verify(Then.Diagram);
 	}
-	
+
 	[Fact]
 	public Task ShouldHaveValidFlowchart_WhenUsingExampleA()
 	{
 		When(UsingExampleA, Rendering);
-		
+
+		return Verifier.Verify(Then.Diagram);
+	}
+	
+	[Fact]
+	public Task ShouldHaveValidFlowchart_WhenUsingExampleA_AddingClassDefs()
+	{
+		When(UsingExampleA, AddingClassDefinitions, Rendering);
+
 		return Verifier.Verify(Then.Diagram);
 	}
 
@@ -35,7 +43,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	private void UsingExampleA()
 	{
 		var flow = Then.Target;
-		
+
 		flow.AddDirective(new DirectiveInitialize(KnownThemes.Forest));
 		flow.SetHeader(new Header("This is a test"));
 		flow.Add(new Comment("No comment"));
@@ -46,16 +54,28 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 		flow.Link(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
 
 		var c = flow.Node("C", "Decision", Shape.Rhombus);
-		
+
 		var d = flow.Node("D", "Result One", Shape.Trapezoid);
-		
+
 		var e = flow.Node("E", "Result Two", Shape.Circle);
 
 		flow.Link(flow["B"], c, Edge.Arrow);
 		flow.Link(c, d, Edge.Arrow.WithLabel("Yes"));
 		flow.Link(c, e, Edge.Arrow.WithLabel("No"));
 	}
-	
+
+	private void AddingClassDefinitions()
+	{
+		var cd = Then.Target.GetClassDefinitions();
+
+		cd.GetOrCreate("neat", s
+			=> new ClassDef(s)
+				.Style("fill", "#f96")
+				.Style("stroke", "#333")
+				.Style("stroke-width", "2px").Assign("A")
+		);
+	}
+
 	public class Thens
 	{
 		public FlowchartGraph Target { get; set; }

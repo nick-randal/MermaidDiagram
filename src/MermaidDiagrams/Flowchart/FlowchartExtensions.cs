@@ -35,7 +35,7 @@ public static class FlowchartExtensions
 	{
 		var node = chart.AddAnd(Flowchart.Node.Invisible(id));
 
-		var def = chart.GetClassDefinitions().GetOrCreate(ClassDef.InvisibleName, () => ClassDef.Invisible);
+		var def = chart.GetClassDefinitions().GetOrCreate(ClassDef.InvisibleName, (_) => ClassDef.Invisible);
 		def.Assign(node);
 
 		return chart;
