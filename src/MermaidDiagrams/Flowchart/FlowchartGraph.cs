@@ -9,6 +9,18 @@ public class FlowchartGraph : FlowchartBase
 		SetType((TypeOfFlowchart)direction);
 	}
 
+	public FlowchartGraph SetTheme(string theme)
+	{
+		AddDirective(new DirectiveInitialize(KnownThemes.Forest));
+		return this;
+	}
+
+	public FlowchartGraph SetTheme(ThemeVariables customTheme)
+	{
+		AddDirective(new DirectiveInitialize(customTheme));
+		return this;
+	}
+	
 	public virtual string Render() => Render(new FlowchartOptions());
 
 	public string Render(IFlowchartOptions options)

@@ -5,7 +5,7 @@ namespace MermaidDiagrams;
 
 public record DirectiveInitialize([property: JsonPropertyName("theme")]string Theme) : IDirective
 {
-	DirectiveInitialize(ThemeVariables theme) : this(KnownThemes.Custom)
+	public DirectiveInitialize(ThemeVariables theme) : this(KnownThemes.Custom)
 	{
 		ThemeVariables = theme;
 	}

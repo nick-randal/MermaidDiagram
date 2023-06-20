@@ -59,6 +59,12 @@ Define a style by name and assign it to a node by it's identifier.
 
 ```csharp
 flow.AddDirective(new DirectiveInitialize(KnownThemes.Forest));
+// or
+flow.SetTheme(KnownThemes.Forest);
+// or
+flow.SetTheme(new ThemeVariables() {
+    // set theme variables
+});
 
 var cd = flow.GetClassDefinitions();
 
@@ -70,3 +76,7 @@ cd.GetOrCreate("neat", s
         .Assign("A")
     );
 ```
+
+## Other charts
+
+To be done...
