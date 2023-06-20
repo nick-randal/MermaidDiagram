@@ -9,6 +9,7 @@
 
         <Title>Mermaid Diagrams</Title>
         <Authors>Nick Randal</Authors>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
 
         <Version>0.1.0</Version>
     </PropertyGroup>
@@ -17,6 +18,11 @@
         <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
         <PackageReference Include="System.Text.Json" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="\" />
+        <Content Include="LICENSE.txt" Pack="true" PackagePath="\" />        
     </ItemGroup>
 
 </Project>
