@@ -10,6 +10,7 @@
         <Title>Mermaid Diagrams</Title>
         <Authors>Nick Randal</Authors>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 
         <Version>0.1.0</Version>
     </PropertyGroup>
@@ -21,8 +22,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="README.md" Pack="true" PackagePath="\" />
-        <Content Include="LICENSE.txt" Pack="true" PackagePath="\" />        
+        <None Include="README.md" Pack="true" PackagePath="" />
+        <Content Include="LICENSE.txt" Pack="true" PackagePath="" />        
     </ItemGroup>
 
 </Project>
