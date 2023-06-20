@@ -53,11 +53,13 @@ flow.Subgraph("Outer", Identifier.Next("sg"), FlowDirection.TopBottom,
 	});
 ```
 
-### Add class style definitions
+### Theme and Styles
 
 Define a style by name and assign it to a node by it's identifier.
 
 ```csharp
+flow.AddDirective(new DirectiveInitialize(KnownThemes.Forest));
+
 var cd = flow.GetClassDefinitions();
 
 cd.GetOrCreate("neat", s
