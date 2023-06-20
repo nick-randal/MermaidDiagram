@@ -15,4 +15,16 @@ public abstract class FlowchartBase : DiagramBase
 	public INode this[Identifier id]
 		=> Renderables.Single(s => s is INode node && node.Id.Equals(id)) as INode
 			?? throw new KeyNotFoundException($"Node not found for id: {id}");
+
+	public FlowchartSubgraph Subgraph(Text label, Identifier? id = null, FlowDirection? direction = null, Action<FlowchartSubgraph>? builder = null)
+	{
+		var subgraph = new FlowchartSubgraph(label, id);
+		if (direction is not null)
+			subgraph.SetDirection(direction.Value);
+		
+		builder?.Invoke(subgraph);
+
+		this.Add(subgraph);
+		return subgraph;
+	}
 }

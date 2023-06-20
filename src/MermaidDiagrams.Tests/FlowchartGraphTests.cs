@@ -29,6 +29,14 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 
 		return Verifier.Verify(Then.Diagram);
 	}
+	
+	[Fact]
+	public Task ShouldHaveValidFlowchart_WhenUsingExampleB()
+	{
+		When(UsingExampleB, Rendering);
+
+		return Verifier.Verify(Then.Diagram);
+	}
 
 	protected override void Creating()
 	{
@@ -64,6 +72,19 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 		flow.Link(c, e, Edge.Arrow.WithLabel("No"));
 	}
 
+	private void UsingExampleB()
+	{
+		var flow = Then.Target;
+
+		flow.Subgraph("Outer", Identifier.Next("sg"), FlowDirection.TopBottom, sub =>
+		{
+			sub.Node("Something", Shape.Stadium);
+
+			var sg = sub.Subgraph("Inner", "in1");
+			sg.Node("A", "Hard edge", Shape.Box);
+		});
+	}
+
 	private void AddingClassDefinitions()
 	{
 		var cd = Then.Target.GetClassDefinitions();
@@ -76,7 +97,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 		);
 	}
 
-	public class Thens
+	public sealed class Thens
 	{
 		public FlowchartGraph Target { get; set; }
 		public string Diagram { get; set; }

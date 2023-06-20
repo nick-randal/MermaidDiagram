@@ -2,16 +2,7 @@ using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams.Flowchart;
 
-using This = ISubgraph;
-
-public interface ISubgraph : IStatement, IIdentifiable
-{
-	Text Label { get; }
-
-	This SetDirection(FlowDirection direction);
-}
-
-public class FlowchartSubgraph : FlowchartBase, ISubgraph
+public class FlowchartSubgraph : FlowchartBase, IStatement
 {
 	public FlowchartSubgraph(Text label, Identifier? id = null)
 	{
@@ -23,7 +14,7 @@ public class FlowchartSubgraph : FlowchartBase, ISubgraph
 	
 	public Identifier Id { get; }
 	
-	public This SetDirection(FlowDirection direction)
+	public FlowchartSubgraph SetDirection(FlowDirection direction)
 	{
 		Renderables.Add(new Literal($"direction {direction.GetShortName()}"));
 		return this;

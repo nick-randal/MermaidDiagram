@@ -1,0 +1,8 @@
+﻿flowchart LR
+  subgraph sg1 [Outer]
+    direction TB
+    id1([Something])
+    subgraph in1 [Inner]
+      A[Hard edge]
+    end
+  end
