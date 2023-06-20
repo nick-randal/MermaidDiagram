@@ -2,7 +2,7 @@ using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams.Flowchart;
 
-public class FlowchartSubgraph : FlowchartBase, IStatement
+public class FlowchartSubgraph : FlowchartBase, IStatement, IIdentifiable
 {
 	public FlowchartSubgraph(Text label, Identifier? id = null)
 	{

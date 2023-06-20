@@ -1,5 +1,6 @@
 *.local.*
 *.received.*
+*.nupkg
 
 # Common IntelliJ Platform excludes
 
