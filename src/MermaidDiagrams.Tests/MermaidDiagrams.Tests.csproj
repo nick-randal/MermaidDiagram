@@ -29,4 +29,23 @@
       <ProjectReference Include="..\MermaidDiagrams\MermaidDiagrams.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Sequence\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Flowchart\FlowchartGraphTests.ShouldHaveValidFlowchart_WhenRendering.verified.txt">
+        <ParentFile>FlowchartGraphTests</ParentFile>
+        <DependentUpon>FlowchartGraphTests.cs</DependentUpon>
+      </None>
+      <None Update="Flowchart\FlowchartGraphTests.ShouldHaveValidFlowchart_WhenUsingExampleA.verified.txt">
+        <ParentFile>FlowchartGraphTests</ParentFile>
+        <DependentUpon>FlowchartGraphTests.cs</DependentUpon>
+      </None>
+      <None Update="Flowchart\FlowchartGraphTests.ShouldHaveValidFlowchart_WhenUsingExampleA_AddingClassDefs.verified.txt">
+        <ParentFile>FlowchartGraphTests</ParentFile>
+        <DependentUpon>FlowchartGraphTests.cs</DependentUpon>
+      </None>
+    </ItemGroup>
+
 </Project>

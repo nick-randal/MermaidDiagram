@@ -30,6 +30,4 @@ public class FlowchartSubgraph : FlowchartBase, IStatement, IIdentifiable
 	}
 
 	public override void SetHeader(Header header) => throw new NotSupportedException();
-
-	public override void SetType(IDiagramType type) => throw new NotSupportedException();
 }

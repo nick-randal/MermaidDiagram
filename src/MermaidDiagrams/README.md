@@ -6,9 +6,11 @@
 
 ### Create a flowchart
 
+Declare a chart and render it to a string.
+
 ```csharp
 var flow = new Flowchart();
-flow.Render();
+var output = flow.Render();
 ```
 
 ### Setup a flowchart
@@ -40,7 +42,7 @@ flow.Link(c, d, Edge.Arrow.WithLabel("Yes"));
 flow.Link(c, e, Edge.Arrow.WithLabel("No"));
 ```
 
-### Flowchart Example
+### Subgraphs
 
 ```csharp
 flow.Subgraph("Outer", Identifier.Next("sg"), FlowDirection.TopBottom, 

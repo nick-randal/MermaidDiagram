@@ -2,7 +2,7 @@ using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams.Flowchart;
 
-public record TypeOfFlowchart(FlowDirection Direction) : IDiagramType
+internal record TypeOfFlowchart(FlowDirection Direction) : IDiagramType
 {
 	public void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{

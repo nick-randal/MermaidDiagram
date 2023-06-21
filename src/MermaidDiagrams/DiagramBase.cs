@@ -13,7 +13,7 @@ public abstract class DiagramBase : IDiagram
 		Renderables.Insert(0, header);
 	}
 
-	public virtual void SetType(IDiagramType type)
+	protected virtual void SetType(IDiagramType type)
 	{
 		var existing = Renderables.FirstOrDefault(x => x is IDiagramType);
 		if (existing is not null)
