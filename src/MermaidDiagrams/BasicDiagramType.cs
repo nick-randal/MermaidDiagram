@@ -1,13 +1,11 @@
 ﻿using MermaidDiagrams.Contracts;
 
-namespace MermaidDiagrams.Sequence;
+namespace MermaidDiagrams;
 
-internal record TypeOfSequence : IDiagramType
+internal record BasicDiagramType(string Name) : IDiagramType
 {
 	public void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 		textBuilder.Line(Name);
 	}
-	
-	public string Name => "sequenceDiagram";
 }

@@ -1,7 +1,7 @@
 ﻿using GwtUnit.XUnit;
 using MermaidDiagrams.Flowchart;
 
-namespace MermaidDiagrams.Tests;
+namespace MermaidDiagrams.Tests.Flowchart;
 
 [UsesVerify]
 public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Thens>

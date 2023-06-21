@@ -2,8 +2,7 @@ using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams;
 
-public record RenderState<TOptions>(TOptions Options) : IRenderState
-	where TOptions : IRenderOptions
+public record RenderState(string IndentValue = "  ") : IRenderState
 {
 	public int Depth => _depth;
 
@@ -17,7 +16,7 @@ public record RenderState<TOptions>(TOptions Options) : IRenderState
 			lock(_lock)
 			{
 				while(_depth >= _indents.Count)
-					_indents.Add(string.Join(string.Empty, Enumerable.Repeat(Options.Indent, _depth)));
+					_indents.Add(string.Join(string.Empty, Enumerable.Repeat(IndentValue, _depth)));
 			}
 			return _indents[_depth];
 		}
@@ -51,7 +50,7 @@ public record RenderState<TOptions>(TOptions Options) : IRenderState
 	}
 
 	private readonly Stack<Enum> _states = new();
-	private int _depth = 0;
+	private int _depth;
 	private readonly object _lock = new();
 	private readonly List<string> _indents = new();
 }

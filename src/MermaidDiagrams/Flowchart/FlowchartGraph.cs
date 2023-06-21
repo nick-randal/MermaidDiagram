@@ -21,11 +21,9 @@ public class FlowchartGraph : FlowchartBase
 		return this;
 	}
 	
-	public virtual string Render() => Render(new FlowchartOptions());
-
-	public string Render(IFlowchartOptions options)
+	public virtual string Render()
 	{
-		var state = new RenderState<IFlowchartOptions>(options);
+		var state = new RenderState();
 		var builder = new TextBuilder();
 
 		base.Render(builder, state);

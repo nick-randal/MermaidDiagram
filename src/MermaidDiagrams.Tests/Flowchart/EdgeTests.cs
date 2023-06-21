@@ -1,6 +1,6 @@
 using MermaidDiagrams.Flowchart;
 
-namespace MermaidDiagrams.Tests;
+namespace MermaidDiagrams.Tests.Flowchart;
 
 public sealed class EdgeTests
 {

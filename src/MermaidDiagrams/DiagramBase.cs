@@ -9,16 +9,16 @@ public abstract class DiagramBase : IDiagram
 		var existing = Renderables.FirstOrDefault(x => x is IHeader);
 		if (existing is not null)
 			Renderables.Remove(existing);
-		
+
 		Renderables.Insert(0, header);
 	}
 
-	protected virtual void SetType(IDiagramType type)
+	protected void SetType(IDiagramType type)
 	{
 		var existing = Renderables.FirstOrDefault(x => x is IDiagramType);
 		if (existing is not null)
 			Renderables.Remove(existing);
-		
+
 		Renderables.Insert(0, type);
 	}
 
@@ -26,9 +26,9 @@ public abstract class DiagramBase : IDiagram
 	{
 		Renderables.Add(directive);
 	}
-	
+
 	public ClassDefinitions GetClassDefinitions() => GetOrCreate<ClassDefinitions>();
-	
+
 	public virtual void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 		RenderFirst<IHeader>(textBuilder, renderState);
@@ -39,6 +39,11 @@ public abstract class DiagramBase : IDiagram
 	}
 
 	internal void AddRenderables(params IRenderable[] renderables) => Renderables.AddRange(renderables);
+
+	protected T GetRenderableOrThrow<T>(Identifier id)
+		where T : class, IIdentifiable
+		=> Renderables.Single(s => s is T node && node.Id.Equals(id)) as T
+			?? throw new KeyNotFoundException($"{nameof(T)} not found for id: {id}");
 
 	protected virtual void RenderSingle<T>(ITextBuilder textBuilder, IRenderState renderState)
 		where T : IRenderable
@@ -71,15 +76,16 @@ public abstract class DiagramBase : IDiagram
 		}
 	}
 
-	private T GetOrCreate<T>() where T : IRenderable, new()
+	private T GetOrCreate<T>()
+		where T : IRenderable, new()
 	{
 		var defs = Renderables.FirstOrDefault(x => x is T);
 		if (defs is T cd)
 			return cd;
-		
+
 		cd = new T();
 		Renderables.Add(cd);
-		
+
 		return cd;
 	}
 
