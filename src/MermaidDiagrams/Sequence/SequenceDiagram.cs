@@ -1,19 +1,15 @@
 ﻿namespace MermaidDiagrams.Sequence;
 
-public class SequenceDiagram : DiagramBase
+public class SequenceDiagram : MermaidBase
 {
-	public SequenceDiagram()
+	public SequenceDiagram() : base(new BasicDiagramType("sequenceDiagram"))
 	{
-		SetType(new BasicDiagramType("sequenceDiagram"));
 	}
 	
 	public SequenceDiagram SetAutoNumbering()
 	{
-		if (!Renderables.Any(r => r is AutoNumber))
-		{
-			AddRenderables(new AutoNumber());
-		}
-
+		TryAdd(new AutoNumber());
+		
 		return this;
 	}
 	

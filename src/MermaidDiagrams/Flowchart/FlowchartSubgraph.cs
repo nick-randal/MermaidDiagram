@@ -4,7 +4,7 @@ namespace MermaidDiagrams.Flowchart;
 
 public class FlowchartSubgraph : FlowchartBase, IStatement, IIdentifiable
 {
-	public FlowchartSubgraph( Text label, Identifier? id = null)
+	internal FlowchartSubgraph(FlowchartBase parent, Text label, Identifier? id = null) : base(parent, new TypeOfSubgraph())
 	{
 		Label = label;
 		Id = id ?? new Identifier(string.Empty);
@@ -28,8 +28,4 @@ public class FlowchartSubgraph : FlowchartBase, IStatement, IIdentifiable
 		
 		textBuilder.Line($"{renderState.Indent}end");
 	}
-
-	public override void SetHeader(Header header) => throw new NotSupportedException();
-	
-	public override void AddDirective(IDirective directive) => throw new NotSupportedException();
 }

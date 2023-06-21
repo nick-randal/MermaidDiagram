@@ -2,24 +2,24 @@ using MermaidDiagrams.Contracts;
 
 namespace MermaidDiagrams;
 
-public abstract class DiagramBase : IDiagram
+public abstract class MermaidBase : IRenderable
 {
-	public virtual void SetHeader(Header header)
-	{
-		var existing = Renderables.FirstOrDefault(x => x is IHeader);
-		if (existing is not null)
-			Renderables.Remove(existing);
-
-		Renderables.Insert(0, header);
-	}
-
-	protected void SetType(IDiagramType type)
+	protected MermaidBase(IDiagramType type)
 	{
 		var existing = Renderables.FirstOrDefault(x => x is IDiagramType);
 		if (existing is not null)
 			Renderables.Remove(existing);
 
 		Renderables.Insert(0, type);
+	}
+	
+	/* todo public virtual void SetHeader(Header header)
+	{
+		var existing = Renderables.FirstOrDefault(x => x is IHeader);
+		if (existing is not null)
+			Renderables.Remove(existing);
+
+		Renderables.Insert(0, header);
 	}
 
 	public virtual void AddDirective(IDirective directive)
@@ -33,7 +33,28 @@ public abstract class DiagramBase : IDiagram
 		return this;
 	}
 
-	public ClassDefinitions GetClassDefinitions() => GetOrCreate<ClassDefinitions>();
+	public ClassDefinitions GetClassDefinitions() => GetOrCreate<ClassDefinitions>();*/
+
+	public bool TryAdd<T>(T renderable)
+		where T : IRenderable
+	{
+		if (!Renderables.Any(r => r is T))
+		{
+			Add(renderable);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public T Add<T>(T renderable)
+		where T : IRenderable
+	{
+		Renderables.Add(renderable);
+		return renderable;
+	}
+
+	public void AddRange(params IRenderable[] renderables) => Renderables.AddRange(renderables);
 
 	public virtual void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
@@ -45,12 +66,11 @@ public abstract class DiagramBase : IDiagram
 		RenderFirst<ClassDefinitions>(textBuilder, renderState);
 	}
 
-	internal void AddRenderables(params IRenderable[] renderables) => Renderables.AddRange(renderables);
-
+	protected IIdentifiable this[Identifier id] => (IIdentifiable)Renderables.Single(s => s is IIdentifiable i && i.Id.Equals(id));
+	
 	protected T GetRenderableOrThrow<T>(Identifier id)
 		where T : class, IIdentifiable
-		=> Renderables.Single(s => s is T node && node.Id.Equals(id)) as T
-			?? throw new KeyNotFoundException($"{nameof(T)} not found for id: {id}");
+		=> this[id] as T ?? throw new KeyNotFoundException($"{nameof(T)} not found for id: {id}");
 
 	protected virtual void RenderSingle<T>(ITextBuilder textBuilder, IRenderState renderState)
 		where T : IRenderable
@@ -83,7 +103,7 @@ public abstract class DiagramBase : IDiagram
 		}
 	}
 
-	private T GetOrCreate<T>()
+	protected T GetOrCreate<T>()
 		where T : IRenderable, new()
 	{
 		var defs = Renderables.FirstOrDefault(x => x is T);
@@ -95,6 +115,8 @@ public abstract class DiagramBase : IDiagram
 
 		return cd;
 	}
+	
+	// todo dictionary for Identifiables ???
 
 	protected readonly List<IRenderable> Renderables = new();
 }

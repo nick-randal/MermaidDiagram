@@ -7,7 +7,7 @@ public static class FlowchartExtensions
 	public static T LinkAnd<T>(this T chart, IIdentifiable a, IIdentifiable b, Edge? edge = null)
 		where T : FlowchartBase
 	{
-		chart.Add(new Link(a, (b, edge ?? Edge.Open)));
+		chart.Link(new Link(a, (b, edge ?? Edge.Open)));
 		return chart;
 	}
 

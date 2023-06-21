@@ -1,24 +1,37 @@
+using MermaidDiagrams.Contracts;
+
 namespace MermaidDiagrams.Flowchart;
 
 public class FlowchartGraph : FlowchartBase
 {
-	public FlowchartGraph(FlowDirection direction)
+	public FlowchartGraph(FlowDirection direction) : base(null, (TypeOfFlowchart)direction)
 	{
-		SetType((TypeOfFlowchart)direction);
 	}
 
-	public FlowchartGraph SetTheme(string theme)
+	public virtual FlowchartGraph SetTheme(string theme)
 	{
-		AddDirective(new DirectiveInitialize(KnownThemes.Forest));
+		AddDirective(new DirectiveInitialize(theme));
 		return this;
 	}
 
-	public FlowchartGraph SetTheme(ThemeVariables customTheme)
+	public virtual FlowchartGraph SetTheme(ThemeVariables customTheme)
 	{
 		AddDirective(new DirectiveInitialize(customTheme));
 		return this;
 	}
 	
+	public virtual FlowchartGraph AddDirective(IDirective directive)
+	{
+		Add(directive);
+		return this;
+	}
+
+	public virtual FlowchartGraph SetHeader(Header header)
+	{
+		TryAdd(header);
+		return this;
+	}
+
 	public virtual string Render()
 	{
 		var state = new RenderState();

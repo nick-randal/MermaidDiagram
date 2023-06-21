@@ -54,7 +54,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 
 		flow.AddDirective(new DirectiveInitialize(KnownThemes.Forest));
 		flow.SetHeader(new Header("This is a test"));
-		DiagramBaseExtensions.AddAnd(flow, new Comment("No comment"));
+		MermaidBseExtensions.AddAnd(flow, new Comment("No comment"));
 
 		flow.Node("A", "Hard edge", Shape.Box);
 		flow.Node("B", "Round edge", Shape.RoundedBox);
