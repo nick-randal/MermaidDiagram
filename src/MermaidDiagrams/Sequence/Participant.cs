@@ -2,25 +2,23 @@
 
 namespace MermaidDiagrams.Sequence;
 
-public interface IParticipant : IStatement
+public interface IParticipant : IStatement, IIdentifiable
 {
-	string Name { get; }
-	
 	string? Alias { get; }
 	
 	bool UseActor { get; }
 }
 
-public record Participant(string Name, string? Alias, bool UseActor = false) : IParticipant
+public record Participant(Identifier Id, string? Alias, bool UseActor = false) : IParticipant
 {
-	public Participant(string name, bool useActor = false) : this(name, null, useActor)
+	public Participant(Identifier id, bool useActor = false) : this(id, null, useActor)
 	{
 	}
 
 	public void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 		textBuilder.Append(UseActor ? "actor " : "participant ");
-		textBuilder.Append(Name);
+		textBuilder.Append(Id.ToString());
 		
 		if(string.IsNullOrWhiteSpace(Alias))
 			textBuilder.Line();

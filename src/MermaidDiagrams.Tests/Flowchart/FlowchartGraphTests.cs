@@ -54,12 +54,12 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 
 		flow.AddDirective(new DirectiveInitialize(KnownThemes.Forest));
 		flow.SetHeader(new Header("This is a test"));
-		flow.Add(new Comment("No comment"));
+		DiagramBaseExtensions.AddAnd(flow, new[] { new Comment("No comment") });
 
 		flow.Node("A", "Hard edge", Shape.Box);
 		flow.Node("B", "Round edge", Shape.RoundedBox);
 
-		flow.Link(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
+		flow.AddLink(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
 
 		var c = flow.Node("C", "Decision", Shape.Rhombus);
 
@@ -67,9 +67,9 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 
 		var e = flow.Node("E", "Result Two", Shape.Circle);
 
-		flow.Link(flow["B"], c, Edge.Arrow);
-		flow.Link(c, d, Edge.Arrow.WithLabel("Yes"));
-		flow.Link(c, e, Edge.Arrow.WithLabel("No"));
+		flow.AddLink(flow["B"], c, Edge.Arrow);
+		flow.AddLink(c, d, Edge.Arrow.WithLabel("Yes"));
+		flow.AddLink(c, e, Edge.Arrow.WithLabel("No"));
 	}
 
 	private void UsingExampleB()

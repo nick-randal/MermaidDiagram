@@ -24,10 +24,10 @@ var output = flow.Render();
 ```csharp
 flow.AddDirective(new DirectiveInitialize(KnownThemes.Forest));
 flow.SetHeader(new Header("This is a test"));
-flow.Add(new Comment("No comment"));
+flow.Comment("No comment");
 
-flow.Node("A", "Hard edge", Shape.Box);
-flow.Node("B", "Round edge", Shape.RoundedBox);
+flow.AddNode("A", "Hard edge", Shape.Box)
+    .AddNode("B", "Round edge", Shape.RoundedBox);
 
 flow.Link(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
 

@@ -26,6 +26,12 @@ public abstract class DiagramBase : IDiagram
 	{
 		Renderables.Add(directive);
 	}
+	
+	public virtual DiagramBase Comment(string comment)
+	{
+		Renderables.Add(new Comment(comment));
+		return this;
+	}
 
 	public ClassDefinitions GetClassDefinitions() => GetOrCreate<ClassDefinitions>();
 

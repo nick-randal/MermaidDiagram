@@ -2,15 +2,15 @@ namespace MermaidDiagrams.Flowchart;
 
 public abstract class FlowchartBase : DiagramBase
 {
-	public INode Node() => this.AddAnd(Flowchart.Node.Create(Flowchart.Node.NextId(), string.Empty, Shape.Box));
+	public INode Node() => this.AddOne(Flowchart.Node.Create(Flowchart.Node.NextId(), string.Empty, Shape.Box));
 
-	public INode Node(string id) => this.AddAnd(Flowchart.Node.Create(id, string.Empty, Shape.Box));
+	public INode Node(string id) => this.AddOne(Flowchart.Node.Create(id, string.Empty, Shape.Box));
 
-	public INode Node(Shape style) => this.AddAnd(Flowchart.Node.Create(Flowchart.Node.NextId(), string.Empty, style));
+	public INode Node(Shape style) => this.AddOne(Flowchart.Node.Create(Flowchart.Node.NextId(), string.Empty, style));
 
-	public INode Node(Text text, Shape style) => this.AddAnd(Flowchart.Node.Create(Flowchart.Node.NextId(), text, style));
+	public INode Node(Text text, Shape style) => this.AddOne(Flowchart.Node.Create(Flowchart.Node.NextId(), text, style));
 
-	public INode Node(string id, Text text, Shape style) => this.AddAnd(Flowchart.Node.Create(id, text, style));
+	public INode Node(string id, Text text, Shape style) => this.AddOne(Flowchart.Node.Create(id, text, style));
 
 	public INode this[Identifier id] => GetRenderableOrThrow<INode>(id);
 
@@ -22,7 +22,7 @@ public abstract class FlowchartBase : DiagramBase
 		
 		builder?.Invoke(subgraph);
 
-		this.Add(subgraph);
+		this.AddOne(subgraph);
 		return subgraph;
 	}
 }

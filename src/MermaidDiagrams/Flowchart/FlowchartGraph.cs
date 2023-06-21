@@ -1,5 +1,3 @@
-using MermaidDiagrams.Contracts;
-
 namespace MermaidDiagrams.Flowchart;
 
 public class FlowchartGraph : FlowchartBase

@@ -4,7 +4,7 @@ namespace MermaidDiagrams;
 
 public static class DiagramBaseExtensions
 {
-	public static T Add<T>(this T chart, params IStatement[] statements)
+	public static T AddAnd<T>(this T chart, params IStatement[] statements)
 		where T : DiagramBase
 	{
 		if (statements.Length == 0)
@@ -14,7 +14,7 @@ public static class DiagramBaseExtensions
 		return chart;
 	}
 	
-	public static T AddAnd<T>(this DiagramBase chart, T statement) where T : IStatement
+	public static T AddOne<T>(this DiagramBase chart, T statement) where T : IStatement
 	{
 		chart.AddRenderables(statement);
 		return statement;

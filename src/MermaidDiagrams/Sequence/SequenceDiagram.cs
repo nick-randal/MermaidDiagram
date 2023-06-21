@@ -1,6 +1,4 @@
-﻿using MermaidDiagrams.Flowchart;
-
-namespace MermaidDiagrams.Sequence;
+﻿namespace MermaidDiagrams.Sequence;
 
 public class SequenceDiagram : DiagramBase
 {
@@ -8,6 +6,8 @@ public class SequenceDiagram : DiagramBase
 	{
 		SetType(new BasicDiagramType("sequenceDiagram"));
 	}
+	
+	public IParticipant this[Identifier id] => GetRenderableOrThrow<IParticipant>(id);
 	
 	public virtual string Render()
 	{

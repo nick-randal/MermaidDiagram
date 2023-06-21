@@ -1,5 +1,4 @@
 ﻿using GwtUnit.XUnit;
-using MermaidDiagrams.Flowchart;
 using MermaidDiagrams.Sequence;
 
 namespace MermaidDiagrams.Tests.Sequence;
@@ -45,16 +44,19 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 	{
 		var sequence = Then.Target;
 
-		sequence.Add(new Participant("Alice"));
-		sequence.Add(new Participant("Bob"));
+		sequence.AddAnd(new Participant("Alice"));
+		sequence.AddAnd(new Participant("Bob"));
 	}
 
 	private void UsingExampleB()
 	{
 		var sequence = Then.Target;
-		
-		sequence.Add(new Participant("A", "Alice", true));
-		sequence.Add(new Participant("B", "Bob", true));
+
+		var b = new Participant("B", "Bob", true);
+		sequence.AddAnd(new Participant("A", "Alice", true))
+			.AddAnd(b)
+			.Activate(b)
+			.Deactivate(b);
 	}
 
 	public sealed class Thens
