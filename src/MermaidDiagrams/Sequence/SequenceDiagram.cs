@@ -7,6 +7,20 @@ public class SequenceDiagram : DiagramBase
 		SetType(new BasicDiagramType("sequenceDiagram"));
 	}
 	
+	public SequenceDiagram SetAutoNumbering()
+	{
+		if (!Renderables.Any(r => r is AutoNumber))
+		{
+			AddRenderables(new AutoNumber());
+		}
+
+		return this;
+	}
+	
+	public Participant Participant(Identifier id, bool useActor = false) => this.AddOne(new Participant(id, useActor));
+	
+	public Participant Participant(Identifier id, string alias, bool useActor = false) => this.AddOne(new Participant(id, alias, useActor));
+
 	public IParticipant this[Identifier id] => GetRenderableOrThrow<IParticipant>(id);
 	
 	public virtual string Render()

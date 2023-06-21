@@ -15,4 +15,11 @@ public static class SequenceDiagramExtensions
 	
 	public static T Deactivate<T>(this T sequence, Identifier id)
 		where T : SequenceDiagram => sequence.AddAnd(new Activation(id, false));
+	
+	public static T Participant<T>(this T sequence, Identifier id, bool useActor)
+		where T : SequenceDiagram
+	{
+		sequence.Participant(id, useActor);
+		return sequence;
+	}
 }
