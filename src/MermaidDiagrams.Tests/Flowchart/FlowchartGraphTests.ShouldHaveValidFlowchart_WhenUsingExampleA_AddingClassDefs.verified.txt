@@ -17,5 +17,5 @@ flowchart LR
   B --> C
   C -->|Yes| D
   C -->|No| E
-class A neat
-classDef neat fill:#f96,stroke:#333,stroke-width:2px
+  class A neat
+  classDef neat fill:#f96,stroke:#333,stroke-width:2px

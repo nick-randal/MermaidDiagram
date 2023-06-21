@@ -2,22 +2,27 @@ namespace MermaidDiagrams.Flowchart;
 
 public record Text
 {
-	public Text() : this(string.Empty)
+	public Text() : this(string.Empty, true, false)
 	{
 	}
 
-	public Text(string Content, bool Markdown = false)
+	public Text(string? content, bool markdown = false)
+	: this(content?.Trim() ?? string.Empty, string.IsNullOrWhiteSpace(content), markdown)
 	{
-		IsEmpty = string.IsNullOrWhiteSpace(Content);
-		this.Content = IsEmpty ? string.Empty : Content.Trim();
-		this.Markdown = Markdown;
 	}
 
-	public void Deconstruct(out string Content, out bool Markdown, out bool IsEmpty)
+	internal Text(string content, bool isEmpty, bool markdown)
 	{
-		Content = this.Content;
-		Markdown = this.Markdown;
-		IsEmpty = this.IsEmpty;
+		Content = content;
+		IsEmpty = isEmpty;
+		Markdown = markdown;
+	}
+
+	public void Deconstruct(out string content, out bool markdown, out bool isEmpty)
+	{
+		content = Content;
+		markdown = Markdown;
+		isEmpty = IsEmpty;
 	}
 
 	public string Content { get; }

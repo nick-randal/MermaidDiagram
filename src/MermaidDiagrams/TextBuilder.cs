@@ -36,6 +36,11 @@ public class TextBuilder : ITextBuilder
 	}
 	
 	public string Text => _text.ToString();
-	
+
+	public override string ToString()
+	{
+		return _text.ToString();
+	}
+
 	private readonly StringBuilder _text;
 }

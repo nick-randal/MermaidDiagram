@@ -8,12 +8,13 @@ public class ClassDefinitions : IRenderable
 	{
 		foreach (var pair in _items)
 		{
+			textBuilder.Append(renderState.Indent);
 			textBuilder.Line($"class {string.Join(",", pair.Value.Assigns)} {pair.Key}");
-			
 		}
 		
 		foreach (var pair in _items)
 		{
+			textBuilder.Append(renderState.Indent);
 			textBuilder.Line($"classDef {pair.Key} {string.Join(",", pair.Value.Styles.Select(x => $"{x.Key.ToLowerInvariant()}:{x.Value}"))}");
 		}
 	}

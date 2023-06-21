@@ -17,9 +17,9 @@ public class SequenceDiagram : DiagramBase
 		return this;
 	}
 	
-	public Participant Participant(Identifier id, bool useActor = false) => this.AddOne(new Participant(id, useActor));
+	public Participant Participant(Identifier id, bool useActor = false) => this.Add(new Participant(id, useActor));
 	
-	public Participant Participant(Identifier id, string alias, bool useActor = false) => this.AddOne(new Participant(id, alias, useActor));
+	public Participant Participant(Identifier id, string alias, bool useActor = false) => this.Add(new Participant(id, alias, useActor));
 
 	public IParticipant this[Identifier id] => GetRenderableOrThrow<IParticipant>(id);
 	

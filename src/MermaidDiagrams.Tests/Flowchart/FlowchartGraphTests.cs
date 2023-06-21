@@ -11,7 +11,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	{
 		When(Rendering);
 
-		return Verifier.Verify(Then.Diagram);
+		return Verify(Then.Diagram);
 	}
 
 	[Fact]
@@ -19,7 +19,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	{
 		When(UsingExampleA, Rendering);
 
-		return Verifier.Verify(Then.Diagram);
+		return Verify(Then.Diagram);
 	}
 	
 	[Fact]
@@ -27,7 +27,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	{
 		When(UsingExampleA, AddingClassDefinitions, Rendering);
 
-		return Verifier.Verify(Then.Diagram);
+		return Verify(Then.Diagram);
 	}
 	
 	[Fact]
@@ -35,7 +35,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	{
 		When(UsingExampleB, Rendering);
 
-		return Verifier.Verify(Then.Diagram);
+		return Verify(Then.Diagram);
 	}
 
 	protected override void Creating()
@@ -54,12 +54,12 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 
 		flow.AddDirective(new DirectiveInitialize(KnownThemes.Forest));
 		flow.SetHeader(new Header("This is a test"));
-		DiagramBaseExtensions.AddAnd(flow, new[] { new Comment("No comment") });
+		DiagramBaseExtensions.AddAnd(flow, new Comment("No comment"));
 
 		flow.Node("A", "Hard edge", Shape.Box);
 		flow.Node("B", "Round edge", Shape.RoundedBox);
 
-		flow.AddLink(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
+		flow.LinkAnd(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
 
 		var c = flow.Node("C", "Decision", Shape.Rhombus);
 
@@ -67,9 +67,9 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 
 		var e = flow.Node("E", "Result Two", Shape.Circle);
 
-		flow.AddLink(flow["B"], c, Edge.Arrow);
-		flow.AddLink(c, d, Edge.Arrow.WithLabel("Yes"));
-		flow.AddLink(c, e, Edge.Arrow.WithLabel("No"));
+		flow.LinkAnd(flow["B"], c, Edge.Arrow);
+		flow.LinkAnd(c, d, Edge.Arrow.WithLabel("Yes"));
+		flow.LinkAnd(c, e, Edge.Arrow.WithLabel("No"));
 	}
 
 	private void UsingExampleB()
@@ -81,7 +81,9 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 			sub.Node("Something", Shape.Stadium);
 
 			var sg = sub.Subgraph("Inner", "in1");
-			sg.Node("A", "Hard edge", Shape.Box);
+			sg.Node("A", "A Box", Shape.Box);
+
+			sg.Invisible("can'tSeeme");
 		});
 	}
 

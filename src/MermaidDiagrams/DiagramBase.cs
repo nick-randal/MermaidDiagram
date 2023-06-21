@@ -41,6 +41,7 @@ public abstract class DiagramBase : IDiagram
 		RenderGroup<IDirective>(textBuilder, renderState);
 		RenderSingle<IDiagramType>(textBuilder, renderState);
 		RenderRegularStatements(textBuilder, renderState);
+		using var stepper = renderState.StepIn();
 		RenderFirst<ClassDefinitions>(textBuilder, renderState);
 	}
 

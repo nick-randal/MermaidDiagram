@@ -3,6 +3,7 @@
     direction TB
     id1([Something])
     subgraph in1 [Inner]
-      A[Hard edge]
+      A[A Box]
+      can'tSeeme[ ]
     end
   end

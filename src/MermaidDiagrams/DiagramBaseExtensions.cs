@@ -14,7 +14,7 @@ public static class DiagramBaseExtensions
 		return chart;
 	}
 	
-	public static T AddOne<T>(this DiagramBase chart, T statement) where T : IStatement
+	public static T Add<T>(this DiagramBase chart, T statement) where T : IStatement
 	{
 		chart.AddRenderables(statement);
 		return statement;
