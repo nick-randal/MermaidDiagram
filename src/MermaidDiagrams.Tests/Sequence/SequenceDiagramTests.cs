@@ -53,6 +53,8 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 	{
 		var sequence = Then.Target;
 		
+		sequence.Add(new Participant("A", "Alice", true));
+		sequence.Add(new Participant("B", "Bob", true));
 	}
 
 	public sealed class Thens

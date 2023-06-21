@@ -1,0 +1,3 @@
+﻿sequenceDiagram
+  participant Alice
+  participant Bob

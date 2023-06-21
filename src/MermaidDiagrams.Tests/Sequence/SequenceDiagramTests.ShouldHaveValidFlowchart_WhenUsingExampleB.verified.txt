@@ -1,0 +1,3 @@
+﻿sequenceDiagram
+  actor A as Alice
+  actor B as Bob
