@@ -4,7 +4,7 @@ namespace MermaidDiagrams.Flowchart;
 
 public class FlowchartSubgraph : FlowchartBase, IStatement, IIdentifiable
 {
-	public FlowchartSubgraph(Text label, Identifier? id = null)
+	public FlowchartSubgraph( Text label, Identifier? id = null)
 	{
 		Label = label;
 		Id = id ?? new Identifier(string.Empty);
@@ -30,4 +30,6 @@ public class FlowchartSubgraph : FlowchartBase, IStatement, IIdentifiable
 	}
 
 	public override void SetHeader(Header header) => throw new NotSupportedException();
+	
+	public override void AddDirective(IDirective directive) => throw new NotSupportedException();
 }
