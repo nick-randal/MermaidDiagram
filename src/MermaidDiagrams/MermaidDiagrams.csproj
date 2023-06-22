@@ -11,8 +11,9 @@
         <Authors>Nick Randal</Authors>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageProjectUrl>https://github.com/nick-randal/MermaidDiagram</PackageProjectUrl>
 
-        <Version>0.2.1</Version>
+        <Version>0.2.2</Version>
     </PropertyGroup>
 
     <ItemGroup>
