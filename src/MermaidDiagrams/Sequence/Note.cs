@@ -14,7 +14,7 @@ public enum NotePosition
 	Over
 }
 
-public record Note(Identifier Id, string Text, NotePosition Position, Identifier? IdTo = default) : IStatement
+public record Note(Identifier Id, Text Text, NotePosition Position, Identifier? IdTo = default) : IStatement
 {
 	public void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{

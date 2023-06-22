@@ -2,10 +2,10 @@
 
 public class Loop : SubSequence
 {
-	public Loop(string? label) : base("loop", label)
+	public Loop(Text label) : base("loop", label.IsEmpty ? null : label.Content)
 	{
 		Label = label;
 	}
 
-	public string? Label { get; }
+	public Text Label { get; }
 }

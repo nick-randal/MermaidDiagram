@@ -6,11 +6,11 @@ public interface IMessage : IStatement
 {
 	Identifier From { get; }
 	Identifier To { get; }
-	string Text { get; }
+	Text Text { get; }
 	bool? Activate { get; }
 }
 
-public record Message(Identifier From, Identifier To, string Text, ArrowType Arrow, bool? Activate = null) : IMessage
+public record Message(Identifier From, Identifier To, Text Text, ArrowType Arrow, bool? Activate = null) : IMessage
 {
 	private string ActivateText => Activate switch
 	{

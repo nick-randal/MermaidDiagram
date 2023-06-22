@@ -67,7 +67,10 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 			.Activate(b)
 			.Message("B", "A", "Great!", ArrowType.DottedLineArrow)
 			.Deactivate(b)
-			.Loop("Tell me when");
+			.Loop("Tell me when", l =>
+			{
+				l.Message("A", "B", "When!");
+			});
 	}
 
 	public sealed class Thens

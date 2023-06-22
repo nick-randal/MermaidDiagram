@@ -5,3 +5,6 @@
   activate B
   B-->>A:Great!
   deactivate B
+  loop Tell me when
+    A->>B:When!
+  end

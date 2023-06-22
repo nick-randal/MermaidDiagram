@@ -2,7 +2,7 @@
 
 namespace MermaidDiagrams.Sequence;
 
-public abstract class SequenceBase : MermaidBase
+public abstract class SequenceBase : MermaidBase, IStatement
 {
 	protected SequenceBase(IDiagramType diagramType) : base(diagramType)
 	{
