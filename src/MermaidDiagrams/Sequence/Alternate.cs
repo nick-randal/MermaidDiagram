@@ -1,32 +1,30 @@
-﻿using MermaidDiagrams.Contracts;
+﻿namespace MermaidDiagrams.Sequence;
 
-namespace MermaidDiagrams.Sequence;
-
-public class Alternate : SubSequence
+public class Alternate : SubSequenceBlocks<SubSequenceBlock>
 {
 	public Alternate()
+		: this(
+			new SubSequenceBlock("alt", true),
+			new SubSequenceBlock("else", false)
+		)
 	{
-		IfBlock = new SubSequenceBlock("alt", true);
-		ElseBlock = new SubSequenceBlock("else", false);
-		AddRange(IfBlock, ElseBlock);
 	}
-	
+
 	public Alternate(Text ifLabel, Text elseLabel)
+		: this(
+			new SubSequenceBlock("alt", ifLabel, true),
+			new SubSequenceBlock("else", elseLabel, false)
+		)
 	{
-		IfBlock = new SubSequenceBlock("alt", ifLabel, true);
-		ElseBlock = new SubSequenceBlock("else", elseLabel, false);
-		AddRange(IfBlock, ElseBlock);
+	}
+
+	protected Alternate(SubSequenceBlock ifBlock, SubSequenceBlock elseBlock)
+	{
+		IfBlock = AddBlock(ifBlock);
+		ElseBlock = AddBlock(elseBlock);
 	}
 
 	public SubSequenceBlock IfBlock { get; }
 
 	public SubSequenceBlock ElseBlock { get; }
-
-	public override string TypeName => "";
-
-	public override void Render(ITextBuilder textBuilder, IRenderState renderState)
-	{
-		RenderGroup<SubSequenceBlock>(textBuilder, renderState);
-		textBuilder.Line($"{renderState.Indent}end");
-	}
 }
