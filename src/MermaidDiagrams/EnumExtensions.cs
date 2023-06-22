@@ -1,4 +1,5 @@
 using System.Reflection;
+using MermaidDiagrams.Sequence;
 
 namespace MermaidDiagrams;
 
@@ -18,7 +19,8 @@ public static class EnumExtensions
 	internal static readonly IDictionary<Type, IDictionary<Enum, DisplayAttribute>> DisplayAttributes = new Dictionary<Type, IDictionary<Enum, DisplayAttribute>>
 	{
 		{ typeof(Flowchart.FlowDirection), ResolveDisplayAttributeDictionary(typeof(Flowchart.FlowDirection)) },
-		{ typeof(Flowchart.Shape), ResolveDisplayAttributeDictionary(typeof(Flowchart.Shape)) }
+		{ typeof(Flowchart.Shape), ResolveDisplayAttributeDictionary(typeof(Flowchart.Shape)) },
+		{ typeof(ArrowType), ResolveDisplayAttributeDictionary(typeof(ArrowType)) }
 	};
 
 	private static IDictionary<Enum, DisplayAttribute> ResolveDisplayAttributeDictionary(Type type)

@@ -52,11 +52,15 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 	private void UsingExampleB()
 	{
 		var sequence = Then.Target;
-
-		var b = new Participant("B", "Bob", true);
-		sequence.AddAnd(new Participant("A", "Alice", true))
-			.AddAnd(b)
+		
+		var b = sequence
+			.Participant("A", "Alice", true)
+			.CreateParticipant("B", "Bob", true);
+		
+		sequence
+			.Message("A", "B", "Hello Bob, how are you?", ArrowType.SolidLineArrow)
 			.Activate(b)
+			.Message("B", "A", "Great!", ArrowType.DottedLineArrow)
 			.Deactivate(b);
 	}
 

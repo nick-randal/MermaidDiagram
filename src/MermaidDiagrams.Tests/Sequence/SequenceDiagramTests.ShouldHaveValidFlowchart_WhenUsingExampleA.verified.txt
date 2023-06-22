@@ -1,3 +1,4 @@
 ﻿sequenceDiagram
+  autonumber
   participant Alice
   participant Bob

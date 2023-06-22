@@ -30,6 +30,13 @@ public static class SequenceDiagramExtensions
 		return sequence;
 	}
 	
+	public static T Message<T>(this T sequence, Identifier a, Identifier b, string text, ArrowType arrow = ArrowType.SolidLineArrow)
+		where T : SequenceDiagram
+	{
+		sequence.CreateMessage(a, b, text, arrow);
+		return sequence;
+	}
+	
 	public static T SetAutoNumbering<T>(this T sequence)
 		where T : SequenceDiagram
 	{
