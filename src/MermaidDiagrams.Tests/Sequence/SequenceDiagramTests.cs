@@ -118,7 +118,8 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 				third =>
 				{
 					third.Message(a, c, "Pears");
-				})
+				}
+			)
 			.Critical(critical =>
 				{
 					critical.Message(a, b, "Don't lose your sense of humor");
@@ -127,7 +128,11 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 				{
 					option1.Message(a, c, "Stay positive");
 				}
-			);
+			)
+			.Break("This is a break", b =>
+			{
+				b.Message(c, a, "I'm back!");
+			});
 	}
 
 	public sealed class Thens

@@ -59,6 +59,14 @@ public static class SequenceDiagramExtensions
 		return sequence;
 	}
 	
+	public static T Break<T>(this T sequence, Text label, Action<Break> builder)
+		where T : SequenceBase
+	{
+		var brk = sequence.CreateBreak(label);
+		builder(brk);
+		return sequence;
+	}
+	
 	public static T Alternate<T>(this T sequence, Action<SubSequenceBlock> ifBuilder, Action<SubSequenceBlock> elseBuilder)
 		where T : SequenceBase
 	{

@@ -24,6 +24,8 @@ public abstract class SequenceBase : MermaidBase, IStatement
 
 	public Loop CreateLoop(Text label) => Add(new Loop(label));
 	
+	public Break CreateBreak(Text label) => Add(new Break(label));
+	
 	public Alternate CreateAlternate() => Add(new Alternate());
 	
 	public Alternate CreateAlternate(Text ifLabel, Text elseLabel) => Add(new Alternate(ifLabel, elseLabel));

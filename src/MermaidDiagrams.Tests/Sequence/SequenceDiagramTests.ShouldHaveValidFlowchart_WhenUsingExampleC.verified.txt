@@ -14,3 +14,6 @@
   option
     A->>C:Stay positive
   end
+  break This is a break
+    C->>A:I'm back!
+  end
