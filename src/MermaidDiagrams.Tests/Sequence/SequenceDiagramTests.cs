@@ -45,8 +45,8 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 		var sequence = Then.Target;
 
 		sequence.SetAutoNumbering()
-			.AddAnd(new Participant("Alice"))
-			.AddAnd(new Participant("Bob"));
+			.Participant("Alice")
+			.Participant("Bob");
 	}
 
 	private void UsingExampleB()

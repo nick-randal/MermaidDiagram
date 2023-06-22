@@ -7,3 +7,5 @@
       can'tSeeme[ ]
     end
   end
+  class can'tSeeme invis
+  classDef invis stroke:#00000000,fill:#00000000,color:#00000000,stroke-width::0px

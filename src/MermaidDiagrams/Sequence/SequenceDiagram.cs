@@ -6,18 +6,11 @@ public class SequenceDiagram : MermaidBase
 	{
 	}
 	
-	public SequenceDiagram SetAutoNumbering()
-	{
-		TryAdd(new AutoNumber());
-		
-		return this;
-	}
+	public new IParticipant this[Identifier id] => GetRenderableOrThrow<IParticipant>(id);
 	
-	public Participant Participant(Identifier id, bool useActor = false) => this.Add(new Participant(id, useActor));
+	public Participant CreateParticipant(Identifier id, bool useActor = false) => Add(new Participant(id, useActor));
 	
-	public Participant Participant(Identifier id, string alias, bool useActor = false) => this.Add(new Participant(id, alias, useActor));
-
-	public IParticipant this[Identifier id] => GetRenderableOrThrow<IParticipant>(id);
+	public Participant CreateParticipant(Identifier id, string alias, bool useActor = false) => Add(new Participant(id, alias, useActor));
 	
 	public virtual string Render()
 	{

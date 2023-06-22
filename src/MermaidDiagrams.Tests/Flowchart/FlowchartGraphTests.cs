@@ -59,7 +59,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 		flow.Node("A", "Hard edge", Shape.Box);
 		flow.Node("B", "Round edge", Shape.RoundedBox);
 
-		flow.LinkAnd(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
+		flow.Link(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
 
 		var c = flow.Node("C", "Decision", Shape.Rhombus);
 
@@ -67,9 +67,9 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 
 		var e = flow.Node("E", "Result Two", Shape.Circle);
 
-		flow.LinkAnd(flow["B"], c, Edge.Arrow);
-		flow.LinkAnd(c, d, Edge.Arrow.WithLabel("Yes"));
-		flow.LinkAnd(c, e, Edge.Arrow.WithLabel("No"));
+		flow.Link(flow["B"], c, Edge.Arrow);
+		flow.Link(c, d, Edge.Arrow.WithLabel("Yes"));
+		flow.Link(c, e, Edge.Arrow.WithLabel("No"));
 	}
 
 	private void UsingExampleB()
@@ -80,7 +80,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 		{
 			sub.Node("Something", Shape.Stadium);
 
-			var sg = sub.Subgraph("Inner", "in1");
+			var sg = sub.CreateSubgraph("Inner", "in1");
 			sg.Node("A", "A Box", Shape.Box);
 
 			sg.Invisible("can'tSeeme");
