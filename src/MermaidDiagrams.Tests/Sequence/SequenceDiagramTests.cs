@@ -30,6 +30,14 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 		return Verify(Then.Diagram);
 	}
 
+	[Fact]
+	public Task ShouldHaveValidFlowchart_WhenUsingExampleC()
+	{
+		When(UsingExampleC, Rendering);
+
+		return Verify(Then.Diagram);
+	}
+	
 	protected override void Creating()
 	{
 		Then.Target = new SequenceDiagram();
@@ -72,7 +80,6 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 				l.Message("A", "B", "When!");
 			})
 			.Alternate(
-				
 				yes =>
 				{
 					yes.SetLabel("Should I?")
@@ -88,6 +95,30 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 			{
 				o.Message("A", "B", "We did it!");
 			});
+	}
+
+	private void UsingExampleC()
+	{
+		var sequence = Then.Target;
+
+		var a = sequence.CreateParticipant("A", "Alice", true);
+		var b = sequence.CreateParticipant("B", "Bob", true);
+		var c = sequence.CreateParticipant("C", "Cory", true);
+
+		sequence
+			.Parallel(
+				first =>
+				{
+					first.Message(a, b, "Apples");
+				},
+				second =>
+				{
+					second.Message(b, a, "Oranges");
+				},
+				third =>
+				{
+					third.Message(a, c, "Pears");
+				});
 	}
 
 	public sealed class Thens

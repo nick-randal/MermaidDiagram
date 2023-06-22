@@ -1,0 +1,11 @@
+﻿sequenceDiagram
+  actor A as Alice
+  actor B as Bob
+  actor C as Cory
+  par
+    A->>B:Apples
+  and
+    B->>A:Oranges
+  and
+    A->>C:Pears
+  end

@@ -27,5 +27,6 @@ public class Alternate : SubSequence
 	public override void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 		RenderGroup<SubSequenceBlock>(textBuilder, renderState);
+		textBuilder.Line($"{renderState.Indent}end");
 	}
 }

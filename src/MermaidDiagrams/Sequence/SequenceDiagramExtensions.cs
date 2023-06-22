@@ -30,6 +30,13 @@ public static class SequenceDiagramExtensions
 		return sequence;
 	}
 	
+	public static T Message<T>(this T sequence, IIdentifiable a, IIdentifiable b, Text text, ArrowType arrow = ArrowType.SolidLineArrow, bool? activate = null)
+		where T : SequenceBase
+	{
+		sequence.CreateMessage(a.Id, b.Id, text, arrow, activate);
+		return sequence;
+	}
+	
 	public static T Message<T>(this T sequence, Identifier a, Identifier b, Text text, ArrowType arrow = ArrowType.SolidLineArrow, bool? activate = null)
 		where T : SequenceBase
 	{
@@ -73,7 +80,12 @@ public static class SequenceDiagramExtensions
 		where T : SequenceBase
 	{
 		var par = sequence.CreateParallel();
-		//firstBuilder(par.ParallelBlock);
+		firstBuilder(par.FirstBlock);
+		foreach (var andBuilder in andBuilders)
+		{
+			var andBlock = par.AddAndBlock();
+			andBuilder(andBlock);
+		}
 		return sequence;
 	}
 	

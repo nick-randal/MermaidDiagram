@@ -32,9 +32,6 @@ public class SubSequenceBlock : SubSequence
 		textBuilder.Line();
 
 		RenderRegularStatements(textBuilder, renderState);
-		
-		if(_primary is false)
-			textBuilder.Line($"{renderState.Indent}end");
 	}
 	
 	public override string TypeName { get; }
