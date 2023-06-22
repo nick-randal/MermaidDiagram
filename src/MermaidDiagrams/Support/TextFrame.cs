@@ -1,3 +1,3 @@
-namespace MermaidDiagrams;
+namespace MermaidDiagrams.Support;
 
 public record TextFrame(string Begin, string End);

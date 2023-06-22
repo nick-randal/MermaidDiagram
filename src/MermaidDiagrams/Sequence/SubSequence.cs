@@ -1,10 +1,11 @@
 ﻿using MermaidDiagrams.Contracts;
+using MermaidDiagrams.Support;
 
 namespace MermaidDiagrams.Sequence;
 
 public abstract class SubSequence : SequenceBase
 {
-	protected SubSequence() : base(new TypeOfNone())
+	protected SubSequence() : base(new DiagramType.None())
 	{
 	}
 

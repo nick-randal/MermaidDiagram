@@ -1,6 +1,6 @@
 using MermaidDiagrams.Contracts;
 
-namespace MermaidDiagrams;
+namespace MermaidDiagrams.Support;
 
 public abstract class MermaidBase : IRenderable
 {
@@ -34,6 +34,16 @@ public abstract class MermaidBase : IRenderable
 
 	public void AddRange(params IRenderable[] renderables) => Renderables.AddRange(renderables);
 
+	public virtual string Render()
+	{
+		var state = new RenderState();
+		var builder = new TextBuilder();
+
+		Render(builder, state);
+
+		return builder.Text;
+	}
+
 	public virtual void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 		RenderFirst<IHeader>(textBuilder, renderState);
@@ -45,7 +55,7 @@ public abstract class MermaidBase : IRenderable
 	}
 
 	protected IIdentifiable this[Identifier id] => (IIdentifiable)Renderables.Single(s => s is IIdentifiable i && i.Id.Equals(id));
-	
+
 	protected T GetRenderableOrThrow<T>(Identifier id)
 		where T : class, IIdentifiable
 		=> this[id] as T ?? throw new KeyNotFoundException($"{nameof(T)} not found for id: {id}");

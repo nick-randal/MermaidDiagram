@@ -1,4 +1,5 @@
 using MermaidDiagrams.Contracts;
+using MermaidDiagrams.Support;
 
 namespace MermaidDiagrams.Flowchart;
 

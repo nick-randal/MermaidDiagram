@@ -1,8 +1,9 @@
 using MermaidDiagrams.Contracts;
+using MermaidDiagrams.Support;
 
 namespace MermaidDiagrams;
 
-public static class MermaidBseExtensions
+public static class MermaidBaseExtensions
 {
 	public static T AddAnd<T>(this T mermaid, params IStatement[] statements)
 		where T : MermaidBase

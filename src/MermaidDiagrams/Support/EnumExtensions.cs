@@ -1,7 +1,7 @@
 using System.Reflection;
 using MermaidDiagrams.Sequence;
 
-namespace MermaidDiagrams;
+namespace MermaidDiagrams.Support;
 
 public static class EnumExtensions
 {

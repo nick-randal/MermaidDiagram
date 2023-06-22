@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace MermaidDiagrams.Sequence;
+namespace MermaidDiagrams;
 
 public readonly record struct Rgb(byte R, byte G, byte B, decimal A = 1m)
 {
