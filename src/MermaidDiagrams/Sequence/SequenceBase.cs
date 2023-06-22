@@ -32,5 +32,5 @@ public abstract class SequenceBase : MermaidBase, IStatement
 	
 	public Parallel CreateParallel() => Add(new Parallel());
 	
-	public Critical CreateCritical(Text title) => Add(new Critical());
+	public Critical CreateCritical() => Add(new Critical());
 }

@@ -89,10 +89,16 @@ public static class SequenceDiagramExtensions
 		return sequence;
 	}
 	
-	public static T Critical<T>(this T sequence, Text title)
+	public static T Critical<T>(this T sequence, Action<SubSequenceBlock> criticalBuilder, params Action<SubSequenceBlock>[] optionBuilders)
 		where T : SequenceBase
 	{
-		sequence.CreateCritical(title);
+		var par = sequence.CreateCritical();
+		criticalBuilder(par.FirstBlock);
+		foreach (var andBuilder in optionBuilders)
+		{
+			var andBlock = par.AddOptionBlock();
+			andBuilder(andBlock);
+		}
 		return sequence;
 	}
 

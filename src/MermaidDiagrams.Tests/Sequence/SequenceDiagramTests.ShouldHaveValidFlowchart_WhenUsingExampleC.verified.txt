@@ -9,3 +9,8 @@
   and
     A->>C:Pears
   end
+  critical
+    A->>B:Don't lose your sense of humor
+  option
+    A->>C:Stay positive
+  end

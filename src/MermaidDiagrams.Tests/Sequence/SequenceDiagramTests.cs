@@ -37,7 +37,7 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 
 		return Verify(Then.Diagram);
 	}
-	
+
 	protected override void Creating()
 	{
 		Then.Target = new SequenceDiagram();
@@ -118,7 +118,16 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 				third =>
 				{
 					third.Message(a, c, "Pears");
-				});
+				})
+			.Critical(critical =>
+				{
+					critical.Message(a, b, "Don't lose your sense of humor");
+				},
+				option1 =>
+				{
+					option1.Message(a, c, "Stay positive");
+				}
+			);
 	}
 
 	public sealed class Thens
