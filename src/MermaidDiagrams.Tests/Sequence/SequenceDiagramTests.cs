@@ -72,15 +72,16 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 				l.Message("A", "B", "When!");
 			})
 			.Alternate(
-				"Should I?",
+				
 				yes =>
 				{
-					yes.Message("A", "B", "Yes!");
+					yes.SetLabel("Should I?")
+						.Message("A", "B", "Yes!");
 				},
-				"Or not",
 				no =>
 				{
-					no.Message("A", "B", "No!");
+					no.SetLabel("Or not")
+						.Message("A", "B", "No!");
 				}
 			)
 			.Optional("Sometimes we do this...", o =>

@@ -10,13 +10,15 @@ public abstract class SubSequence : SequenceBase
 
 	public abstract string TypeName { get; }
 	
-	public string? TypeText { get; protected set; }
+	public string? Label { get; protected set; }
+	
+	protected bool HasLabel => string.IsNullOrWhiteSpace(Label) is false;
 	
 	public override void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 		textBuilder.Append(TypeName);
-		if(string.IsNullOrWhiteSpace(TypeText) is false)
-			textBuilder.Append($" {TypeText}");
+		if(string.IsNullOrWhiteSpace(Label) is false)
+			textBuilder.Append($" {Label}");
 		textBuilder.Line();
 
 		RenderRegularStatements(textBuilder, renderState);

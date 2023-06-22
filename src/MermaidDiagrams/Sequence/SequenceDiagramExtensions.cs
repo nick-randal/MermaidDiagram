@@ -52,10 +52,10 @@ public static class SequenceDiagramExtensions
 		return sequence;
 	}
 	
-	public static T Alternate<T>(this T sequence, Text ifLabel, Action<AlternateIfElse> ifBuilder, Text elseLabel, Action<AlternateIfElse> elseBuilder)
+	public static T Alternate<T>(this T sequence, Action<SubSequenceBlock> ifBuilder, Action<SubSequenceBlock> elseBuilder)
 		where T : SequenceBase
 	{
-		var alt = sequence.CreateAlternate(ifLabel, elseLabel);
+		var alt = sequence.CreateAlternate();
 		ifBuilder(alt.IfBlock);
 		elseBuilder(alt.ElseBlock);
 		return sequence;
@@ -69,10 +69,11 @@ public static class SequenceDiagramExtensions
 		return sequence;
 	}
 	
-	public static T Parallel<T>(this T sequence, string title)
+	public static T Parallel<T>(this T sequence, Action<SubSequenceBlock> firstBuilder, params Action<SubSequenceBlock>[] andBuilders)
 		where T : SequenceBase
 	{
-		sequence.CreateParallel();
+		var par = sequence.CreateParallel();
+		//firstBuilder(par.ParallelBlock);
 		return sequence;
 	}
 	
