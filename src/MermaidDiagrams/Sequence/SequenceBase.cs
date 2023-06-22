@@ -23,4 +23,8 @@ public abstract class SequenceBase : MermaidBase, IStatement
 		=> Add(new Note (id, text, position, idTo));
 
 	public Loop CreateLoop(string? label) => Add(new Loop(label));
+	
+	public Alt CreateAlt(string? label) => Add(new Alt(label));
+	
+	public Opt CreateOpt(string? label) => Add(new Opt(label));
 }

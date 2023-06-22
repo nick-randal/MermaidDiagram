@@ -51,6 +51,23 @@ public static class SequenceDiagramExtensions
 		builder(loop);
 		return sequence;
 	}
+	
+	public static T Alt<T>(this T sequence, string? label, Action<Alt> ifBuilder, Action<AltElse> elseBuilder)
+		where T : SequenceBase
+	{
+		var alt = sequence.CreateAlt(label);
+		ifBuilder(alt);
+		elseBuilder(alt.Else);
+		return sequence;
+	}
+	
+	public static T Opt<T>(this T sequence, string? label, Action<Opt> builder)
+		where T : SequenceBase
+	{
+		var opt = sequence.CreateOpt(label);
+		builder(opt);
+		return sequence;
+	}
 
 	public static T SetAutoNumbering<T>(this T sequence)
 		where T : SequenceBase
