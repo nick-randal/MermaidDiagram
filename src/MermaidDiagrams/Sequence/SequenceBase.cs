@@ -12,19 +12,23 @@ public abstract class SequenceBase : MermaidBase, IStatement
 	
 	public Participant CreateParticipant(Identifier id, bool useActor = false) => Add(new Participant(id, useActor));
 	
-	public Participant CreateParticipant(Identifier id, string alias, bool useActor = false) => Add(new Participant(id, alias, useActor));
+	public Participant CreateParticipant(Identifier id, Text alias, bool useActor = false) => Add(new Participant(id, alias, useActor));
 
 	public Message CreateMessage(
-		Identifier a, Identifier b, string text, ArrowType arrow = ArrowType.SolidLineArrow, bool? activate = null
+		Identifier a, Identifier b, Text text, ArrowType arrow = ArrowType.SolidLineArrow, bool? activate = null
 	) 
 		=> Add(new Message(a, b, text, arrow, activate));
 	
-	public Note CreateNote(Identifier id, string text, NotePosition position = NotePosition.Over, Identifier? idTo = null) 
+	public Note CreateNote(Identifier id, Text text, NotePosition position = NotePosition.Over, Identifier? idTo = null) 
 		=> Add(new Note (id, text, position, idTo));
 
-	public Loop CreateLoop(string? label) => Add(new Loop(label));
+	public Loop CreateLoop(Text label) => Add(new Loop(label));
 	
-	public Alt CreateAlt(string? label) => Add(new Alt(label));
+	public Alternate CreateAlternate(Text ifLabel, Text elseLabel) => Add(new Alternate(ifLabel, elseLabel));
 	
-	public Opt CreateOpt(string? label) => Add(new Opt(label));
+	public Optional CreateOptional(Text label) => Add(new Optional(label));
+	
+	public Parallel CreateParallel() => Add(new Parallel());
+	
+	public Critical CreateCritical(Text title) => Add(new Critical());
 }

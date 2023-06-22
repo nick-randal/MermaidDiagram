@@ -1,8 +1,8 @@
 ﻿namespace MermaidDiagrams.Sequence;
 
-public class Opt : LabeledSubSequenceBase
+public class Optional : LabeledSubSequenceBase
 {
-	public Opt(Text label) : base(label)
+	public Optional(Text label) : base(label)
 	{
 	}
 	

@@ -2,7 +2,7 @@
 
 public abstract class LabeledSubSequenceBase : SubSequence
 {
-	public LabeledSubSequenceBase(Text label)
+	protected LabeledSubSequenceBase(Text label)
 	{
 		Label = label;
 		if(Label.IsEmpty is false)

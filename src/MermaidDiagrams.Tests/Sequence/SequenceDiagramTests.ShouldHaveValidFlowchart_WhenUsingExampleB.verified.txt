@@ -8,3 +8,8 @@
   loop Tell me when
     A->>B:When!
   end
+  alt Should I?
+    A->>B:Yes!
+  else Or not
+    A->>B:No!
+  end

@@ -24,21 +24,3 @@ public abstract class SubSequence : SequenceBase
 		textBuilder.Line($"{renderState.Indent}end");
 	}
 }
-
-public class Par : SubSequence
-{
-	public Par()
-	{
-	}
-	
-	public override string TypeName => "par";
-}
-
-public class Critical : SubSequence
-{
-	public Critical()
-	{
-	}
-	
-	public override string TypeName => "critical";
-}

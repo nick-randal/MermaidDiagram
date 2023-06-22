@@ -23,28 +23,28 @@ public static class SequenceDiagramExtensions
 		return sequence;
 	}
 	
-	public static T Participant<T>(this T sequence, Identifier id, string alias, bool useActor = false)
+	public static T Participant<T>(this T sequence, Identifier id, Text alias, bool useActor = false)
 		where T : SequenceBase
 	{
 		sequence.CreateParticipant(id, alias, useActor);
 		return sequence;
 	}
 	
-	public static T Message<T>(this T sequence, Identifier a, Identifier b, string text, ArrowType arrow = ArrowType.SolidLineArrow, bool? activate = null)
+	public static T Message<T>(this T sequence, Identifier a, Identifier b, Text text, ArrowType arrow = ArrowType.SolidLineArrow, bool? activate = null)
 		where T : SequenceBase
 	{
 		sequence.CreateMessage(a, b, text, arrow, activate);
 		return sequence;
 	}
 	
-	public static T Note<T>(this T sequence, Identifier id, string text, NotePosition position = NotePosition.Over, Identifier? idTo = null)
+	public static T Note<T>(this T sequence, Identifier id, Text text, NotePosition position = NotePosition.Over, Identifier? idTo = null)
 		where T : SequenceBase
 	{
 		sequence.CreateNote (id, text, position, idTo);
 		return sequence;
 	}
 
-	public static T Loop<T>(this T sequence, string? label, Action<Loop> builder)
+	public static T Loop<T>(this T sequence, Text label, Action<Loop> builder)
 		where T : SequenceBase
 	{
 		var loop = sequence.CreateLoop(label);
@@ -52,20 +52,34 @@ public static class SequenceDiagramExtensions
 		return sequence;
 	}
 	
-	public static T Alt<T>(this T sequence, string? label, Action<Alt> ifBuilder, Action<AltElse> elseBuilder)
+	public static T Alternate<T>(this T sequence, Text ifLabel, Action<AlternateIfElse> ifBuilder, Text elseLabel, Action<AlternateIfElse> elseBuilder)
 		where T : SequenceBase
 	{
-		var alt = sequence.CreateAlt(label);
-		ifBuilder(alt);
-		elseBuilder(alt.Else);
+		var alt = sequence.CreateAlternate(ifLabel, elseLabel);
+		ifBuilder(alt.IfBlock);
+		elseBuilder(alt.ElseBlock);
 		return sequence;
 	}
 	
-	public static T Opt<T>(this T sequence, string? label, Action<Opt> builder)
+	public static T Optional<T>(this T sequence, Text label, Action<Optional> builder)
 		where T : SequenceBase
 	{
-		var opt = sequence.CreateOpt(label);
+		var opt = sequence.CreateOptional(label);
 		builder(opt);
+		return sequence;
+	}
+	
+	public static T Parallel<T>(this T sequence, string title)
+		where T : SequenceBase
+	{
+		sequence.CreateParallel();
+		return sequence;
+	}
+	
+	public static T Critical<T>(this T sequence, Text title)
+		where T : SequenceBase
+	{
+		sequence.CreateCritical(title);
 		return sequence;
 	}
 

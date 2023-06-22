@@ -57,11 +57,11 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 	private void UsingExampleB()
 	{
 		var sequence = Then.Target;
-		
+
 		var b = sequence
 			.Participant("A", "Alice", true)
 			.CreateParticipant("B", "Bob", true);
-		
+
 		sequence
 			.Message("A", "B", "Hello Bob, how are you?")
 			.Activate(b)
@@ -70,7 +70,19 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 			.Loop("Tell me when", l =>
 			{
 				l.Message("A", "B", "When!");
-			});
+			})
+			.Alternate(
+				"Should I?", 
+				yes =>
+				{
+					yes.Message("A", "B", "Yes!");
+				},
+				"Or not", 
+				no =>
+				{
+					no.Message("A", "B", "No!");
+				}
+			);
 	}
 
 	public sealed class Thens
