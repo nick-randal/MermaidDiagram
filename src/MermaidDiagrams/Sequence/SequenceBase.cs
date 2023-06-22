@@ -35,4 +35,6 @@ public abstract class SequenceBase : MermaidBase, IStatement
 	public Parallel CreateParallel() => Add(new Parallel());
 	
 	public Critical CreateCritical() => Add(new Critical());
+	
+	public Highlight CreateHighlight(Rgb backgroundColor) => Add(new Highlight(backgroundColor));
 }

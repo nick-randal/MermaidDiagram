@@ -67,6 +67,14 @@ public static class SequenceDiagramExtensions
 		return sequence;
 	}
 	
+	public static T Highlight<T>(this T sequence, Rgb backgroundColor, Action<Highlight> builder)
+		where T : SequenceBase
+	{
+		var highlight = sequence.CreateHighlight(backgroundColor);
+		builder(highlight);
+		return sequence;
+	}
+	
 	public static T Alternate<T>(this T sequence, Action<SubSequenceBlock> ifBuilder, Action<SubSequenceBlock> elseBuilder)
 		where T : SequenceBase
 	{

@@ -1,4 +1,5 @@
-﻿using GwtUnit.XUnit;
+﻿using System.Drawing;
+using GwtUnit.XUnit;
 using MermaidDiagrams.Sequence;
 
 namespace MermaidDiagrams.Tests.Sequence;
@@ -120,15 +121,18 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 					third.Message(a, c, "Pears");
 				}
 			)
-			.Critical(critical =>
-				{
-					critical.Message(a, b, "Don't lose your sense of humor");
-				},
-				option1 =>
-				{
-					option1.Message(a, c, "Stay positive");
-				}
-			)
+			.Highlight(Color.Azure, h =>
+			{
+				h.Critical(critical =>
+					{
+						critical.Message(a, b, "Don't lose your sense of humor");
+					},
+					option1 =>
+					{
+						option1.Message(a, c, "Stay positive");
+					}
+				);
+			})
 			.Break("This is a break", b =>
 			{
 				b.Message(c, a, "I'm back!");

@@ -9,10 +9,12 @@
   and
     A->>C:Pears
   end
-  critical
-    A->>B:Don't lose your sense of humor
-  option
-    A->>C:Stay positive
+  rect rgb(240, 255, 255)
+    critical
+      A->>B:Don't lose your sense of humor
+    option
+      A->>C:Stay positive
+    end
   end
   break This is a break
     C->>A:I'm back!
