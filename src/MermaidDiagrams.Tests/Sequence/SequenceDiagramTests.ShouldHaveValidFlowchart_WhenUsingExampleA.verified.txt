@@ -4,5 +4,6 @@
   participant Bob
   Note right of Bob: Bob is cool
   Alice--x+Bob:Can you hear me now?
+  %% topical reference
   Bob->>-Alice:Goodbye
   Note over Alice,Bob: This is a floating note

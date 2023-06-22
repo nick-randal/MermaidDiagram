@@ -49,6 +49,7 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 			.Participant("Bob")
 			.Note("Bob", "Bob is cool", NotePosition.RightOf)
 			.Message("Alice", "Bob", "Can you hear me now?", ArrowType.DottedLineCross, true)
+			.Comment("topical reference")
 			.Message("Bob", "Alice", "Goodbye", ArrowType.SolidLineArrow, false)
 			.Note("Alice", "This is a floating note", NotePosition.Over, "Bob");
 	}
@@ -62,10 +63,11 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 			.CreateParticipant("B", "Bob", true);
 		
 		sequence
-			.Message("A", "B", "Hello Bob, how are you?", ArrowType.SolidLineArrow)
+			.Message("A", "B", "Hello Bob, how are you?")
 			.Activate(b)
 			.Message("B", "A", "Great!", ArrowType.DottedLineArrow)
-			.Deactivate(b);
+			.Deactivate(b)
+			.Loop("Tell me when");
 	}
 
 	public sealed class Thens

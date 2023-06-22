@@ -50,4 +50,11 @@ public static class SequenceDiagramExtensions
 		sequence.TryAdd(new AutoNumber());
 		return sequence;
 	}
+	
+	public static T Loop<T>(this T sequence, string? label)
+		where T : SequenceDiagram
+	{
+		sequence.CreateLoop(label);
+		return sequence;
+	}
 }

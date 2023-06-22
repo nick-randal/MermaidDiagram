@@ -1,12 +1,12 @@
 ﻿using MermaidDiagrams.Contracts;
 
-namespace MermaidDiagrams.Flowchart;
+namespace MermaidDiagrams;
 
-public record TypeOfSubgraph : IDiagramType
+public record TypeOfNone : IDiagramType
 {
 	public void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
 	}
 
-	public string Name => "subgraph";
+	public string Name => string.Empty;
 }

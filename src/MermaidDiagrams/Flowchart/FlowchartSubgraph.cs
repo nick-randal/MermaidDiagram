@@ -4,7 +4,7 @@ namespace MermaidDiagrams.Flowchart;
 
 public class FlowchartSubgraph : FlowchartBase, IIdentifiable
 {
-	internal FlowchartSubgraph(FlowchartBase parent, Text label, Identifier? id = null) : base(parent, new TypeOfSubgraph())
+	internal FlowchartSubgraph(FlowchartBase parent, Text label, Identifier? id = null) : base(parent, new TypeOfNone())
 	{
 		Label = label;
 		Id = id ?? new Identifier(string.Empty);

@@ -2,16 +2,12 @@ namespace MermaidDiagrams.Flowchart;
 
 public record Text
 {
-	public Text() : this(string.Empty, true, false)
-	{
-	}
-
 	public Text(string? content, bool markdown = false)
 	: this(content?.Trim() ?? string.Empty, string.IsNullOrWhiteSpace(content), markdown)
 	{
 	}
 
-	internal Text(string content, bool isEmpty, bool markdown)
+	private Text(string content, bool isEmpty, bool markdown)
 	{
 		Content = content;
 		IsEmpty = isEmpty;
@@ -56,6 +52,8 @@ public record Text
 	public static readonly char[] MarkdownReservedChars = "`\"".ToCharArray();
 
 	public static Text Empty => new(string.Empty);
+	
+	public static Text Create(string content, bool isEmpty, bool markdown = false) => new(content, isEmpty, markdown);
 
 	public const string
 		QuoteEncoded = "#quot;";

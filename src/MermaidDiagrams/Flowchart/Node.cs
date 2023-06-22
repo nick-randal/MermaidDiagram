@@ -12,7 +12,7 @@ public record Node(Identifier Id, Text Text, Shape Shape) : INode
 
 	public static INode Create(string? id, Text text, Shape style) => new Node(id, text, style);
 
-	public static INode CreateInvisible(Identifier id) => new Node(id, new Text(" ", false, false), Shape.Box);
+	public static INode CreateInvisible(Identifier id) => new Node(id, Text.Create(" ", false, false), Shape.Box);
 
 	public void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{
