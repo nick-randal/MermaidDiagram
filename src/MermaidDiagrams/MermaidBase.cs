@@ -93,8 +93,6 @@ public abstract class MermaidBase : IRenderable
 
 		return cd;
 	}
-	
-	// todo dictionary for Identifiables ???
 
 	protected readonly List<IRenderable> Renderables = new();
 }
