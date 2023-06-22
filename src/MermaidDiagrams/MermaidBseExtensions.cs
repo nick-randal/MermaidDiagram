@@ -26,4 +26,11 @@ public static class MermaidBseExtensions
 		mermaid.Add(new Comment(comment));
 		return mermaid;
 	}
+	
+	public static T Literal<T>(this T mermaid, string literal)
+		where T : MermaidBase
+	{
+		mermaid.Add(new Literal(literal));
+		return mermaid;
+	}
 }

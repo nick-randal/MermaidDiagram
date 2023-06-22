@@ -12,28 +12,6 @@ public abstract class MermaidBase : IRenderable
 
 		Renderables.Insert(0, type);
 	}
-	
-	/* todo public virtual void SetHeader(Header header)
-	{
-		var existing = Renderables.FirstOrDefault(x => x is IHeader);
-		if (existing is not null)
-			Renderables.Remove(existing);
-
-		Renderables.Insert(0, header);
-	}
-
-	public virtual void AddDirective(IDirective directive)
-	{
-		Renderables.Add(directive);
-	}
-	
-	public virtual DiagramBase Comment(string comment)
-	{
-		Renderables.Add(new Comment(comment));
-		return this;
-	}
-
-	public ClassDefinitions GetClassDefinitions() => GetOrCreate<ClassDefinitions>();*/
 
 	public bool TryAdd<T>(T renderable)
 		where T : IRenderable
