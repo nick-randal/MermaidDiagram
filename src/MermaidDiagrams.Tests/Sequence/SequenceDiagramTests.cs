@@ -46,7 +46,9 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 
 		sequence.SetAutoNumbering()
 			.Participant("Alice")
-			.Participant("Bob");
+			.Participant("Bob")
+			.Message("Alice", "Bob", "Can you hear me now?", ArrowType.DottedLineCross, true)
+			.Message("Bob", "Alice", "Goodbye", ArrowType.SolidLineArrow, false);
 	}
 
 	private void UsingExampleB()

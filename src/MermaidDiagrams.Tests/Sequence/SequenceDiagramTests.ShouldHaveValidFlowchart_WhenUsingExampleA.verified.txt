@@ -2,3 +2,5 @@
   autonumber
   participant Alice
   participant Bob
+  Alice--x+Bob:Can you hear me now?
+  Bob->>-Alice:Goodbye

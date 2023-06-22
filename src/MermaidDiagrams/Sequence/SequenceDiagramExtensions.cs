@@ -30,10 +30,10 @@ public static class SequenceDiagramExtensions
 		return sequence;
 	}
 	
-	public static T Message<T>(this T sequence, Identifier a, Identifier b, string text, ArrowType arrow = ArrowType.SolidLineArrow)
+	public static T Message<T>(this T sequence, Identifier a, Identifier b, string text, ArrowType arrow = ArrowType.SolidLineArrow, bool? activate = null)
 		where T : SequenceDiagram
 	{
-		sequence.CreateMessage(a, b, text, arrow);
+		sequence.CreateMessage(a, b, text, arrow, activate);
 		return sequence;
 	}
 	

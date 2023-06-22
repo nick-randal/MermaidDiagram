@@ -12,8 +12,10 @@ public class SequenceDiagram : MermaidBase
 	
 	public Participant CreateParticipant(Identifier id, string alias, bool useActor = false) => Add(new Participant(id, alias, useActor));
 
-	public Message CreateMessage(Identifier a, Identifier b, string text, ArrowType arrow = ArrowType.SolidLineArrow) 
-		=> Add(new Message(a, b, text, arrow));
+	public Message CreateMessage(
+		Identifier a, Identifier b, string text, ArrowType arrow = ArrowType.SolidLineArrow, bool? activate = null
+	) 
+		=> Add(new Message(a, b, text, arrow, activate));
 
 	public virtual string Render()
 	{
