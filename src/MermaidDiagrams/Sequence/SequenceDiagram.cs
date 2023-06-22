@@ -16,6 +16,9 @@ public class SequenceDiagram : MermaidBase
 		Identifier a, Identifier b, string text, ArrowType arrow = ArrowType.SolidLineArrow, bool? activate = null
 	) 
 		=> Add(new Message(a, b, text, arrow, activate));
+	
+	public Note CreateNote(Identifier id, string text, NotePosition position = NotePosition.Over, Identifier? idTo = null) 
+		=> Add(new Note (id, text, position, idTo));
 
 	public virtual string Render()
 	{

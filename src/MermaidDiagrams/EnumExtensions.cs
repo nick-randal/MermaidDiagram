@@ -16,12 +16,20 @@ public static class EnumExtensions
 			: string.Empty;
 	}
 
-	internal static readonly IDictionary<Type, IDictionary<Enum, DisplayAttribute>> DisplayAttributes = new Dictionary<Type, IDictionary<Enum, DisplayAttribute>>
+	internal static readonly IDictionary<Type, IDictionary<Enum, DisplayAttribute>> DisplayAttributes;
+
+	static EnumExtensions()
 	{
-		{ typeof(Flowchart.FlowDirection), ResolveDisplayAttributeDictionary(typeof(Flowchart.FlowDirection)) },
-		{ typeof(Flowchart.Shape), ResolveDisplayAttributeDictionary(typeof(Flowchart.Shape)) },
-		{ typeof(ArrowType), ResolveDisplayAttributeDictionary(typeof(ArrowType)) }
-	};
+		DisplayAttributes = new Dictionary<Type, IDictionary<Enum, DisplayAttribute>>();
+
+		var types = new[]
+		{
+			typeof(Flowchart.FlowDirection), typeof(Flowchart.Shape),
+			typeof(ArrowType), typeof(NotePosition)
+		};
+		foreach (var type in types)
+			DisplayAttributes.Add(type, ResolveDisplayAttributeDictionary(type));
+	}
 
 	private static IDictionary<Enum, DisplayAttribute> ResolveDisplayAttributeDictionary(Type type)
 		=> type

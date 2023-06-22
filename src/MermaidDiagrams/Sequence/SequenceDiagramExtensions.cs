@@ -37,6 +37,13 @@ public static class SequenceDiagramExtensions
 		return sequence;
 	}
 	
+	public static T Note<T>(this T sequence, Identifier id, string text, NotePosition position = NotePosition.Over, Identifier? idTo = null)
+		where T : SequenceDiagram
+	{
+		sequence.CreateNote (id, text, position, idTo);
+		return sequence;
+	}
+	
 	public static T SetAutoNumbering<T>(this T sequence)
 		where T : SequenceDiagram
 	{

@@ -1,0 +1,23 @@
+﻿using MermaidDiagrams.Contracts;
+
+namespace MermaidDiagrams.Sequence;
+
+public enum NotePosition
+{
+	[Display(ShortName = "left of")]
+	LeftOf,
+	
+	[Display(ShortName = "right of")]
+	RightOf,
+	
+	[Display(ShortName = "over")]
+	Over
+}
+
+public record Note(Identifier Id, string Text, NotePosition Position, Identifier? IdTo = default) : IStatement
+{
+	public void Render(ITextBuilder textBuilder, IRenderState renderState)
+	{
+		textBuilder.Line($"Note {Position.GetShortName()} {Id}{(IdTo is null ? string.Empty : $",{IdTo}")}: {Text}");
+	}
+}

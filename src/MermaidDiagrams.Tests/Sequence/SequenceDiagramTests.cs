@@ -47,8 +47,10 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 		sequence.SetAutoNumbering()
 			.Participant("Alice")
 			.Participant("Bob")
+			.Note("Bob", "Bob is cool", NotePosition.RightOf)
 			.Message("Alice", "Bob", "Can you hear me now?", ArrowType.DottedLineCross, true)
-			.Message("Bob", "Alice", "Goodbye", ArrowType.SolidLineArrow, false);
+			.Message("Bob", "Alice", "Goodbye", ArrowType.SolidLineArrow, false)
+			.Note("Alice", "This is a floating note", NotePosition.Over, "Bob");
 	}
 
 	private void UsingExampleB()
