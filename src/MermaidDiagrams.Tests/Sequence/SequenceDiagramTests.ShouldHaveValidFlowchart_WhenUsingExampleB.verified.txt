@@ -13,3 +13,6 @@
   else Or not
     A->>B:No!
   end
+  opt Sometimes we do this...
+    A->>B:We did it!
+  end

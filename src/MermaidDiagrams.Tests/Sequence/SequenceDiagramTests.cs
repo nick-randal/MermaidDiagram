@@ -72,17 +72,21 @@ public sealed class SequenceDiagramTests : XUnitTestBase<SequenceDiagramTests.Th
 				l.Message("A", "B", "When!");
 			})
 			.Alternate(
-				"Should I?", 
+				"Should I?",
 				yes =>
 				{
 					yes.Message("A", "B", "Yes!");
 				},
-				"Or not", 
+				"Or not",
 				no =>
 				{
 					no.Message("A", "B", "No!");
 				}
-			);
+			)
+			.Optional("Sometimes we do this...", o =>
+			{
+				o.Message("A", "B", "We did it!");
+			});
 	}
 
 	public sealed class Thens
