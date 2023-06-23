@@ -62,6 +62,8 @@ public sealed class RgbTests : XUnitTestBase<RgbTests.Thens>
 	}
 
 	[Theory,
+	 InlineData(null, 0, 0, 0, "1.0"),
+	 InlineData(" \t\r\n", 0, 0, 0, "1.0"),
 	 InlineData("#000000", 0, 0, 0, "1.0"),
 	 InlineData("rgb(0, 0, 0)", 0, 0, 0, "1.0"),
 	 InlineData("rgba(0, 0, 0, 1)", 0, 0, 0, "1.0"),
@@ -87,6 +89,29 @@ public sealed class RgbTests : XUnitTestBase<RgbTests.Thens>
 			A = Convert.ToDecimal(a)
 		});
 	}
+	
+	[Theory, 
+	InlineData(0x000000FF, 0, 0, 0, "1.0"),
+	InlineData(0x00000000, 0, 0, 0, "0.0"),
+	InlineData(0x564B1EE5, 86, 75, 30, "0.9")
+	]
+	public void ShouldHaveValidValue_WhenConverting_GivenUint(
+		uint value, byte r, byte g, byte b,
+		string a
+	)
+	{
+		Given.Value = value;
+
+		When(ConvertingFromUint);
+
+		Then.Target.Should().BeEquivalentTo(new
+		{
+			R = r,
+			G = g,
+			B = b,
+			A = Convert.ToDecimal(a)
+		});
+	}
 
 	protected override void Creating()
 	{
@@ -100,6 +125,13 @@ public sealed class RgbTests : XUnitTestBase<RgbTests.Thens>
 	private void Parsing()
 	{
 		var value = GivenOrDefault("Value", "#12345678");
+
+		Then.Target = value;
+	}
+	
+	private void ConvertingFromUint()
+	{
+		var value = GivenOrDefault<uint>("Value", 0x12345678);
 
 		Then.Target = value;
 	}

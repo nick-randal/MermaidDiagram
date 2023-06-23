@@ -30,11 +30,11 @@ public readonly record struct Rgb(byte R, byte G, byte B, decimal A = 1m)
 
 	public static implicit operator Rgb(Color color) => FromColor(color);
 
-	public static implicit operator Rgb(uint rgba) => new((byte)(rgba >> 24), (byte)(rgba >> 16), (byte)(rgba >> 8), (byte)rgba);
+	public static implicit operator Rgb(uint rgba) => new((byte)(rgba >> 24), (byte)(rgba >> 16), (byte)(rgba >> 8), ByteToAlpha((byte)rgba));
 
 	public static implicit operator Rgb(string value) => TryParse(value, out var rgb) ? rgb : Black;
 
-	public static Rgb FromColor(Color color) => new(color.R, color.G, color.B, Math.Round(color.A / 255m, 2));
+	public static Rgb FromColor(Color color) => new(color.R, color.G, color.B, ByteToAlpha(color.A));
 
 	public static bool TryParse(string value, out Rgb rgb)
 	{
@@ -64,7 +64,6 @@ public readonly record struct Rgb(byte R, byte G, byte B, decimal A = 1m)
 
 	private static bool ParseHex(ref Rgb rgb, ReadOnlySpan<char> span)
 	{
-
 		if (span.Length is not 4 and not 7 and not 9)
 			return false;
 
@@ -119,10 +118,12 @@ public readonly record struct Rgb(byte R, byte G, byte B, decimal A = 1m)
 			(byte)(c[0] * 16 + c[1]),
 			(byte)(c[2] * 16 + c[3]),
 			(byte)(c[4] * 16 + c[5]),
-			span.Length == 7 ? 1m : Math.Round((byte)(c[6] * 16 + c[7]) / 255m, 2)
+			span.Length == 7 ? 1m : ByteToAlpha((byte)(c[6] * 16 + c[7]))
 		);
 		return true;
 	}
+
+	private static decimal ByteToAlpha(byte alpha) => Math.Round(alpha / 255m, 2);
 
 	public const uint Black = 0x000000ff;
 }
