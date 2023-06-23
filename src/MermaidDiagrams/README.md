@@ -15,7 +15,7 @@ var output = flow.Render();
 
 ### Setup a flowchart
 
-- Add `init` directive to set theme
+- Use `SetOptions` to set theme
 - Set a title with `SetHeader`
 - Add a comment with `AddComment`
 - Add nodes with `Node`
@@ -93,6 +93,66 @@ var customTheme = FlowchartInit.CreateCustomTheme(theme =>
     });
     
 flow.SetOptions(customTheme);
+```
+
+## Git
+
+### Create a git graph
+
+Declare a graph and render it to a string.
+
+```csharp
+var git = new GitGraph();
+var output = git.Render();
+```
+
+### Examples
+
+```csharp
+git
+    .Branch("A", 3)
+    .Branch("B", 2)
+    .Branch("C", 1)
+    .Commit()
+    .Commit()
+    .Checkout("A")
+    .Commit();
+```
+
+```csharp
+git
+    .Commit()
+    .Commit("bob")
+    .Commit("sue", CommitType.Reverse)
+    .Commit(tag: "tag")
+    .Branch(hotfix)
+    .Checkout(hotfix)
+    .Commit()
+    .Commit(CommitType.Reverse)
+    .Merge(git.MainBranch)
+    .Branch("POC")
+    .CherryPick("sue");
+```
+
+Change options
+
+```csharp
+git.SetOptions(new GitGraphInit
+{
+    GitGraph = new()
+    {
+        ShowBranches = false,
+        ShowCommitLabel = false,
+        MainBranchName = "master",
+        MainBranchOrder = 4,
+        RotateCommitLabel = false
+    },
+    Theme = "base",
+    ThemeVariables = new ()
+    {
+        Git0 = "#FF0000"
+    }
+});
 ```
 
 ## Other charts
