@@ -13,7 +13,7 @@
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/nick-randal/MermaidDiagram</PackageProjectUrl>
 
-        <Version>0.2.2</Version>
+        <Version>0.3.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
