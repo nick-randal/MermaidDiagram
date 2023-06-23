@@ -64,4 +64,20 @@ public static class GitGraphExtensions
 		gitGraph.CreateMerge(branch);
 		return gitGraph;
 	}
+	
+	public static T CherryPick<T>(this T gitGraph, ICommit commit) 
+	
+		where T : GitGraph
+	{
+		gitGraph.CreateCherryPick(commit);
+		return gitGraph;
+	}
+	
+	public static T CherryPick<T>(this T gitGraph, Identifier id) 
+	
+		where T : GitGraph
+	{
+		gitGraph.CreateCherryPick(id);
+		return gitGraph;
+	}
 }

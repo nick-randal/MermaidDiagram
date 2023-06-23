@@ -27,7 +27,7 @@ public class GitGraph : MermaidBase
 	
 	public ICheckout CreateCheckout(IBranch branch)
 	{
-		return Add(new Checkout(branch.Name));
+		return Add(new Checkout(branch));
 	}
 	
 	public IMerge CreateMerge(string name)
@@ -37,6 +37,16 @@ public class GitGraph : MermaidBase
 	
 	public IMerge CreateMerge(IBranch branch)
 	{
-		return Add(new Merge(branch.Name));
+		return Add(new Merge(branch));
+	}
+	
+	public ICherryPick CreateCherryPick(Identifier id)
+	{
+		return Add(new CherryPick(id));
+	}
+	
+	public ICherryPick CreateCherryPick(ICommit commit)
+	{
+		return Add(new CherryPick(commit));
 	}
 }

@@ -47,7 +47,8 @@ public sealed class GitGraphTests : XUnitTestBase<GitGraphTests.Thens>
 			.Commit()
 			.Commit(CommitType.Reverse)
 			.Merge(git.MainBranch)
-			.Branch("POC");
+			.Branch("POC")
+			.CherryPick("sue");
 	}
 
 	public sealed class Thens
