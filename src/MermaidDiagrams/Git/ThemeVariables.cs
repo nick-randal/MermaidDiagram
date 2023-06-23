@@ -4,15 +4,6 @@ using MermaidDiagrams.Support;
 
 namespace MermaidDiagrams.Git;
 
-public record GitInit()
-{
-	[JsonPropertyName("theme")]
-	public string Theme { get; init; } = "default";
-
-	[JsonPropertyName("themeVariables")]
-	public ThemeVariables? ThemeVariables { get; init; }
-}
-
 public class ThemeVariables
 {
 	[JsonPropertyName("git0")]

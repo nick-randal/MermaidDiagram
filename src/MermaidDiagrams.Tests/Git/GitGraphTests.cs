@@ -63,10 +63,31 @@ public sealed class GitGraphTests : XUnitTestBase<GitGraphTests.Thens>
 	{
 		var git = Then.Target;
 
+		git.SetOptions(new GitGraphInit
+		{
+			GitGraph = new()
+			{
+				ShowBranches = false,
+				ShowCommitLabel = false,
+				MainBranchName = "master",
+				MainBranchOrder = 4,
+				RotateCommitLabel = false
+			},
+			Theme = "base",
+			ThemeVariables = new ()
+			{
+				Git0 = "#FF0000"
+			}
+		});
+		
 		git
 			.Branch("A", 3)
 			.Branch("B", 2)
-			.Branch("C", 1);
+			.Branch("C", 1)
+			.Commit()
+			.Commit()
+			.Checkout("A")
+			.Commit();
 	}
 
 	public sealed class Thens

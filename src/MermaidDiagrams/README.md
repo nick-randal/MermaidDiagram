@@ -9,7 +9,7 @@
 Declare a chart and render it to a string.
 
 ```csharp
-var flow = new Flowchart();
+var flow = new FlowchartGraph(FlowDirection.TopBottom);
 var output = flow.Render();
 ```
 
@@ -22,20 +22,22 @@ var output = flow.Render();
 - Add links with `Link`
 
 ```csharp
-flow.AddDirective(new DirectiveInitialize(KnownThemes.Forest));
+flow.SetOptions(new FlowchartInit { Theme = KnownThemes.Forest });
+
 flow.SetHeader(new Header("This is a test"));
+
 flow.Comment("No comment");
 
-flow.AddNode("A", "Hard edge", Shape.Box)
-    .AddNode("B", "Round edge", Shape.RoundedBox);
+flow.Node("A", "Hard edge", Shape.Box)
+	.Node("B", "Round edge", Shape.RoundedBox);
 
 flow.Link(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
 
-var c = flow.Node("C", "Decision", Shape.Rhombus);
+var c = flow.CreateNode("C", "Decision", Shape.Rhombus);
 
-var d = flow.Node("D", "Result One", Shape.Trapezoid);
+var d = flow.CreateNode("D", "Result One", Shape.Trapezoid);
 
-var e = flow.Node("E", "Result Two", Shape.Circle);
+var e = flow.CreateNode("E", "Result Two", Shape.Circle);
 
 flow.Link(flow["B"], c, Edge.Arrow);
 flow.Link(c, d, Edge.Arrow.WithLabel("Yes"));
@@ -60,14 +62,6 @@ flow.Subgraph("Outer", Identifier.Next("sg"), FlowDirection.TopBottom,
 Define a style by name and assign it to a node by it's identifier.
 
 ```csharp
-flow.AddDirective(new DirectiveInitialize(KnownThemes.Forest));
-// or
-flow.SetTheme(KnownThemes.Forest);
-// or
-flow.SetTheme(new ThemeVariables() {
-    // set theme variables
-});
-
 var cd = flow.GetClassDefinitions();
 
 cd.GetOrCreate("neat", s
@@ -77,6 +71,28 @@ cd.GetOrCreate("neat", s
         .Style("stroke-width", "2px")
         .Assign("A")
     );
+```
+
+Use a stock theme.
+
+```csharp
+flow.SetOptions(new FlowchartInit { Theme = KnownThemes.Forest });
+```
+
+Defining a custom theme
+
+```csharp
+var customTheme = FlowchartInit.CreateCustomTheme(theme =>
+    {
+        theme.PrimaryColor = "#f96";
+        theme.SecondaryColor = "#363";
+        theme.LineColor = "#363";
+        theme.TertiaryColor = "#f96";
+        theme.PrimaryBorderColor = "#333";
+        theme.PrimaryTextColor = "#633";
+    });
+    
+flow.SetOptions(customTheme);
 ```
 
 ## Other charts

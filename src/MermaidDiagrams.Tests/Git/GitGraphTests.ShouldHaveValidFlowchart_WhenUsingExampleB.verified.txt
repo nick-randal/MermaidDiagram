@@ -1,4 +1,21 @@
-﻿gitGraph
+﻿%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "git0": "#FF0000"
+  },
+  "gitGraph": {
+    "showBranches": false,
+    "showCommitLabel": false,
+    "mainBranchName": "master",
+    "mainBranchOrder": 4,
+    "rotateCommitLabel": false
+  }
+}}%%
+gitGraph
   branch "A" order: 3
   branch "B" order: 2
   branch "C" order: 1
+  commit
+  commit
+  checkout "A"
+  commit

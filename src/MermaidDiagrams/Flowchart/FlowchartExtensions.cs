@@ -33,7 +33,7 @@ public static class FlowchartExtensions
 	public static T NodeInvisible<T>(this T flow, string id)
 		where T : FlowchartBase
 	{
-		flow.Invisible(id);
+		flow.CreateInvisible(id);
 		return flow;
 	}
 

@@ -9,15 +9,9 @@ public class FlowchartGraph : FlowchartBase
 	{
 	}
 
-	public virtual FlowchartGraph SetTheme(string theme)
+	public virtual FlowchartGraph SetOptions(FlowchartInit init)
 	{
-		AddDirective(new InitializeDirective<FlowchartInit>(new FlowchartInit {Theme = theme}));
-		return this;
-	}
-
-	public virtual FlowchartGraph SetTheme(ThemeVariables customTheme)
-	{
-		AddDirective(new InitializeDirective<FlowchartInit>(new FlowchartInit { Theme = "custom", ThemeVariables = customTheme}));
+		AddDirective(new InitializeDirective<FlowchartInit>(init));
 		return this;
 	}
 	

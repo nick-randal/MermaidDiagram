@@ -21,7 +21,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 
 		return Verify(Then.Diagram);
 	}
-	
+
 	[Fact]
 	public Task ShouldHaveValidFlowchart_WhenUsingExampleA_AddingClassDefs()
 	{
@@ -29,7 +29,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 
 		return Verify(Then.Diagram);
 	}
-	
+
 	[Fact]
 	public Task ShouldHaveValidFlowchart_WhenUsingExampleB()
 	{
@@ -52,20 +52,20 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	{
 		var flow = Then.Target;
 
-		flow.SetTheme(KnownThemes.Forest);
+		flow.SetOptions(new FlowchartInit { Theme = KnownThemes.Forest });
 		flow.SetHeader(new Header("This is a test"));
 		flow.AddAnd(new Comment("No comment"));
 
-		flow.Node("A", "Hard edge", Shape.Box);
-		flow.Node("B", "Round edge", Shape.RoundedBox);
+		flow.CreateNode("A", "Hard edge", Shape.Box);
+		flow.CreateNode("B", "Round edge", Shape.RoundedBox);
 
 		flow.Link(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
 
-		var c = flow.Node("C", "Decision", Shape.Rhombus);
+		var c = flow.CreateNode("C", "Decision", Shape.Rhombus);
 
-		var d = flow.Node("D", "Result One", Shape.Trapezoid);
+		var d = flow.CreateNode("D", "Result One", Shape.Trapezoid);
 
-		var e = flow.Node("E", "Result Two", Shape.Circle);
+		var e = flow.CreateNode("E", "Result Two", Shape.Circle);
 
 		flow.Link(flow["B"], c, Edge.Arrow);
 		flow.Link(c, d, Edge.Arrow.WithLabel("Yes"));
@@ -76,24 +76,26 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	{
 		var flow = Then.Target;
 
-		flow.SetTheme(new ThemeVariables
+		var customTheme = FlowchartInit.CreateCustomTheme(theme =>
 		{
-			PrimaryColor = "#f96",
-			SecondaryColor = "#363",
-			LineColor = "#363",
-			TertiaryColor = "#f96",
-			PrimaryBorderColor = "#333",
-			PrimaryTextColor = "#633"
+			theme.PrimaryColor = "#f96";
+			theme.SecondaryColor = "#363";
+			theme.LineColor = "#363";
+			theme.TertiaryColor = "#f96";
+			theme.PrimaryBorderColor = "#333";
+			theme.PrimaryTextColor = "#633";
 		});
+		
+		flow.SetOptions(customTheme);
 
 		flow.Subgraph("Outer", Identifier.Next("sg"), FlowDirection.TopBottom, sub =>
 		{
-			sub.Node("Something", Shape.Stadium);
+			sub.CreateNode("Something", Shape.Stadium);
 
 			var sg = sub.CreateSubgraph("Inner", "in1");
-			sg.Node("A", "A Box", Shape.Box);
+			sg.CreateNode("A", "A Box", Shape.Box);
 
-			sg.Invisible("can'tSeeme");
+			sg.CreateInvisible("can'tSeeme");
 		});
 	}
 

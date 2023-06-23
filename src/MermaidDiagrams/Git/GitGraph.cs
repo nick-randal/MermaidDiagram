@@ -5,24 +5,19 @@ namespace MermaidDiagrams.Git;
 
 public class GitGraph : MermaidBase
 {
-	public GitGraph() : base(new DiagramType.Basic("gitGraph"))
+	public GitGraph(string mainBranchName = "main") : base(new DiagramType.Basic("gitGraph"))
 	{
+		MainBranch = new Branch(mainBranchName);
 	}
-	
-	public IBranch MainBranch => new Branch("main");
 
-	public virtual GitGraph SetTheme(string theme)
+	public IBranch MainBranch { get; }
+
+	public virtual GitGraph SetOptions(GitGraphInit init)
 	{
-		AddDirective(new InitializeDirective<GitInit>(new GitInit { Theme = theme}));
+		AddDirective(new InitializeDirective<GitGraphInit>(init));
 		return this;
 	}
 
-	public virtual GitGraph SetTheme(ThemeVariables customTheme)
-	{
-		AddDirective(new InitializeDirective<GitInit>(new GitInit { Theme = "custom", ThemeVariables = customTheme}));
-		return this;
-	}
-	
 	public virtual GitGraph AddDirective<T>(T directive)
 		where T : IDirective
 	{

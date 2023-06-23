@@ -9,4 +9,15 @@ public sealed record FlowchartInit
 
 	[JsonPropertyName("themeVariables")]
 	public ThemeVariables? ThemeVariables { get; init; }
+
+	public static FlowchartInit CreateCustomTheme(Action<ThemeVariables>? setVars = null)
+	{
+		var themeVars = new ThemeVariables();
+		setVars?.Invoke(themeVars);
+		return new FlowchartInit
+		{
+			Theme = "base",
+			ThemeVariables = themeVars
+		};
+	}
 }
