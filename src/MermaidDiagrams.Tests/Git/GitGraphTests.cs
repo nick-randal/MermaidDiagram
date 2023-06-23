@@ -36,10 +36,18 @@ public sealed class GitGraphTests : XUnitTestBase<GitGraphTests.Thens>
 	{
 		var git = Then.Target;
 
-		git.Commit();
-		git.Commit("bob");
-		git.Commit("sue", CommitType.Reverse);
-		git.Commit(tag: "tag");
+		var hotfix = new Branch("hotfix");
+		git
+			.Commit()
+			.Commit("bob")
+			.Commit("sue", CommitType.Reverse)
+			.Commit(tag: "tag")
+			.Branch(hotfix)
+			.Checkout(hotfix)
+			.Commit()
+			.Commit(CommitType.Reverse)
+			.Merge()
+			.Branch("POC");
 	}
 
 	public sealed class Thens

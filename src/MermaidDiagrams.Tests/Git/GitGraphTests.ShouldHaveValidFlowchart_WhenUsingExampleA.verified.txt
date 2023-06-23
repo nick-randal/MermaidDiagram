@@ -1,5 +1,11 @@
 ﻿gitGraph
   commit
-  commit id: "bob"
+  commit tag: "bob"
   commit id: "sue" type: REVERSE
   commit tag: "tag"
+  branch "hotfix"
+  checkout "hotfix"
+  commit
+  commit type: REVERSE
+  merge "hotfix"
+  branch "POC"

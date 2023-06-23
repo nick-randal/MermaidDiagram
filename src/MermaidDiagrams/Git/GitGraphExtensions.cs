@@ -15,4 +15,60 @@ public static class GitGraphExtensions
 		gitGraph.CreateCommit(id, commitType, tag);
 		return gitGraph;
 	}
+	
+	public static T Commit<T>(this T gitGraph, string tag) 
+		where T : GitGraph
+	{
+		gitGraph.CreateCommit(Identifier.None, CommitType.Normal, tag);
+		return gitGraph;
+	}
+	
+	public static T Branch<T>(this T gitGraph, string name) 
+		where T : GitGraph
+	{
+		gitGraph.CreateBranch(name);
+		return gitGraph;
+	}
+	
+	public static T Branch<T>(this T gitGraph, IBranch branch) 
+		where T : GitGraph
+	{
+		gitGraph.Add(branch);
+		return gitGraph;
+	}
+	
+	public static T Checkout<T>(this T gitGraph, string name) 
+		where T : GitGraph
+	{
+		gitGraph.CreateCheckout(name);
+		return gitGraph;
+	}
+	
+	public static T Checkout<T>(this T gitGraph, IBranch branch) 
+		where T : GitGraph
+	{
+		gitGraph.CreateCheckout(branch);
+		return gitGraph;
+	}
+	
+	public static T Merge<T>(this T gitGraph, string name) 
+		where T : GitGraph
+	{
+		gitGraph.CreateMerge(name);
+		return gitGraph;
+	}
+	
+	public static T Merge<T>(this T gitGraph, IBranch branch) 
+		where T : GitGraph
+	{
+		gitGraph.CreateMerge(branch);
+		return gitGraph;
+	}
+	
+	public static T Merge<T>(this T gitGraph) 
+		where T : GitGraph
+	{
+		gitGraph.CreateMerge(gitGraph.CurrentBranch);
+		return gitGraph;
+	}
 }

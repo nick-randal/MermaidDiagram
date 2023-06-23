@@ -6,9 +6,9 @@ public abstract class MermaidBase : IRenderable
 {
 	protected MermaidBase(IDiagramType type)
 	{
-		var existing = Renderables.FirstOrDefault(x => x is IDiagramType);
+		var existing = _renderables.FirstOrDefault(x => x is IDiagramType);
 		if (existing is not null)
-			Renderables.Remove(existing);
+			_renderables.Remove(existing);
 
 		Renderables.Insert(0, type);
 	}
@@ -54,7 +54,7 @@ public abstract class MermaidBase : IRenderable
 		RenderFirst<ClassDefinitions>(textBuilder, renderState);
 	}
 
-	protected IIdentifiable this[Identifier id] => (IIdentifiable)Renderables.Single(s => s is IIdentifiable i && i.Id.Equals(id));
+	protected IIdentifiable this[Identifier id] => (IIdentifiable)_renderables.Single(s => s is IIdentifiable i && i.Id.Equals(id));
 
 	protected T GetRenderableOrThrow<T>(Identifier id)
 		where T : class, IIdentifiable
@@ -63,28 +63,28 @@ public abstract class MermaidBase : IRenderable
 	protected virtual void RenderSingle<T>(ITextBuilder textBuilder, IRenderState renderState)
 		where T : IRenderable
 	{
-		var type = Renderables.Single(x => x is T);
+		var type = _renderables.Single(x => x is T);
 		type.Render(textBuilder, renderState);
 	}
 
 	protected virtual void RenderGroup<T>(ITextBuilder textBuilder, IRenderState renderState)
 		where T : IRenderable
 	{
-		foreach (var directive in Renderables.Where(s => s is T))
+		foreach (var directive in _renderables.Where(s => s is T))
 			directive.Render(textBuilder, renderState);
 	}
 
 	protected virtual void RenderFirst<T>(ITextBuilder textBuilder, IRenderState renderState)
 		where T : IRenderable
 	{
-		var header = Renderables.FirstOrDefault(x => x is T);
+		var header = _renderables.FirstOrDefault(x => x is T);
 		header?.Render(textBuilder, renderState);
 	}
 
 	protected virtual void RenderRegularStatements(ITextBuilder builder, IRenderState state)
 	{
 		using var stepper = state.StepIn();
-		foreach (var statement in Renderables.Where(s => s is IStatement))
+		foreach (var statement in _renderables.Where(s => s is IStatement))
 		{
 			builder.Append(state.Indent);
 			statement.Render(builder, state);
@@ -94,15 +94,15 @@ public abstract class MermaidBase : IRenderable
 	protected T GetOrCreate<T>()
 		where T : IRenderable, new()
 	{
-		var defs = Renderables.FirstOrDefault(x => x is T);
+		var defs = _renderables.FirstOrDefault(x => x is T);
 		if (defs is T cd)
 			return cd;
 
 		cd = new T();
-		Renderables.Add(cd);
+		Add(cd);
 
 		return cd;
 	}
 
-	protected readonly List<IRenderable> Renderables = new();
+	private readonly List<IRenderable> _renderables = new();
 }
