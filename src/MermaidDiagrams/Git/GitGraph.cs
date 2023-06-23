@@ -1,4 +1,5 @@
-﻿using MermaidDiagrams.Support;
+﻿using MermaidDiagrams.Contracts;
+using MermaidDiagrams.Support;
 
 namespace MermaidDiagrams.Git;
 
@@ -10,6 +11,25 @@ public class GitGraph : MermaidBase
 	
 	public IBranch MainBranch => new Branch("main");
 
+	public virtual GitGraph SetTheme(string theme)
+	{
+		AddDirective(new InitializeDirective<GitInit>(new GitInit { Theme = theme}));
+		return this;
+	}
+
+	public virtual GitGraph SetTheme(ThemeVariables customTheme)
+	{
+		AddDirective(new InitializeDirective<GitInit>(new GitInit { Theme = "custom", ThemeVariables = customTheme}));
+		return this;
+	}
+	
+	public virtual GitGraph AddDirective<T>(T directive)
+		where T : IDirective
+	{
+		Add(directive);
+		return this;
+	}
+	
 	public ICommit CreateCommit(Identifier id, CommitType commitType = CommitType.Normal, string? tag = default)
 	{
 		return Add(new Commit(id, commitType, tag));

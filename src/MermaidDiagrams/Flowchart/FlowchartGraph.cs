@@ -1,4 +1,5 @@
 using MermaidDiagrams.Contracts;
+using MermaidDiagrams.Support;
 
 namespace MermaidDiagrams.Flowchart;
 
@@ -10,13 +11,13 @@ public class FlowchartGraph : FlowchartBase
 
 	public virtual FlowchartGraph SetTheme(string theme)
 	{
-		AddDirective(new FlowInitialize(theme));
+		AddDirective(new InitializeDirective<FlowchartInit>(new FlowchartInit {Theme = theme}));
 		return this;
 	}
 
 	public virtual FlowchartGraph SetTheme(ThemeVariables customTheme)
 	{
-		AddDirective(new FlowInitialize(customTheme));
+		AddDirective(new InitializeDirective<FlowchartInit>(new FlowchartInit { Theme = "custom", ThemeVariables = customTheme}));
 		return this;
 	}
 	

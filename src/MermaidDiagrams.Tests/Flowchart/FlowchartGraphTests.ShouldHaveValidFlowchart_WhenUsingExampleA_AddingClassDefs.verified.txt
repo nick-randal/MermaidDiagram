@@ -1,11 +1,9 @@
 ﻿---
 title: This is a test
 ---
-%%{
-  init: {
-    "theme": "forest"
-  }
-}%%
+%%{init: {
+  "theme": "forest"
+}}%%
 flowchart LR
   %% No comment
   A[Hard edge]

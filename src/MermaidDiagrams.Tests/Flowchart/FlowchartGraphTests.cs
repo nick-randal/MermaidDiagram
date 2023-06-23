@@ -52,7 +52,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	{
 		var flow = Then.Target;
 
-		flow.AddDirective(new FlowInitialize(KnownThemes.Forest));
+		flow.SetTheme(KnownThemes.Forest);
 		flow.SetHeader(new Header("This is a test"));
 		flow.AddAnd(new Comment("No comment"));
 
