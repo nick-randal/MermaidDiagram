@@ -1,7 +1,7 @@
 using System.Text;
 using MermaidDiagrams.Contracts;
 
-namespace MermaidDiagrams;
+namespace MermaidDiagrams.Support;
 
 public class TextBuilder : ITextBuilder
 {

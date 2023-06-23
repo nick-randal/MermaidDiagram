@@ -48,15 +48,12 @@ public readonly record struct Rgb(byte R, byte G, byte B, decimal A = 1m)
 		{
 			return ParseHex(ref rgb, span);
 		}
-		
-		if (span[0] is 'r' or 'R' && span[1] is 'g' or 'G' && span[2] is 'b' or 'B')
+
+		var match = Rgba.Match(value);
+		if (match.Success)
 		{
-			var match = Regex.Match(value, @"rgba?\((?<r>\d+),\s*(?<g>\d+),\s*(?<b>\d+)(?:,\s*(?<a>\d+(?:\.\d+)?))?\)");
-			if (match.Success)
-			{
-				rgb = new Rgb(byte.Parse(match.Groups["r"].Value), byte.Parse(match.Groups["g"].Value), byte.Parse(match.Groups["b"].Value), match.Groups["a"].Success ? decimal.Parse(match.Groups["a"].Value) : 1m);
-				return true;
-			}
+			rgb = new Rgb(byte.Parse(match.Groups["r"].Value), byte.Parse(match.Groups["g"].Value), byte.Parse(match.Groups["b"].Value), match.Groups["a"].Success ? decimal.Parse(match.Groups["a"].Value) : 1m);
+			return true;
 		}
 
 		return false;
@@ -126,6 +123,8 @@ public readonly record struct Rgb(byte R, byte G, byte B, decimal A = 1m)
 	private static decimal ByteToAlpha(byte alpha) => Math.Round(alpha / 255m, 2);
 
 	public const uint Black = 0x000000ff;
+
+	private static readonly Regex Rgba = new(@"rgba?\((?<r>\d+),\s*(?<g>\d+),\s*(?<b>\d+)(?:,\s*(?<a>\d+(?:\.\d+)?))?\)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 }
 
 public sealed class RgbToStringConverter : JsonConverter<Rgb>
@@ -137,7 +136,7 @@ public sealed class RgbToStringConverter : JsonConverter<Rgb>
 			if (Rgb.TryParse(reader.GetString(), out var rgb))
 				return rgb;
 		}
-		
+
 		return Rgb.Black;
 	}
 

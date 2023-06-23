@@ -64,13 +64,20 @@ public sealed class RgbTests : XUnitTestBase<RgbTests.Thens>
 	[Theory,
 	 InlineData(null, 0, 0, 0, "1.0"),
 	 InlineData(" \t\r\n", 0, 0, 0, "1.0"),
+	 InlineData("bob", 0, 0, 0, "1.0"),
+	 InlineData("#zoo", 0, 0, 0, "1.0"),
+	 InlineData("#Zoo", 0, 0, 0, "1.0"),
+	 InlineData("#.ff", 0, 0, 0, "1.0"),
+	 InlineData("#:ff", 0, 0, 0, "1.0"),
+	 InlineData("junk(0, 0, 0)", 0, 0, 0, "1.0"),
 	 InlineData("#000000", 0, 0, 0, "1.0"),
 	 InlineData("rgb(0, 0, 0)", 0, 0, 0, "1.0"),
 	 InlineData("rgba(0, 0, 0, 1)", 0, 0, 0, "1.0"),
 	 InlineData("#FF000040", 255, 0, 0, "0.25"),
 	 InlineData("#564B1EE5", 86, 75, 30, "0.9"),
 	 InlineData("rgba(86, 75, 30, 0.9)", 86, 75, 30, "0.9"),
-	 InlineData("#123", 31, 47, 63, "1.0"),
+	 InlineData("#1Af", 0x1F, 0xAF, 0xFF, "1.0"),
+	 InlineData("#1234", 0, 0, 0, "1.0")
 	]
 	public void ShouldHaveValidValue_WhenParsing(
 		string value, byte r, byte g, byte b,

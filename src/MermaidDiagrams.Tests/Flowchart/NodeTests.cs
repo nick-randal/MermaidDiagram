@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using GwtUnit.XUnit;
 using MermaidDiagrams.Flowchart;
+using MermaidDiagrams.Support;
 
 namespace MermaidDiagrams.Tests.Flowchart;
 

@@ -1,6 +1,6 @@
 using MermaidDiagrams.Contracts;
 
-namespace MermaidDiagrams;
+namespace MermaidDiagrams.Support;
 
 public record RenderState(string IndentValue = "  ") : IRenderState
 {
@@ -22,8 +22,6 @@ public record RenderState(string IndentValue = "  ") : IRenderState
 		}
 	}
 
-	public TState State<TState>() where TState : Enum => (_states.Count is 0 ? default(TState) : (TState)_states.Peek())!;
-
 	public OnDisposeAction StepIn()
 	{
 		_depth++;
@@ -35,21 +33,7 @@ public record RenderState(string IndentValue = "  ") : IRenderState
 		if(_depth > 0)
 			_depth--;
 	}
-
-	public OnDisposeAction PushState<TState>(TState state)
-		where TState : Enum
-	{
-		_states.Push(state);
-		return new OnDisposeAction(PopState);
-	}
-
-	private void PopState()
-	{
-		if(_states.Count > 0)
-			_states.Pop();
-	}
-
-	private readonly Stack<Enum> _states = new();
+	
 	private int _depth;
 	private readonly object _lock = new();
 	private readonly List<string> _indents = new();

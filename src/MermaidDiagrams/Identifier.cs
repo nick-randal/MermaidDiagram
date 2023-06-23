@@ -8,12 +8,6 @@ public record Identifier
 		NoId = string.IsNullOrWhiteSpace(Value);
 	}
 
-	public void Deconstruct(out string Value, out bool NoId)
-	{
-		Value = this.Value;
-		NoId = this.NoId;
-	}
-
 	public string Value { get; }
 
 	public bool NoId { get; }
@@ -36,5 +30,5 @@ public record Identifier
 	
 	public static Identifier None => new(string.Empty);
 
-	private static long _idCounter = 0;
+	private static long _idCounter;
 }

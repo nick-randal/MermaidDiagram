@@ -1,4 +1,4 @@
-namespace MermaidDiagrams;
+namespace MermaidDiagrams.Support;
 
 public record OnDisposeAction : IDisposable
 {
