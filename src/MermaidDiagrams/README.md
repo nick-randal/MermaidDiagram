@@ -155,6 +155,101 @@ git.SetOptions(new GitGraphInit
 });
 ```
 
+## Sequence diagrams
+
+### Create a sequence diagram
+
+Declare a diagram and render it to a string.
+
+```csharp
+var sequence = new SequenceDiagram();
+var output = sequence.Render();
+```
+
+### Examples
+
+```csharp
+sequence
+    .SetAutoNumbering()
+    .Participant("Alice")
+    .Participant("Bob")
+    .Note("Bob", "Bob is cool", NotePosition.RightOf)
+    .Message("Alice", "Bob", "Can you hear me now?", ArrowType.DottedLineCross, true)
+    .Comment("topical reference")
+    .Message("Bob", "Alice", "Goodbye", ArrowType.SolidLineArrow, false)
+    .Note("Alice", "This is a floating note", NotePosition.Over, "Bob");
+```
+
+Loop, alternate and optional
+
+```csharp
+var b = sequence
+    .Participant("A", "Alice", true)
+    .CreateParticipant("B", "Bob", true);
+
+sequence
+    .Message("A", "B", "Hello Bob, how are you?")
+    .Activate(b)
+    .Message("B", "A", "Great!", ArrowType.DottedLineArrow)
+    .Deactivate(b)
+    .Loop("Tell me when", l =>
+    {
+        l.Message("A", "B", "When!");
+    })
+    .Alternate(
+        yes =>
+        {
+            yes.SetLabel("Should I?")
+                .Message("A", "B", "Yes!");
+        },
+        no =>
+        {
+            no.SetLabel("Or not")
+                .Message("A", "B", "No!");
+        }
+    )
+    .Optional("Sometimes we do this...", o =>
+    {
+        o.Message("A", "B", "We did it!");
+    });
+```
+
+Parallel, highlight and break
+
+```csharp
+sequence
+    .Parallel(
+        first =>
+        {
+            first.Message(a, b, "Apples");
+        },
+        second =>
+        {
+            second.Message(b, a, "Oranges");
+        },
+        third =>
+        {
+            third.Message(a, c, "Pears");
+        }
+    )
+    .Highlight(Color.Azure, h =>
+    {
+        h.Critical(critical =>
+            {
+                critical.Message(a, b, "Don't lose your sense of humor");
+            },
+            option1 =>
+            {
+                option1.Message(a, c, "Stay positive");
+            }
+        );
+    })
+    .Break("This is a break", b =>
+    {
+        b.Message(c, a, "I'm back!");
+    });
+```
+
 ## Other charts
 
 To be done...
