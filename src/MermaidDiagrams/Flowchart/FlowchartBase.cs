@@ -16,6 +16,19 @@ public abstract class FlowchartBase : MermaidBase, IStatement
 
 			return current;
 		});
+
+		_nodeLookup = new Dictionary<Identifier, INode>();
+	}
+
+	internal override void OnItemChange(IRenderable item, ItemChange change)
+	{
+		if (item is INode node)
+		{
+			if (change == ItemChange.Added)
+				_nodeLookup.Add(node.Id, node);
+			else
+				_nodeLookup.Remove(node.Id);
+		}
 	}
 
 	public INode Node() => Add(Flowchart.Node.Create(Flowchart.Node.NextId(), string.Empty, Shape.Box));
@@ -28,7 +41,7 @@ public abstract class FlowchartBase : MermaidBase, IStatement
 
 	public INode Node(string id, Text text, Shape style) => Add(Flowchart.Node.Create(id, text, style));
 
-	public new INode this[Identifier id] => GetRenderableOrThrow<INode>(id);
+	public new INode this[Identifier id] => _nodeLookup[id];
 
 	public INode Invisible(Identifier id)
 	{
@@ -78,4 +91,5 @@ public abstract class FlowchartBase : MermaidBase, IStatement
 	protected FlowchartBase? Parent { get; }
 	
 	private readonly Lazy<FlowchartBase> _lazyRoot;
+	private readonly Dictionary<Identifier,INode> _nodeLookup;
 }

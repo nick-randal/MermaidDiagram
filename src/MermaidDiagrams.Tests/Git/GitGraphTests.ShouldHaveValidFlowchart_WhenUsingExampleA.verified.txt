@@ -7,5 +7,5 @@
   checkout "hotfix"
   commit
   commit type: REVERSE
-  merge "hotfix"
+  merge "main"
   branch "POC"

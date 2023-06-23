@@ -6,13 +6,10 @@ public class GitGraph : MermaidBase
 {
 	public GitGraph() : base(new DiagramType.Basic("gitGraph"))
 	{
-		CurrentBranch = MainBranch;
 	}
 	
 	public IBranch MainBranch => new Branch("main");
 
-	public IBranch CurrentBranch { get; private set; }
-	
 	public ICommit CreateCommit(Identifier id, CommitType commitType = CommitType.Normal, string? tag = default)
 	{
 		return Add(new Commit(id, commitType, tag));

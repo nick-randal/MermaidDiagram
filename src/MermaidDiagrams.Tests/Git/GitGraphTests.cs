@@ -46,7 +46,7 @@ public sealed class GitGraphTests : XUnitTestBase<GitGraphTests.Thens>
 			.Checkout(hotfix)
 			.Commit()
 			.Commit(CommitType.Reverse)
-			.Merge()
+			.Merge(git.MainBranch)
 			.Branch("POC");
 	}
 

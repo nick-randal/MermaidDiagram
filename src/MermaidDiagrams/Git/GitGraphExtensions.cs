@@ -64,11 +64,4 @@ public static class GitGraphExtensions
 		gitGraph.CreateMerge(branch);
 		return gitGraph;
 	}
-	
-	public static T Merge<T>(this T gitGraph) 
-		where T : GitGraph
-	{
-		gitGraph.CreateMerge(gitGraph.CurrentBranch);
-		return gitGraph;
-	}
 }
