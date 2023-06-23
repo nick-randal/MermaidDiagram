@@ -6,6 +6,5 @@ public static class KnownThemes
 		Default = "default",
 		Dark = "dark",
 		Forest = "forest",
-		Neutral = "neutral",
-		Custom = "base";
+		Neutral = "neutral";
 }

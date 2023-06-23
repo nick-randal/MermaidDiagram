@@ -10,13 +10,13 @@ public class FlowchartGraph : FlowchartBase
 
 	public virtual FlowchartGraph SetTheme(string theme)
 	{
-		AddDirective(new DirectiveInitialize(theme));
+		AddDirective(new FlowInitialize(theme));
 		return this;
 	}
 
 	public virtual FlowchartGraph SetTheme(ThemeVariables customTheme)
 	{
-		AddDirective(new DirectiveInitialize(customTheme));
+		AddDirective(new FlowInitialize(customTheme));
 		return this;
 	}
 	

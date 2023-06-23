@@ -52,7 +52,7 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	{
 		var flow = Then.Target;
 
-		flow.AddDirective(new DirectiveInitialize(KnownThemes.Forest));
+		flow.AddDirective(new FlowInitialize(KnownThemes.Forest));
 		flow.SetHeader(new Header("This is a test"));
 		flow.AddAnd(new Comment("No comment"));
 
@@ -75,6 +75,16 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	private void UsingExampleB()
 	{
 		var flow = Then.Target;
+
+		flow.SetTheme(new ThemeVariables
+		{
+			PrimaryColor = "#f96",
+			SecondaryColor = "#363",
+			LineColor = "#363",
+			TertiaryColor = "#f96",
+			PrimaryBorderColor = "#333",
+			PrimaryTextColor = "#633"
+		});
 
 		flow.Subgraph("Outer", Identifier.Next("sg"), FlowDirection.TopBottom, sub =>
 		{

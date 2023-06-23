@@ -22,6 +22,14 @@ public sealed class GitGraphTests : XUnitTestBase<GitGraphTests.Thens>
 		return Verify(Then.Diagram);
 	}
 
+	[Fact]
+	public Task ShouldHaveValidFlowchart_WhenUsingExampleB()
+	{
+		When(UsingExampleB, Rendering);
+
+		return Verify(Then.Diagram);
+	}
+	
 	protected override void Creating()
 	{
 		Then.Target = new GitGraph();
@@ -49,6 +57,16 @@ public sealed class GitGraphTests : XUnitTestBase<GitGraphTests.Thens>
 			.Merge(git.MainBranch)
 			.Branch("POC")
 			.CherryPick("sue");
+	}
+
+	private void UsingExampleB()
+	{
+		var git = Then.Target;
+
+		git
+			.Branch("A", 3)
+			.Branch("B", 2)
+			.Branch("C", 1);
 	}
 
 	public sealed class Thens

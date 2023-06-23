@@ -23,10 +23,17 @@ public static class GitGraphExtensions
 		return gitGraph;
 	}
 	
-	public static T Branch<T>(this T gitGraph, string name) 
+	public static T Branch<T>(this T gitGraph, string name)
 		where T : GitGraph
 	{
 		gitGraph.CreateBranch(name);
+		return gitGraph;
+	}
+	
+	public static T Branch<T>(this T gitGraph, string name, Order order)
+		where T : GitGraph
+	{
+		gitGraph.CreateBranch(name, order);
 		return gitGraph;
 	}
 	

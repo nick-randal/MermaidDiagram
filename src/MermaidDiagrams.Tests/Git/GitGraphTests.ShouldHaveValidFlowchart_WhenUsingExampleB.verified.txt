@@ -1,0 +1,4 @@
+﻿gitGraph
+  branch "A" order: 3
+  branch "B" order: 2
+  branch "C" order: 1

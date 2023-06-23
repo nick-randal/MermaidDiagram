@@ -20,6 +20,11 @@ public class GitGraph : MermaidBase
 		return Add(new Branch(name));
 	}
 	
+	public IBranch CreateBranch(string name, Order order)
+	{
+		return Add(new Branch(name, order));
+	}
+	
 	public ICheckout CreateCheckout(string name)
 	{
 		return Add(new Checkout(name));

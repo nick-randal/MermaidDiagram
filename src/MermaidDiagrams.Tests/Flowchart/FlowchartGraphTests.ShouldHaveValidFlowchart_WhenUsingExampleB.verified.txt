@@ -1,4 +1,15 @@
-﻿flowchart LR
+﻿%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#f96",
+    "primaryTextColor": "#633",
+    "primaryBorderColor": "#333",
+    "lineColor": "#363",
+    "secondaryColor": "#363",
+    "tertiaryColor": "#f96"
+  }
+}}%%
+flowchart LR
   subgraph sg1 [Outer]
     direction TB
     id1([Something])
