@@ -5,7 +5,7 @@ public class Highlight : SubSequence
 	public Highlight(Rgb color)
 	{
 		Background = color;
-		Label = Background.ToString();
+		Label = Background.ToString(RgbFormat.Rgb);
 	}
 
 	public Rgb Background { get; }
