@@ -1,0 +1,5 @@
+﻿gitGraph
+  commit
+  commit id: "bob"
+  commit id: "sue" type: REVERSE
+  commit tag: "tag"

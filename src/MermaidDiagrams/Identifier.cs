@@ -33,6 +33,8 @@ public record Identifier
 	public static implicit operator Identifier(string? id) => new(id ?? Next());
 
 	public static string Next(string prefix = "id") => $"{prefix}{Interlocked.Increment(ref _idCounter)}";
+	
+	public static Identifier None => new(string.Empty);
 
 	private static long _idCounter = 0;
 }

@@ -1,4 +1,5 @@
 using System.Reflection;
+using MermaidDiagrams.Git;
 using MermaidDiagrams.Sequence;
 
 namespace MermaidDiagrams.Support;
@@ -25,7 +26,7 @@ public static class EnumExtensions
 		var types = new[]
 		{
 			typeof(Flowchart.FlowDirection), typeof(Flowchart.Shape),
-			typeof(ArrowType), typeof(NotePosition)
+			typeof(ArrowType), typeof(NotePosition), typeof(CommitType)
 		};
 		foreach (var type in types)
 			DisplayAttributes.Add(type, ResolveDisplayAttributeDictionary(type));

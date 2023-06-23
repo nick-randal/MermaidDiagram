@@ -1,7 +1,5 @@
-﻿using System.Drawing;
-using GwtUnit.XUnit;
+﻿using GwtUnit.XUnit;
 using MermaidDiagrams.Git;
-using MermaidDiagrams.Sequence;
 
 namespace MermaidDiagrams.Tests.Git;
 
@@ -39,6 +37,9 @@ public sealed class GitGraphTests : XUnitTestBase<GitGraphTests.Thens>
 		var git = Then.Target;
 
 		git.Commit();
+		git.Commit("bob");
+		git.Commit("sue", CommitType.Reverse);
+		git.Commit(tag: "tag");
 	}
 
 	public sealed class Thens

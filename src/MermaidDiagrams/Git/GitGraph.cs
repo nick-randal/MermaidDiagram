@@ -8,8 +8,8 @@ public class GitGraph : MermaidBase
 	{
 	}
 	
-	public GitGraph CreateCommit(string message = "")
+	public ICommit CreateCommit(Identifier id, CommitType commitType = CommitType.Normal, string? tag = default)
 	{
-		return this;
+		return Add(new Commit(id, commitType, tag));
 	}
 }
