@@ -16,6 +16,7 @@ public record InitializeDirective<T>(T Init) : IDirective
 	{
 		PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 		WriteIndented = true,
-		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+		Converters = { new RgbToStringConverter() }
 	};
 }

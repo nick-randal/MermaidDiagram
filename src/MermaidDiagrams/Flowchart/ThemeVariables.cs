@@ -5,20 +5,20 @@ namespace MermaidDiagrams.Flowchart;
 public class ThemeVariables
 {
 	[JsonPropertyName("primaryColor")]
-	public string PrimaryColor { get; set; }
+	public Rgb PrimaryColor { get; set; }
 
 	[JsonPropertyName("primaryTextColor")]
-	public string PrimaryTextColor { get; set; }
+	public Rgb PrimaryTextColor { get; set; }
 
 	[JsonPropertyName("primaryBorderColor")]
-	public string PrimaryBorderColor { get; set; }
+	public Rgb PrimaryBorderColor { get; set; }
 
 	[JsonPropertyName("lineColor")]
-	public string LineColor { get; set; }
+	public Rgb LineColor { get; set; }
 
 	[JsonPropertyName("secondaryColor")]
-	public string SecondaryColor { get; set; }
+	public Rgb SecondaryColor { get; set; }
 
 	[JsonPropertyName("tertiaryColor")]
-	public string TertiaryColor { get; set; }
+	public Rgb TertiaryColor { get; set; }
 }

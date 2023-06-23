@@ -1,12 +1,12 @@
 ﻿%%{init: {
   "theme": "base",
   "themeVariables": {
-    "primaryColor": "#f96",
-    "primaryTextColor": "#633",
-    "primaryBorderColor": "#333",
-    "lineColor": "#363",
-    "secondaryColor": "#363",
-    "tertiaryColor": "#f96"
+    "primaryColor": "#4682B4",
+    "primaryTextColor": "#A9A9A9",
+    "primaryBorderColor": "#ADD8E6",
+    "lineColor": "#000000",
+    "secondaryColor": "#006400",
+    "tertiaryColor": "#F09060"
   }
 }}%%
 flowchart LR

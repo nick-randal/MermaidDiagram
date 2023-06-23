@@ -1,4 +1,5 @@
-﻿using GwtUnit.XUnit;
+﻿using System.Drawing;
+using GwtUnit.XUnit;
 using MermaidDiagrams.Git;
 
 namespace MermaidDiagrams.Tests.Git;
@@ -76,7 +77,7 @@ public sealed class GitGraphTests : XUnitTestBase<GitGraphTests.Thens>
 			Theme = "base",
 			ThemeVariables = new ()
 			{
-				Git0 = "#FF0000"
+				Git0 = Color.Red
 			}
 		});
 		

@@ -7,7 +7,7 @@ namespace MermaidDiagrams.Git;
 public class ThemeVariables
 {
 	[JsonPropertyName("git0")]
-	public string? Git0 { get; set; }
+	public Rgb? Git0 { get; set; }
 
 	[JsonPropertyName("git1")]
 	public string? Git1 { get; set; }

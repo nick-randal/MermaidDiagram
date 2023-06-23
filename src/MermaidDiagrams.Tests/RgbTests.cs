@@ -20,6 +20,7 @@ public sealed class RgbTests : XUnitTestBase<RgbTests.Thens>
 		});
 		Then.Target.ToString().Should().Be("#00000000");
 		Then.Target.ToString(RgbFormat.Rgb).Should().Be("rgb(0, 0, 0)");
+		Then.Target.ToUint().Should().Be(0x00000000);
 	}
 	
 	[Fact]
@@ -36,8 +37,9 @@ public sealed class RgbTests : XUnitTestBase<RgbTests.Thens>
 			B = 0,
 			A = 1m
 		});
-		Then.Target.ToString().Should().Be("#FF0000FF");
+		Then.Target.ToString().Should().Be("#FF0000");
 		Then.Target.ToString(RgbFormat.Rgb).Should().Be("rgb(255, 0, 0)");
+		Then.Target.ToUint().Should().Be(0xFF0000FF);
 	}
 	
 	[Fact]
@@ -56,6 +58,7 @@ public sealed class RgbTests : XUnitTestBase<RgbTests.Thens>
 		});
 		Then.Target.ToString().Should().Be("#564B1EE5");
 		Then.Target.ToString(RgbFormat.Rgb).Should().Be("rgba(86, 75, 30, 0.9)");
+		Then.Target.ToUint().Should().Be(0x564B1EE5);
 	}
 	
 	protected override void Creating()

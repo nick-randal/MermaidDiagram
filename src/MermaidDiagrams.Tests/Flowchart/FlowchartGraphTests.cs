@@ -1,4 +1,5 @@
-﻿using GwtUnit.XUnit;
+﻿using System.Drawing;
+using GwtUnit.XUnit;
 using MermaidDiagrams.Flowchart;
 
 namespace MermaidDiagrams.Tests.Flowchart;
@@ -78,12 +79,12 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 
 		var customTheme = FlowchartInit.CreateCustomTheme(theme =>
 		{
-			theme.PrimaryColor = "#f96";
-			theme.SecondaryColor = "#363";
+			theme.PrimaryColor = Color.SteelBlue;
+			theme.SecondaryColor = Color.DarkGreen;
 			theme.LineColor = "#363";
-			theme.TertiaryColor = "#f96";
-			theme.PrimaryBorderColor = "#333";
-			theme.PrimaryTextColor = "#633";
+			theme.TertiaryColor = 0xf09060ff;
+			theme.PrimaryBorderColor = Color.LightBlue;
+			theme.PrimaryTextColor = Color.DarkGray;
 		});
 		
 		flow.SetOptions(customTheme);
