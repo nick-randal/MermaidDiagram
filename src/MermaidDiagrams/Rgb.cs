@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
@@ -20,45 +19,37 @@ public readonly record struct Rgb(byte R, byte G, byte B, decimal A = 1m)
 	{
 		return format switch
 		{
-			RgbFormat.Rgb => A is > 0m and < 1m 
+			RgbFormat.Rgb => A is > 0m and < 1m
 				? $"rgba({R}, {G}, {B}, {A})"
 				: $"rgb({R}, {G}, {B})",
 			_ => A >= 1m ? $"#{R:X2}{G:X2}{B:X2}" : $"#{R:X2}{G:X2}{B:X2}{(byte)(A * 255):X2}"
 		};
 	}
-	
+
 	public uint ToUint() => (uint)((R << 24) | (G << 16) | (B << 8) | (byte)(A * 255));
-	
+
 	public static implicit operator Rgb(Color color) => FromColor(color);
-	
+
 	public static implicit operator Rgb(uint rgba) => new((byte)(rgba >> 24), (byte)(rgba >> 16), (byte)(rgba >> 8), (byte)rgba);
 
 	public static implicit operator Rgb(string value) => TryParse(value, out var rgb) ? rgb : Black;
-	
-	public static Rgb FromColor(Color color) => new(color.R, color.G, color.B, color.A / 255m);
-	
+
+	public static Rgb FromColor(Color color) => new(color.R, color.G, color.B, Math.Round(color.A / 255m, 2));
+
 	public static bool TryParse(string value, out Rgb rgb)
 	{
 		rgb = Black;
-		
+
 		if (string.IsNullOrWhiteSpace(value))
 			return false;
-		
-		value = value.Trim();
-		
-		if (value.StartsWith("#"))
+
+		var span = value.Trim().AsSpan();
+		if (span[0] == '#')
 		{
-			if (value.Length is not 3 and not 7 and not 9)
-				return false;
-			if (value.Length == 7)
-				value += "FF";
-			if (uint.TryParse(value.Substring(1), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var rgba))
-			{
-				rgb = new Rgb((byte)(rgba >> 24), (byte)(rgba >> 16), (byte)(rgba >> 8), (byte)rgba);
-				return true;
-			}
+			return ParseHex(ref rgb, span);
 		}
-		else if (value.StartsWith("rgb"))
+		
+		if (span[0] is 'r' or 'R' && span[1] is 'g' or 'G' && span[2] is 'b' or 'B')
 		{
 			var match = Regex.Match(value, @"rgba?\((?<r>\d+),\s*(?<g>\d+),\s*(?<b>\d+)(?:,\s*(?<a>\d+(?:\.\d+)?))?\)");
 			if (match.Success)
@@ -67,7 +58,70 @@ public readonly record struct Rgb(byte R, byte G, byte B, decimal A = 1m)
 				return true;
 			}
 		}
+
 		return false;
+	}
+
+	private static bool ParseHex(ref Rgb rgb, ReadOnlySpan<char> span)
+	{
+
+		if (span.Length is not 4 and not 7 and not 9)
+			return false;
+
+		var c = new byte[8];
+
+		for (var n = 1; n < span.Length; n++)
+		{
+			var x = span[n] - 48;
+			switch (x)
+			{
+				case < 0:
+					return false;
+				case < 10:
+					c[n - 1] = (byte)x;
+					continue;
+			}
+
+			x -= 17;
+			switch (x)
+			{
+				case < 0:
+					return false;
+				case < 6:
+					c[n - 1] = (byte)(x + 10);
+					continue;
+			}
+
+			x -= 32;
+			switch (x)
+			{
+				case < 0:
+					return false;
+				case < 6:
+					c[n - 1] = (byte)(x + 10);
+					break;
+				default:
+					return false;
+			}
+		}
+
+		if (span.Length == 4)
+		{
+			rgb = new Rgb(
+				(byte)(c[0] * 16 + 15),
+				(byte)(c[1] * 16 + 15),
+				(byte)(c[2] * 16 + 15)
+			);
+			return true;
+		}
+
+		rgb = new Rgb(
+			(byte)(c[0] * 16 + c[1]),
+			(byte)(c[2] * 16 + c[3]),
+			(byte)(c[4] * 16 + c[5]),
+			span.Length == 7 ? 1m : Math.Round((byte)(c[6] * 16 + c[7]) / 255m, 2)
+		);
+		return true;
 	}
 
 	public const uint Black = 0x000000ff;
@@ -82,8 +136,7 @@ public sealed class RgbToStringConverter : JsonConverter<Rgb>
 			if (Rgb.TryParse(reader.GetString(), out var rgb))
 				return rgb;
 		}
-
-		// fallback to default handling
+		
 		return Rgb.Black;
 	}
 

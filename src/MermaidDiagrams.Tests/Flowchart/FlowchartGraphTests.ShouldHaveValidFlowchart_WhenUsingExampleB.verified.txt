@@ -4,7 +4,7 @@
     "primaryColor": "#4682B4",
     "primaryTextColor": "#A9A9A9",
     "primaryBorderColor": "#ADD8E6",
-    "lineColor": "#000000",
+    "lineColor": "#3F6F3F",
     "secondaryColor": "#006400",
     "tertiaryColor": "#F09060"
   }
