@@ -5,15 +5,7 @@ namespace MermaidDiagrams.Flowchart;
 
 public record Node(Identifier Id, Text Text, Shape Shape) : INode
 {
-	public static INode Create(string? id) => new Node(id, string.Empty, Shape.Box);
-
-	public static INode Create(string? id, Shape style) => new Node(id, string.Empty, style);
-
-	public static INode Create(string? id, Text text) => new Node(id, text, Shape.Box);
-
-	public static INode Create(string? id, Text text, Shape style) => new Node(id, text, style);
-
-	public static INode CreateInvisible(Identifier id) => new Node(id, Text.Create(" ", false, false), Shape.Box);
+	public static INode CreateInvisible(Identifier id) => new Node(id, Text.Create(" ", false), Shape.Box);
 
 	public void Render(ITextBuilder textBuilder, IRenderState renderState)
 	{

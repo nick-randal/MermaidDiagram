@@ -49,7 +49,7 @@ public static class FlowchartExtensions
 	}
 
 	public static T Node<T>(this T flow)
-		where T : FlowchartBase => flow.AddAnd(Flowchart.Node.Create(null, string.Empty, Shape.Box));
+		where T : FlowchartBase => flow.AddAnd(new Node(Flowchart.Node.NextId(), string.Empty, Shape.Box));
 
 	public static T Node<T>(this T flow, Identifier id)
 		where T : FlowchartBase => flow.AddAnd(new Node(id, string.Empty, Shape.Box));

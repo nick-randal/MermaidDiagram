@@ -15,7 +15,8 @@ public static class MermaidBaseExtensions
 		return mermaid;
 	}
 	
-	public static T Add<T>(this MermaidBase mermaid, T statement) where T : IStatement
+	public static T Add<T>(this MermaidBase mermaid, T statement) 
+		where T : IStatement
 	{
 		mermaid.Add(statement);
 		return statement;
@@ -34,4 +35,6 @@ public static class MermaidBaseExtensions
 		mermaid.Add(new Literal(literal));
 		return mermaid;
 	}
+	
+	public static Identifier ToIdentifier(this string? id) => new(id);
 }

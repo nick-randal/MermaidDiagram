@@ -4,10 +4,7 @@ public enum FlowDirection
 {
 	[Display(ShortName = "TB")]
 	TopBottom,
-	
-	[Display(ShortName = "TD")]
-	TopDown,
-	
+
 	[Display(ShortName = "BT")]
 	BottomTop,
 		

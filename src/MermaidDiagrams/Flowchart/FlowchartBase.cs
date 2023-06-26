@@ -31,21 +31,21 @@ public abstract class FlowchartBase : MermaidBase, IStatement
 		}
 	}
 
-	public INode CreateNode() => Add(Flowchart.Node.Create(Flowchart.Node.NextId(), string.Empty, Shape.Box));
+	public INode CreateNode() => Add(new Node(Node.NextId(), string.Empty, Shape.Box));
 
-	public INode CreateNode(string id) => Add(Flowchart.Node.Create(id, string.Empty, Shape.Box));
+	public INode CreateNode(Identifier id) => Add(new Node(id, string.Empty, Shape.Box));
 
-	public INode CreateNode(Shape style) => Add(Flowchart.Node.Create(Flowchart.Node.NextId(), string.Empty, style));
+	public INode CreateNode(Shape style) => Add(new Node(Node.NextId(), string.Empty, style));
 
-	public INode CreateNode(Text text, Shape style) => Add(Flowchart.Node.Create(Flowchart.Node.NextId(), text, style));
+	public INode CreateNode(Text text, Shape style) => Add(new Node(Node.NextId(), text, style));
 
-	public INode CreateNode(string id, Text text, Shape style) => Add(Flowchart.Node.Create(id, text, style));
+	public INode CreateNode(Identifier id, Text text, Shape style) => Add(new Node(id, text, style));
 
 	public new INode this[Identifier id] => _nodeLookup[id];
 
 	public INode CreateInvisible(Identifier id)
 	{
-		var node = Add(Flowchart.Node.CreateInvisible(id));
+		var node = Add(Node.CreateInvisible(id));
 		var def = GetClassDefinitions().GetOrCreate(ClassDef.InvisibleName, _ => ClassDef.Invisible);
 		def.Assign(node);
 		return node;

@@ -12,7 +12,7 @@ public sealed class NodeTests : XUnitTestBase<NodeTests.Thens>
 	{
 		When(Creating, Rendering);
 
-		Then.Text.Should().Be("bob[Bob]\r\n");
+		Then.Text.Should().Be("bob{{Bob}}\r\n");
 	}
 	
 	[Fact]
@@ -25,7 +25,7 @@ public sealed class NodeTests : XUnitTestBase<NodeTests.Thens>
 	
 	protected override void Creating()
 	{
-		Then.Target = Node.Create("bob", "Bob");
+		Then.Target = new Node("bob", "Bob", Shape.Hexagon);
 	}
 	
 	private void CreatingInvisible()
