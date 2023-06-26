@@ -38,8 +38,8 @@ public record Text
 				? Content.IndexOfAny(MarkdownReservedChars) >= 0
 					? $"\"`{Content.Replace("`", "\\`").Replace("\"", QuoteEncoded)}`\""
 					: $"\"`{Content}`\""
-				: Content.IndexOfAny(ReservedChars) >= 0
-					? $"\"{Content.Replace("\"", QuoteEncoded)}\""
+				: Content.IndexOfAny(ReservedChars) >= 0 || Content.IndexOfAny(MarkdownReservedChars) >= 0
+					? $"\"`{Content.Replace("\"", QuoteEncoded)}`\""
 					: Content;
 
 		return escapedContent;
@@ -49,7 +49,7 @@ public record Text
 
 	public static readonly char[] ReservedChars = "()[]{};\"~|@".ToCharArray();
 
-	public static readonly char[] MarkdownReservedChars = "`\"".ToCharArray();
+	public static readonly char[] MarkdownReservedChars = "`\"\r\n".ToCharArray();
 
 	public static Text Empty => new(string.Empty);
 	
