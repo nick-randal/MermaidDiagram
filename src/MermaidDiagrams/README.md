@@ -28,10 +28,12 @@ flow.SetHeader(new Header("This is a test"));
 
 flow.Comment("No comment");
 
-flow.Node("A", "Hard edge", Shape.Box)
+var idA = "A".ToIdentifier();
+
+flow.Node(idA, "Hard edge", Shape.Box)
 	.Node("B", "Round edge", Shape.RoundedBox);
 
-flow.Link(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
+flow.Link(idA, flow["B"], Edge.Arrow.WithLabel("Link text"));
 
 var c = flow.CreateNode("C", "Decision", Shape.Rhombus);
 

@@ -53,14 +53,16 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 	{
 		var flow = Then.Target;
 
+		var idA = "A".ToIdentifier();
+		
 		flow.SetOptions(new FlowchartInit { Theme = KnownThemes.Forest });
 		flow.SetHeader(new Header("This is a test"));
 		flow.AddAnd(new Comment("No comment"));
 
-		flow.CreateNode("A", "Hard edge", Shape.Box);
+		flow.CreateNode(idA, "Hard edge", Shape.Box);
 		flow.CreateNode("B", "Round edge", Shape.RoundedBox);
 
-		flow.Link(flow["A"], flow["B"], Edge.Arrow.WithLabel("Link text"));
+		flow.Link(idA, flow["B"], Edge.Arrow.WithLabel("Link text"));
 
 		var c = flow.CreateNode("C", "Decision", Shape.Rhombus);
 
