@@ -54,24 +54,30 @@ public abstract class FlowchartBase : MermaidBase, IStatement
 	public ILink CreateLink(ILink link) => Add(link);
 
 	public ILink CreateLink(IIdentifiable a, IIdentifiable b, Edge? edge = null) 
-		=> Add( new Link(a, (b, edge ?? Edge.Open)));
+		=> CreateLink(a.Id, b.Id, edge ?? Edge.Open);
 
-	public ILink CreateLink(string a, string b, Edge? edge = null)
-		=> CreateLink((NodeId)a, (NodeId)b, edge);
+	public ILink CreateLink(Identifier a, Identifier b, Edge? edge = null)
+		=> Add(new Link(a, (b, edge ?? Edge.Open)));
 
-	public ILink CreateLink(IIdentifiable a, string b, Edge? edge = null)
-		=>CreateLink(a, (NodeId)b, edge);
+	public ILink CreateLink(IIdentifiable a, Identifier b, Edge? edge = null)
+		=>CreateLink(a.Id, b, edge);
 
-	public ILink CreateLink(string a, IIdentifiable b, Edge? edge = null)
-		=> CreateLink((NodeId)a, b, edge);
+	public ILink CreateLink(Identifier a, IIdentifiable b, Edge? edge = null)
+		=> CreateLink(a, b.Id, edge);
 
 	public ILink CreateLinks(INode anchor, IEnumerable<(IIdentifiable Node, Edge Edge)> to)
-		=> Add(new Link(anchor, to as (IIdentifiable Node, Edge Edge)[] ?? to.ToArray()));
+		=> Add(new Link(anchor.Id, to.Select(x => (x.Node.Id, x.Edge)).ToArray()));
 
 	public ILink CreateLinks(IEnumerable<IIdentifiable> nodes, Edge edge)
 	{
 		var enumerable = (nodes as INode[] ?? nodes.ToArray());
-		return Add(new Link(enumerable.First(), enumerable.Skip(1).Select(x => (x, edge)).ToArray()));
+		return Add(new Link(enumerable.First().Id, enumerable.Skip(1).Select(x => (x.Id, edge)).ToArray()));
+	}
+	
+	public ILink CreateLinks(IEnumerable<Identifier> nodes, Edge edge)
+	{
+		var ids = nodes.ToArray();
+		return Add(new Link(ids.First(), ids.Skip(1).Select(x => (x, edge)).ToArray()));
 	}
 
 	public FlowchartSubgraph CreateSubgraph(Text label, Identifier? id = null, FlowDirection? direction = null, Action<FlowchartSubgraph>? builder = null)

@@ -4,7 +4,7 @@ namespace MermaidDiagrams.Flowchart;
 
 public interface ILink : IStatement
 {
-	public IIdentifiable From { get; }
+	public Identifier From { get; }
 
-	public (IIdentifiable Node, Edge Edge)[] To { get; }
+	public (Identifier To, Edge Edge)[] To { get; }
 }
