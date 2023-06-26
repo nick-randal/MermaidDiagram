@@ -9,6 +9,8 @@
 
         <Title>Mermaid Diagrams</Title>
         <Authors>Nick Randal</Authors>
+        <Description>Mermaid Diagrams for .NET</Description>
+        <PackageTags>Mermaid Diagram Chart Flowchart Sequence Git</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/nick-randal/MermaidDiagram</PackageProjectUrl>
