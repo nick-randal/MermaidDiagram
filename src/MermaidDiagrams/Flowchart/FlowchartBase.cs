@@ -20,17 +20,8 @@ public abstract class FlowchartBase : MermaidBase, IStatement
 		_nodeLookup = new Dictionary<Identifier, INode>();
 	}
 
-	internal override void OnItemChange(IRenderable item, ItemChange change)
-	{
-		if (item is INode node)
-		{
-			if (change == ItemChange.Added)
-				_nodeLookup.Add(node.Id, node);
-			else
-				_nodeLookup.Remove(node.Id);
-		}
-	}
-
+	public Edge DefaultEdge { get; set; } = Edge.Arrow;
+		
 	public INode CreateNode() => Add(new Node(Node.NextId(), string.Empty, Shape.Box));
 
 	public INode CreateNode(Identifier id) => Add(new Node(id, string.Empty, Shape.Box));
@@ -54,10 +45,10 @@ public abstract class FlowchartBase : MermaidBase, IStatement
 	public ILink CreateLink(ILink link) => Add(link);
 
 	public ILink CreateLink(IIdentifiable a, IIdentifiable b, Edge? edge = null) 
-		=> CreateLink(a.Id, b.Id, edge ?? Edge.Open);
+		=> CreateLink(a.Id, b.Id, edge ?? DefaultEdge);
 
 	public ILink CreateLink(Identifier a, Identifier b, Edge? edge = null)
-		=> Add(new Link(a, (b, edge ?? Edge.Open)));
+		=> Add(new Link(a, (b, edge ?? DefaultEdge)));
 
 	public ILink CreateLink(IIdentifiable a, Identifier b, Edge? edge = null)
 		=>CreateLink(a.Id, b, edge);
@@ -73,7 +64,7 @@ public abstract class FlowchartBase : MermaidBase, IStatement
 		var enumerable = (nodes as INode[] ?? nodes.ToArray());
 		return Add(new Link(enumerable.First().Id, enumerable.Skip(1).Select(x => (x.Id, edge)).ToArray()));
 	}
-	
+
 	public ILink CreateLinks(IEnumerable<Identifier> nodes, Edge edge)
 	{
 		var ids = nodes.ToArray();
@@ -91,8 +82,19 @@ public abstract class FlowchartBase : MermaidBase, IStatement
 		Add(subgraph);
 		return subgraph;
 	}
-	
+
 	public ClassDefinitions GetClassDefinitions() => _lazyRoot.Value.GetOrCreate<ClassDefinitions>();
+
+	internal override void OnItemChange(IRenderable item, ItemChange change)
+	{
+		if (item is INode node)
+		{
+			if (change == ItemChange.Added)
+				_nodeLookup.Add(node.Id, node);
+			else
+				_nodeLookup.Remove(node.Id);
+		}
+	}
 
 	protected FlowchartBase? Parent { get; }
 	

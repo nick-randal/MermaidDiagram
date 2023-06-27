@@ -7,7 +7,7 @@ public static class FlowchartExtensions
 	public static T Link<T>(this T flow, Identifier a, Identifier b, Edge? edge = null)
 		where T : FlowchartBase
 	{
-		flow.Add(new Link(a, (b, edge ?? Edge.Open)));
+		flow.Add(new Link(a, (b, edge ?? flow.DefaultEdge)));
 		return flow;
 	}
 
