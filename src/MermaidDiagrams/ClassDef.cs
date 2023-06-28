@@ -26,9 +26,9 @@ public record ClassDef
 	}
 
 	
-	public ClassDef Assign(params string[] ids)
+	public ClassDef Assign(params Identifier[] ids)
 	{
-		_assigns.AddRange(ids.Select(x => new Identifier(x)));
+		_assigns.AddRange(ids);
 		return this;
 	}
 	

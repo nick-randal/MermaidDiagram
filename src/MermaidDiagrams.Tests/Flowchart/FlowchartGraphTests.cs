@@ -97,6 +97,8 @@ public sealed class FlowchartGraphTests : XUnitTestBase<FlowchartGraphTests.Then
 
 			var sg = sub.CreateSubgraph("Inner", "in1");
 			sg.CreateNode("A", "A Box", Shape.Box);
+			sg.CreateNode("B", "A Box", Shape.Box);
+			sg.Link("A", "B", Edge.Arrow.WithLabel("A to B").WithDepth(7));
 
 			sg.CreateInvisible("can'tSeeme");
 		});

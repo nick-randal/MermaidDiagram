@@ -9,10 +9,9 @@ public record Edge(LineStyle Line = LineStyle.Normal, EndStyle End = EndStyle.Op
 		return ((int)Line << 24) | ((int)End << 16) | Depth;
 	}
 
-	public Edge WithLabel(Text? label)
-	{
-		return this with { Label = label ?? Text.Empty };
-	}
+	public Edge WithLabel(Text? label) => this with { Label = label ?? Text.Empty };
+
+	public Edge WithDepth(ushort depth) => this with { Depth = depth };
 
 	public Text Label { get; private init; } = Text.Empty;
 
